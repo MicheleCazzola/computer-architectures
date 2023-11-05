@@ -104,4 +104,4 @@ increment:
 end_loop:
 
 	nop
-	halt								#9, CPI=1, n = 1
+	halt							
