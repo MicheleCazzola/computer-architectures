@@ -71,7 +71,7 @@ odd:
 	
 	cvt.l.d F17, F4
 	mfc1 R13, F17
-	dsrlv R14, R13, R1
+	dsrav R14, R13, R1
 	mtc1 R14, F16
 	cvt.d.l	F10, F16		# k
 	

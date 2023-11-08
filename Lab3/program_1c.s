@@ -50,7 +50,7 @@ even:
 	l.d F2, v2(R2)
 	cvt.l.d F17, F24
 	mfc1 R13, F17
-	dsrlv R14, R13, R5
+	dsrav R14, R13, R5
 	l.d F3, v3(R2)
 	mul.d F5, F11, F2		# v5_even_first
 	cvt.l.d F20, F11
