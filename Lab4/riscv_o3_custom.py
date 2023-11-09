@@ -253,7 +253,7 @@ def create_cpu(options, cpu_id):
     # ****************************
     # - DECODE STAGE
     # ****************************
-    the_cpu.decodeWidth = 2
+    the_cpu.decodeWidth = 4 #2
     # possible values "Dynamic", "Partitioned", "Threshold"
     the_cpu.smtROBPolicy = "Partitioned"
     the_cpu.smtROBThreshold = 100 
@@ -266,7 +266,7 @@ def create_cpu(options, cpu_id):
     the_cpu.numIQEntries = 3
     the_cpu.numPhysIntRegs = 80
     the_cpu.numPhysFloatRegs = 64
-    the_cpu.renameWidth = 2
+    the_cpu.renameWidth = 4 #2
     the_cpu.numRobs = 2
     the_cpu.numPhysVecPredRegs = 32
     # most ISAs don't use condition-code regs, so default is 0
@@ -275,7 +275,7 @@ def create_cpu(options, cpu_id):
     # ****************************
     # - DISPATCH/ISSUE STAGE
     # ****************************
-    the_cpu.dispatchWidth = 2
+    the_cpu.dispatchWidth = 4 #2
     the_cpu.issueWidth = 3
     
     # ****************************
