@@ -125,14 +125,23 @@ var				RN 		2
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]                                            
                 
-				MOV R1, #0
-				MOV R3, #0
-				MOV R4, #0
+				MOV R1, #0xA0 ; 0xB0
+				MOV R2, #12
+				MOV R3, #23
+				MOV R6, R1
+				MOVS R5, #0
 				
-				ADDS	R2, R1, R3
-				SUBS	R5, R4, R2
+loop			BNE exit
+
+				TST R6, #1
+				LSR R6, R6, #1
+				ADDEQ R5, R5, #1
+				B loop
 				
-				
+exit			TST R5, #1
+				ADDNE R4, R2, R3
+				SUBEQ R4, R2, R3
+	
 stop            B stop
                 ENDP
 
