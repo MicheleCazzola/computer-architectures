@@ -120,6 +120,10 @@ CRP_Key         DCD     0xFFFFFFFF
 var				RN 		2
 
 ; Data area
+				AREA 	results, DATA, READWRITE, ALIGN = 1
+					
+Calories_food_ordered 	SPACE 400
+Calories_sport_ordered	SPACE 400				
 
                 AREA    |.text|, CODE, READONLY
 				
@@ -128,61 +132,54 @@ var				RN 		2
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]                                            
                 
+				MOV R0, #0
+				LDR R1, =Num_days_sport
+				LDRB R1, [R1]
+				LDR R2, =Calories_sport
+				LDR R11, =Calories_sport_ordered
 				
-				MOV R0, #0	;i
-				MOV R11, #0	;count
+sort_sport		CMP R0, R1
+				BEQ sort_food
 				
-				LDR R2, =Num_days_sport
-				LDR R3, =Num_days
-				LDRB R2, [R2]
-				LDRB R3, [R3]
-				LDR R5, =Calories_sport
+				LDR R3, [R2], #4
+				LDR R4, [R2], #4
 				
+				MOV R5, #0
+				MOV R10, #0
+				LDR R6, =Calories_sport
 				
+check_loop		CMP R5, R1
+				BEQ next_sport
 				
-sport_loop		CMP R0, R2
-				BEQ stop
-
-				LDR R6, [R5], #4
-				LDR R7, [R5], #4
+				LDR R7, [R6], #4
+				LDR R8, [R6], #4
 				
-				MOVS R1, #0	;j
-				LDR R4, =Calories_food
+				CMP R4, R8
+				ADDLT R10, R10, #1
 				
-days_loop		CMP R1, R3
-				BEQ end_sport
-
-				LDR R8, [R4], #4
-				LDR R10, [R4], #4
+				ADD R5, R5, #1
+				B check_loop
+next_sport
+				STR R3, [R11, R10, LSL #2]
 				
-				CMP R6, R8
-				BEQ end_sport
-				
-				ADD R1, R1, #1
-				B days_loop
-
-end_sport		SUBEQ R10, R10, R7
-				
-				CMP R10, #500
-				ADDLT R11, R11, #1
-
 				ADD R0, R0, #1
-				B sport_loop
+				B sort_sport
+sort_food		
 				
 stop            B stop
 				LTORG 
-ALIGN = 1
+				ALIGN 2
 				SPACE 4096
 					
-Days			DCB 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+Days					DCB 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
 
-Calories_food 	DCD 0x06, 1300, 0x03, 1700, 0x02, 1200, 0x04, 1900
-				DCD 0x05, 1110, 0x01, 1670, 0x07, 1000
+Calories_food 			DCD 0x06, 1300, 0x03, 1700, 0x02, 1200, 0x04, 1900
+						DCD 0x05, 1110, 0x01, 1670, 0x07, 1000
 
-Calories_sport	DCD 0x02, 900, 0x05, 800, 0x06, 1000
+Calories_sport			DCD 0x02, 500, 0x05, 800, 0x06, 400
 
-Num_days	 	DCB 7
-Num_days_sport	DCB 3
+Num_days	 			DCB 7
+Num_days_sport			DCB 3
 				
 				SPACE 4096
                 ENDP
