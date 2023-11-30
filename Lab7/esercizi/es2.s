@@ -122,8 +122,8 @@ var				RN 		2
 ; Data area
 				AREA 	results, DATA, READWRITE, ALIGN = 1
 					
-Calories_food_ordered 	SPACE 400
-Calories_sport_ordered	SPACE 400
+Calories_food_ordered 	SPACE 28
+Calories_sport_ordered	SPACE 12
 
                 AREA    |.text|, CODE, READONLY
 				
@@ -146,6 +146,47 @@ Reset_Handler   PROC
 				
 				BL order_calories
 				
+				LDR R0, =Calories_sport
+				LDR R3, =Num_days_sport
+				LDRB R3, [R3]
+
+; TO DO IN SUBROUTINE
+				MOV R4, #0
+				MOV R11, #0xFFFFFFFF	;pos_min
+				MOV R10, #0x7FFFFFFF	;val_min
+				
+days_loop		CMP R4, R1
+				BEQ stop
+				
+				LDR R6, [R2], #4
+				LDR R13, [R2], #4
+				
+				MOV R5, #0
+				LDR R0, =Calories_sport
+				
+sport_loop		CMP R5, R3
+				BEQ next_day
+				
+				LDR R8, [R0], #4
+				LDR R7, [R0], #4
+				
+				CMP R6, R8
+				SUBEQ R7, R13, R7
+				BNE next_sport
+				
+				CMP R7, R10
+				MOVLT R10, R7
+				MOVLT R11, R8
+next_sport				
+				ADD R5, R5, #1
+				B sport_loop
+
+next_day
+				
+				
+				ADD R4, R4, #1
+				B days_loop
+				
 stop 			B stop
 
 order_calories	
@@ -163,7 +204,7 @@ sort			CMP R11, R1
 				MOV R10, #0
 				MOV R13, R2
 				
-check_loop		CMP R5, R1
+find_position	CMP R5, R1
 				BEQ next
 				
 				LDR R7, [R13], #4
@@ -177,7 +218,7 @@ check_loop		CMP R5, R1
 				ADDGT R10, R10, #1
 increment				
 				ADD R5, R5, #1
-				B check_loop
+				B find_position
 next
 				STR R3, [R0, R10, LSL #2]
 				
