@@ -123,50 +123,69 @@ var				RN 		2
 				AREA 	results, DATA, READWRITE, ALIGN = 1
 					
 Calories_food_ordered 	SPACE 400
-Calories_sport_ordered	SPACE 400				
+Calories_sport_ordered	SPACE 400
 
                 AREA    |.text|, CODE, READONLY
 				
 ; Reset Handler
 
 Reset_Handler   PROC
-                EXPORT  Reset_Handler             [WEAK]                                            
-                
-				MOV R0, #0
+                EXPORT  Reset_Handler             [WEAK] 
+
+				LDR R0, =Calories_sport_ordered
 				LDR R1, =Num_days_sport
 				LDRB R1, [R1]
 				LDR R2, =Calories_sport
-				LDR R11, =Calories_sport_ordered
 				
-sort_sport		CMP R0, R1
-				BEQ sort_food
+				BL order_calories
 				
-				LDR R3, [R2], #4
-				LDR R4, [R2], #4
+				LDR R0, =Calories_food_ordered
+				LDR R1, =Num_days
+				LDRB R1, [R1]
+				LDR R2, =Calories_food
+				
+				BL order_calories
+				
+stop 			B stop
+
+order_calories	
+                
+				MOV R11, #0
+				MOV R6, R2
+				
+sort			CMP R11, R1
+				BEQ end_proc
+				
+				LDR R3, [R6], #4
+				LDR R4, [R6], #4
 				
 				MOV R5, #0
 				MOV R10, #0
-				LDR R6, =Calories_sport
+				MOV R13, R2
 				
 check_loop		CMP R5, R1
-				BEQ next_sport
+				BEQ next
 				
-				LDR R7, [R6], #4
-				LDR R8, [R6], #4
+				LDR R7, [R13], #4
+				LDR R8, [R13], #4
 				
 				CMP R4, R8
 				ADDLT R10, R10, #1
+				BNE increment
 				
+				CMP R3, R7
+				ADDGT R10, R10, #1
+increment				
 				ADD R5, R5, #1
 				B check_loop
-next_sport
-				STR R3, [R11, R10, LSL #2]
+next
+				STR R3, [R0, R10, LSL #2]
 				
-				ADD R0, R0, #1
-				B sort_sport
-sort_food		
-				
-stop            B stop
+				ADD R11, R11, #1
+				B sort
+end_proc		
+				BX LR
+			
 				LTORG 
 				ALIGN 2
 				SPACE 4096
@@ -174,7 +193,7 @@ stop            B stop
 Days					DCB 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
 
 Calories_food 			DCD 0x06, 1300, 0x03, 1700, 0x02, 1200, 0x04, 1900
-						DCD 0x05, 1110, 0x01, 1670, 0x07, 1000
+						DCD 0x05, 1110, 0x01, 1200, 0x07, 1000
 
 Calories_sport			DCD 0x02, 500, 0x05, 800, 0x06, 400
 
