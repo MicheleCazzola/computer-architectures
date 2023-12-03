@@ -146,11 +146,11 @@ Reset_Handler   PROC
 				
 				BL order_calories
 				
-				LDR R0, =Calories_sport
+least_caloric_day
+				LDR R13, =Calories_sport
 				LDR R3, =Num_days_sport
 				LDRB R3, [R3]
 
-; TO DO IN SUBROUTINE
 				MOV R4, #0
 				MOV R11, #0xFFFFFFFF	;pos_min
 				MOV R10, #0x7FFFFFFF	;val_min
@@ -159,19 +159,19 @@ days_loop		CMP R4, R1
 				BEQ stop
 				
 				LDR R6, [R2], #4
-				LDR R13, [R2], #4
+				LDR R0, [R2], #4
 				
 				MOV R5, #0
-				LDR R0, =Calories_sport
+				LDR R13, =Calories_sport
 				
 sport_loop		CMP R5, R3
 				BEQ next_day
 				
-				LDR R8, [R0], #4
-				LDR R7, [R0], #4
+				LDR R8, [R13], #4
+				LDR R7, [R13], #4
 				
 				CMP R6, R8
-				SUBEQ R7, R13, R7
+				SUBEQ R7, R0, R7
 				BNE next_sport
 				
 				CMP R7, R10
@@ -182,7 +182,6 @@ next_sport
 				B sport_loop
 
 next_day
-				
 				
 				ADD R4, R4, #1
 				B days_loop
