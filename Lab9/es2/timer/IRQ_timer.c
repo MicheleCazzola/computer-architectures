@@ -23,6 +23,7 @@
 extern unsigned char led_value;					/* defined in funct_led								*/
 extern unsigned int IntCount;
 extern unsigned int X;
+extern unsigned int timer3_value;
 void TIMER0_IRQHandler (void)
 {
 	static uint8_t position = 7;
@@ -64,8 +65,12 @@ void TIMER1_IRQHandler (void)
 /* Timer 2 handler */
 void TIMER2_IRQHandler (void)
 {
-	IntCount++;
+	if(LPC_TIM3->TC == 0){
+		IntCount++;
+	}
+	
 	//disable_timer(2);
+	//enable_timer(2);
 	LPC_TIM2 -> TC = 0;
 	//reset_timer(2);
 	
@@ -78,23 +83,24 @@ void TIMER3_IRQHandler (void)
 {
 	int i;
 	
+	reset_timer(3);
+	
 	//IntCount = 0;
 	i = 0;
 	while(i++ < X){
 		__ASM("nop");
 	}
 	
-	if(IntCount > 0x000000FF)
+	if(IntCount > 0x0000007F)
 		LED_Out(0x000000FF);
 	else
 		LED_Out(IntCount);
 	
 	IntCount = 0;
 	
-	reset_timer(3);
-	//enable_timer(3);
+	reset_timer(2);
 	
-  LPC_TIM2->IR = 1;			/* clear interrupt flag */
+  LPC_TIM3->IR = 1;			/* clear interrupt flag */
   return;
 }
 

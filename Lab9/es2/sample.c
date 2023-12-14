@@ -26,7 +26,9 @@ extern uint8_t ScaleFlag; // <- ScaleFlag needs to visible in order for the emul
 #endif
 
 unsigned int IntCount;
-unsigned int X = 0x0FFFFFFF;
+unsigned int X = 1000000;
+unsigned int timer2_value = 0x0001E848;
+unsigned int timer3_value = 0x02FAF080;
 
 /*----------------------------------------------------------------------------
   Main Program
@@ -38,8 +40,8 @@ int main (void) {
   BUTTON_init();												/* BUTTON Initialization              */
 	
 	IntCount = 0;
-	init_timer(3, 0x02FAF080);						/* TIMER 3 every 2 s at 25 MHz */
-	init_timer(2, 0x00BEBC20);						/* TIMER 2 every 0.5 s at 25 MHz */
+	init_timer(3, timer3_value);						/* TIMER 3 every 2 s at 25 MHz */
+	init_timer(2, timer2_value);						/* TIMER 2 every 500/5 ms at 25 MHz */
 	
 	enable_timer(3);
 	enable_timer(2);
