@@ -1,6 +1,7 @@
 #include "button.h"
 #include "lpc17xx.h"
 
+#include <stdlib.h>
 #include "../led/led.h"
 #include "../timer/timer.h"
 #include "../RIT/RIT.h"	
@@ -24,16 +25,22 @@ char vett_output[VETT_OUT_MAX_LEN];
 
 void EINT0_IRQHandler (void)	  	/* INT0														 */
 {
+	int i;
+	
 	//disable_timer(1);
 	reset_timer(1);
 	LED_Out(0);
+	
+	for(i = 0; i < output_length; i++){
+		vett_output[i] = 0;
+	}
 	LPC_SC->EXTINT &= (1 << 0);     /* clear pending interrupt         */
 }
 
 
 void EINT1_IRQHandler (void)	  	/* KEY1														 */
 {
-	volatile int i, end;
+	volatile int i, end, len;
 	volatile char c;
 	
 	// Switch off all leds
@@ -42,20 +49,21 @@ void EINT1_IRQHandler (void)	  	/* KEY1														 */
 	// Read message and compute lengths
 	i = 0;
 	end = 0;
-	input_length = 0;
-	output_length = 0;
+	len = 0;
 	while(!end){
 		c = vett_input[i];
 		if(c > 1){
-			output_length++;
+			len++;
 			if(c == 3)
-				output_length++;
+				len++;
 			if(c == 4)
 				end = 1;
 		}
 		i = i+1;
 	}
 	input_length = i;
+	output_length = len;
+	//vett_output = malloc(output_length * sizeof(char));
 	
 	// Switch on all leds
 	LED_Out(0xFF);
@@ -66,6 +74,10 @@ void EINT1_IRQHandler (void)	  	/* KEY1														 */
 	
 	// Enable timer 0 for 3 s waiting
 	enable_timer(0);
+	
+	// Clear pending interrupts on INT0 and KEY2
+	NVIC_ClearPendingIRQ(EINT0_IRQn);
+	NVIC_ClearPendingIRQ(EINT2_IRQn);
 	
 	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt */
 }
