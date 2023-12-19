@@ -43,9 +43,7 @@ void RIT_IRQHandler (void)
 				}
 			}
 		else {	/* button released */
-			down_int0=0;	
-			//disable_RIT();
-			//reset_RIT();
+			down_int0=0;
 			NVIC_EnableIRQ(EINT0_IRQn);							 /* enable Button interrupts			*/
 			LPC_PINCON->PINSEL4    |= (1 << 20);     /* External interrupt 0 pin selection */
 		}
@@ -61,9 +59,7 @@ void RIT_IRQHandler (void)
 				}
 			}
 		else {	/* button released */
-			down_key1=0;			
-			//disable_RIT();
-			//reset_RIT();
+			down_key1=0;
 			NVIC_EnableIRQ(EINT1_IRQn);							 /* enable Button interrupts			*/
 			LPC_PINCON->PINSEL4    |= (1 << 22);     /* External interrupt 0 pin selection */
 		}
@@ -79,9 +75,7 @@ void RIT_IRQHandler (void)
 				}
 			}
 		else {	/* button released */
-			down_key2=0;			
-			//disable_RIT();
-			//reset_RIT();
+			down_key2=0;
 			NVIC_EnableIRQ(EINT2_IRQn);							 /* enable Button interrupts			*/
 			LPC_PINCON->PINSEL4    |= (1 << 24);     /* External interrupt 0 pin selection */
 		}

@@ -73,21 +73,17 @@ void KEY1_function(void){
 	NVIC_DisableIRQ(EINT2_IRQn);
 	
 	// Disable INT0 and KEY2 pins
-<<<<<<< HEAD
 	LPC_PINCON->PINSEL4 &= ~(1 << 20);
 	LPC_PINCON->PINSEL4 &= ~(1 << 24);
 	
 	// Enable timer 0 for 3 s waiting
 	enable_timer(0);
-=======
-	LPC_PINCON -> PINSEL4 &= ~(1 << 20);
-	LPC_PINCON -> PINSEL4 &= ~(1 << 24);
 	
 	// Enable timer 0 for 3 s waiting
 	enable_timer(0);
 	
 	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt */
->>>>>>> main
+
 }
 
 void KEY2_function(void){
@@ -96,14 +92,10 @@ void KEY2_function(void){
 	NVIC_DisableIRQ(EINT1_IRQn);
 	
 	// Disable INT0 and KEY1 pins
-<<<<<<< HEAD
+
 	LPC_PINCON->PINSEL4 &= ~(1 << 20);
 	LPC_PINCON->PINSEL4 &= ~(1 << 22);
-=======
-	LPC_PINCON -> PINSEL4 &= ~(1 << 20);
-	LPC_PINCON -> PINSEL4 &= ~(1 << 22);
->>>>>>> main
-	
+
 	// Morse translation
 	res = translate_morse(vett_input, input_length, vett_output, output_length, CHANGE_SYMBOL, SPACE, SENTENCE_END);
 	
@@ -112,13 +104,9 @@ void KEY2_function(void){
 	NVIC_EnableIRQ(EINT1_IRQn);
 	
 	// Enable INT0 and KEY1 pins
-<<<<<<< HEAD
+
 	LPC_PINCON->PINSEL4 |= (1 << 20);
 	LPC_PINCON->PINSEL4 |= (1 << 22);
-=======
-	LPC_PINCON -> PINSEL4 |= (1 << 20);
-	LPC_PINCON -> PINSEL4 |= (1 << 22);
->>>>>>> main
 	
 	// Enable timer 1 for blinking LEDs
 	enable_timer(1);

@@ -36,13 +36,8 @@ void TIMER0_IRQHandler (void)
 	NVIC_EnableIRQ(EINT2_IRQn);
 	
 	// Enable INT0 and KEY2 pins
-<<<<<<< HEAD
 	LPC_PINCON->PINSEL4 |= (1 << 20);
 	LPC_PINCON->PINSEL4 |= (1 << 24);
-=======
-	LPC_PINCON -> PINSEL4 |= (1 << 20);
-	LPC_PINCON -> PINSEL4 |= (1 << 24);
->>>>>>> main
 	
   LPC_TIM0->IR |= 1;			/* clear interrupt flag */
   return;
