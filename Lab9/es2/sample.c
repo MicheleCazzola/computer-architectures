@@ -40,6 +40,11 @@ int main (void) {
   BUTTON_init();												/* BUTTON Initialization              */
 	
 	IntCount = 0;
+	
+	/* Timer 2 and 3 clock enable */
+	LPC_SC->PCONP |= (1 << 22);
+	LPC_SC->PCONP |= (1 << 23);
+	
 	init_timer(3, timer3_value);						/* TIMER 3 every 2 s at 25 MHz */
 	init_timer(2, timer2_value);						/* TIMER 2 every 500/5 ms at 25 MHz */
 	
