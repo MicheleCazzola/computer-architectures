@@ -565,16 +565,16 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       108         14         32          0          0      18592   funct_led.o
-       116         12          0          0          0        801   irq_button.o
-       148         14          0          0          0        770   lib_button.o
-        64         14          0          1          0        846   lib_led.o
-        16          0          0          0          0       4995   sample.o
-        56         22        204          0        512       1136   startup_lpc17xx.o
-       588         36          0          5          0       1033   system_lpc17xx.o
+       108         14         32          0          0      18532   funct_led.o
+       116         12          0          0          0        781   irq_button.o
+       148         14          0          0          0        754   lib_button.o
+        64         14          0          1          0        810   lib_led.o
+        16          0          0          0          0       4975   sample.o
+        56         22        204          0        512       1096   startup_lpc17xx.o
+       588         36          0          5          0        997   system_lpc17xx.o
 
     ----------------------------------------------------------------------
-      1096        112        284          8        512      28173   Object Totals
+      1096        112        284          8        512      27945   Object Totals
          0          0         48          0          0          0   (incl. Generated)
          0          0          0          2          0          0   (incl. Padding)
 
@@ -623,8 +623,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      1376        128        284          8        608      28389   Grand Totals
-      1376        128        284          8        608      28389   ELF Image Totals
+      1376        128        284          8        608      28161   Grand Totals
+      1376        128        284          8        608      28161   ELF Image Totals
       1376        128        284          8          0          0   ROM Totals
 
 ==============================================================================
