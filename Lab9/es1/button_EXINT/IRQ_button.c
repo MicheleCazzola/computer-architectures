@@ -63,7 +63,6 @@ void KEY1_function(void){
 	}
 	input_length = i;
 	output_length = len;
-	//vett_output = malloc(output_length * sizeof(char));
 	
 	// Switch on all leds
 	LED_Out(0xFF);
@@ -79,14 +78,12 @@ void KEY1_function(void){
 	// Enable timer 0 for 3 s waiting
 	enable_timer(0);
 	
-	// Enable timer 0 for 3 s waiting
-	enable_timer(0);
-	
 	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt */
 
 }
 
 void KEY2_function(void){
+	
 	// Disable INT0 and KEY1
 	NVIC_DisableIRQ(EINT0_IRQn);
 	NVIC_DisableIRQ(EINT1_IRQn);
@@ -104,7 +101,6 @@ void KEY2_function(void){
 	NVIC_EnableIRQ(EINT1_IRQn);
 	
 	// Enable INT0 and KEY1 pins
-
 	LPC_PINCON->PINSEL4 |= (1 << 20);
 	LPC_PINCON->PINSEL4 |= (1 << 22);
 	
