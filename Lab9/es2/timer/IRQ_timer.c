@@ -85,6 +85,8 @@ void TIMER3_IRQHandler (void)
 	
 	reset_timer(3);
 	
+	LED_Out(0);
+	
 	//IntCount = 0;
 	i = 0;
 	while(i++ < X){
@@ -99,6 +101,8 @@ void TIMER3_IRQHandler (void)
 	IntCount = 0;
 	
 	reset_timer(2);
+	enable_timer(2);
+	enable_timer(3);
 	
   LPC_TIM3->IR = 1;			/* clear interrupt flag */
   return;
