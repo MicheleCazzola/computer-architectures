@@ -130,7 +130,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGDARM</Key>
-          <Name>(1010=845,139,1230,695,0)(1007=36,258,223,533,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(350=1130,149,1379,403,0)(250=-1,-1,-1,-1,0)(270=37,106,239,247,0)(313=0,75,874,610,0)(291=868,573,1181,758,0)(302=871,120,1133,569,0)(110=1024,4,1370,332,0)(113=90,121,436,449,0)(320=1131,332,1372,660,0)(210=-1,-1,-1,-1,0)(330=1155,82,1536,709,0)(332=-1,-1,-1,-1,0)(333=-1,-1,-1,-1,0)(334=375,560,973,765,0)(335=-1,-1,-1,-1,0)(336=150,186,748,391,0)(345=20,316,618,521,0)(346=370,561,968,766,0)(381=-1,-1,-1,-1,0)(382=-1,-1,-1,-1,0)(383=-1,-1,-1,-1,0)(384=-1,-1,-1,-1,0)(197=-1,-1,-1,-1,0)(198=-1,-1,-1,-1,0)(191=-1,-1,-1,-1,0)(192=-1,-1,-1,-1,0)(199=-1,-1,-1,-1,0)(180=-1,-1,-1,-1,0)(261=-1,-1,-1,-1,0)(262=-1,-1,-1,-1,0)(231=-1,-1,-1,-1,0)(232=-1,-1,-1,-1,0)(233=-1,-1,-1,-1,0)(121=5,619,531,1123,0)(122=22,205,548,709,0)(123=-1,-1,-1,-1,0)(124=-1,-1,-1,-1,0)(170=683,47,936,323,0)(142=-1,-1,-1,-1,0)(150=-1,-1,-1,-1,0)(400=-1,-1,-1,-1,0)(370=-1,-1,-1,-1,0)(160=-1,-1,-1,-1,0)(280=-1,-1,-1,-1,0)(240=285,332,652,529,0)(1000=334,271,1137,883,0)</Name>
+          <Name>(1010=845,139,1230,695,1)(1007=36,258,223,533,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(350=1130,149,1379,403,0)(250=-1,-1,-1,-1,0)(270=37,106,239,247,0)(313=0,75,874,610,0)(291=868,573,1181,758,0)(302=871,120,1133,569,0)(110=1024,4,1370,332,0)(113=90,121,436,449,0)(320=1131,332,1372,660,0)(210=-1,-1,-1,-1,0)(330=1155,82,1536,709,0)(332=-1,-1,-1,-1,0)(333=-1,-1,-1,-1,0)(334=104,572,702,777,1)(335=-1,-1,-1,-1,0)(336=150,186,748,391,0)(345=20,316,618,521,0)(346=370,561,968,766,0)(381=-1,-1,-1,-1,0)(382=-1,-1,-1,-1,0)(383=-1,-1,-1,-1,0)(384=-1,-1,-1,-1,0)(197=-1,-1,-1,-1,0)(198=-1,-1,-1,-1,0)(191=-1,-1,-1,-1,0)(192=-1,-1,-1,-1,0)(199=-1,-1,-1,-1,0)(180=-1,-1,-1,-1,0)(261=-1,-1,-1,-1,0)(262=-1,-1,-1,-1,0)(231=-1,-1,-1,-1,0)(232=-1,-1,-1,-1,0)(233=-1,-1,-1,-1,0)(121=5,360,531,864,0)(122=22,205,548,709,0)(123=-1,-1,-1,-1,0)(124=-1,-1,-1,-1,0)(170=683,47,936,323,0)(142=-1,-1,-1,-1,0)(150=-1,-1,-1,-1,0)(400=-1,-1,-1,-1,0)(370=-1,-1,-1,-1,0)(160=-1,-1,-1,-1,0)(280=-1,-1,-1,-1,0)(240=285,332,652,529,0)(1000=733,76,1536,688,0)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -148,72 +148,7 @@
           <Name>(105=-1,-1,-1,-1,0)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>124</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>1770</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>.\button_EXINT\IRQ_button.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\sample\button_EXINT/IRQ_button.c\124</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>56</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>2636</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>.\RIT\IRQ_RIT.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\sample\RIT/IRQ_RIT.c\56</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>37</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>424</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>.\sample.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\sample\sample.c\37</Expression>
-        </Bp>
-        <Bp>
-          <Number>3</Number>
-          <Type>0</Type>
-          <LineNumber>38</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>430</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>.\sample.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\sample\sample.c\38</Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -244,6 +179,11 @@
           <count>5</count>
           <WinNumber>1</WinNumber>
           <ItemText>((LPC_GPIO_TypeDef *) ((0x2009C000UL) + 0x00040) )-&gt;FIOPIN &amp; (1&lt;&lt;10)</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>RITCOUNTER</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>

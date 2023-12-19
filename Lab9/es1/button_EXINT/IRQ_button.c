@@ -23,7 +23,10 @@ volatile int res;
 char vett_input[VETT_IN_MAX_LEN] = {0,0,0,0,2,1,1,1,2,0,1,0,0,2,0,1,3,1,1,2,0,0,1,2,1,0,2,1,0,0,2,1,1,1,3,0,1,1,1,1,2,0,0,1,1,1,4};
 char vett_output[VETT_OUT_MAX_LEN];
 
-int rit_enabled;
+// Control flags
+extern int down_int0;
+extern int down_key1;
+extern int down_key2;	
 
 void INT0_function(void){
 	int i;
@@ -106,12 +109,7 @@ void KEY2_function(void){
 	
 void EINT0_IRQHandler (void)	  	/* INT0														 */
 {
-	//triggering |= (1 << 0);
-	if(rit_enabled == 0){
-		enable_RIT();
-		rit_enabled = 1;
-	}
-	
+	down_int0 = 1;
 	NVIC_DisableIRQ(EINT0_IRQn);
 	LPC_PINCON->PINSEL4 &= ~(1 << 20);
 	LPC_SC->EXTINT &= (1 << 0);     /* clear pending interrupt         */
@@ -120,11 +118,7 @@ void EINT0_IRQHandler (void)	  	/* INT0														 */
 
 void EINT1_IRQHandler (void)	  	/* KEY1														 */
 {
-	//triggering |= (1 << 1);
-	if(rit_enabled == 0){
-		enable_RIT();
-		rit_enabled = 1;
-	}
+	down_key1 = 1;
 	NVIC_DisableIRQ(EINT1_IRQn);
 	LPC_PINCON->PINSEL4 &= ~(1 << 22);
 	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt */
@@ -132,12 +126,7 @@ void EINT1_IRQHandler (void)	  	/* KEY1														 */
 
 void EINT2_IRQHandler (void)	  	/* KEY2														 */
 {
-	//triggering |= (1 << 2);
-	if(rit_enabled == 0){
-		enable_RIT();
-		rit_enabled = 1;
-	}
-	KEY2_function();
+	down_key2 = 1;
 	NVIC_DisableIRQ(EINT2_IRQn);
 	LPC_PINCON->PINSEL4 &= ~(1 << 24);
   LPC_SC->EXTINT &= (1 << 2);     /* clear pending interrupt         */    
