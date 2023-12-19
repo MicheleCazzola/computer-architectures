@@ -23,23 +23,20 @@ volatile int res;
 char vett_input[VETT_IN_MAX_LEN] = {0,0,0,0,2,1,1,1,2,0,1,0,0,2,0,1,3,1,1,2,0,0,1,2,1,0,2,1,0,0,2,1,1,1,3,0,1,1,1,1,2,0,0,1,1,1,4};
 char vett_output[VETT_OUT_MAX_LEN];
 
-void EINT0_IRQHandler (void)	  	/* INT0														 */
-{
+int rit_enabled;
+
+void INT0_function(void){
 	int i;
 	
-	//disable_timer(1);
 	reset_timer(1);
 	LED_Out(0);
 	
 	for(i = 0; i < output_length; i++){
 		vett_output[i] = 0;
 	}
-	LPC_SC->EXTINT &= (1 << 0);     /* clear pending interrupt         */
 }
 
-
-void EINT1_IRQHandler (void)	  	/* KEY1														 */
-{
+void KEY1_function(void){
 	volatile int i, end, len;
 	volatile char c;
 	
@@ -72,21 +69,22 @@ void EINT1_IRQHandler (void)	  	/* KEY1														 */
 	NVIC_DisableIRQ(EINT0_IRQn);
 	NVIC_DisableIRQ(EINT2_IRQn);
 	
+	// Disable INT0 and KEY2 pins
+	LPC_PINCON->PINSEL4 &= ~(1 << 20);
+	LPC_PINCON->PINSEL4 &= ~(1 << 24);
+	
 	// Enable timer 0 for 3 s waiting
 	enable_timer(0);
-	
-	// Clear pending interrupts on INT0 and KEY2
-	NVIC_ClearPendingIRQ(EINT0_IRQn);
-	NVIC_ClearPendingIRQ(EINT2_IRQn);
-	
-	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt */
 }
 
-void EINT2_IRQHandler (void)	  	/* KEY2														 */
-{
+void KEY2_function(void){
 	// Disable INT0 and KEY1
 	NVIC_DisableIRQ(EINT0_IRQn);
 	NVIC_DisableIRQ(EINT1_IRQn);
+	
+	// Disable INT0 and KEY1 pins
+	LPC_PINCON->PINSEL4 &= ~(1 << 20);
+	LPC_PINCON->PINSEL4 &= ~(1 << 22);
 	
 	// Morse translation
 	res = translate_morse(vett_input, input_length, vett_output, output_length, CHANGE_SYMBOL, SPACE, SENTENCE_END);
@@ -95,11 +93,53 @@ void EINT2_IRQHandler (void)	  	/* KEY2														 */
 	NVIC_EnableIRQ(EINT0_IRQn);
 	NVIC_EnableIRQ(EINT1_IRQn);
 	
+	// Enable INT0 and KEY1 pins
+	LPC_PINCON->PINSEL4 |= (1 << 20);
+	LPC_PINCON->PINSEL4 |= (1 << 22);
+	
 	// Enable timer 1 for blinking LEDs
 	enable_timer(1);
 	
 	// Switch on LEDs
 	LED_Out(res);
+}
+	
+void EINT0_IRQHandler (void)	  	/* INT0														 */
+{
+	//triggering |= (1 << 0);
+	if(rit_enabled == 0){
+		enable_RIT();
+		rit_enabled = 1;
+	}
+	
+	NVIC_DisableIRQ(EINT0_IRQn);
+	LPC_PINCON->PINSEL4 &= ~(1 << 20);
+	LPC_SC->EXTINT &= (1 << 0);     /* clear pending interrupt         */
+}
+
+
+void EINT1_IRQHandler (void)	  	/* KEY1														 */
+{
+	//triggering |= (1 << 1);
+	if(rit_enabled == 0){
+		enable_RIT();
+		rit_enabled = 1;
+	}
+	NVIC_DisableIRQ(EINT1_IRQn);
+	LPC_PINCON->PINSEL4 &= ~(1 << 22);
+	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt */
+}
+
+void EINT2_IRQHandler (void)	  	/* KEY2														 */
+{
+	//triggering |= (1 << 2);
+	if(rit_enabled == 0){
+		enable_RIT();
+		rit_enabled = 1;
+	}
+	KEY2_function();
+	NVIC_DisableIRQ(EINT2_IRQn);
+	LPC_PINCON->PINSEL4 &= ~(1 << 24);
   LPC_SC->EXTINT &= (1 << 2);     /* clear pending interrupt         */    
 }
 

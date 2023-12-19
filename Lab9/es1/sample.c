@@ -34,8 +34,10 @@ int main (void) {
 	SystemInit();  												/* System Initialization (i.e., PLL)  */
   LED_init();                           /* LED Initialization                 */
   BUTTON_init();												/* BUTTON Initialization              */
+	init_RIT(0x0000FFFF);									/* RIT initialization to 50 ms				*/
 	init_timer(0, 0x023C3460);						/* TIMER0 Initialization 3 s with f = 12.5 MHz		*/
 	init_timer(1, 0x005F5E10);						/* TIMER0 Initialization 0.25 s with f = 25 MHz		*/
+	//enable_RIT();
 
 	LPC_SC->PCON |= 0x1;									/* power-down	mode										*/
 	LPC_SC->PCON &= 0xFFFFFFFFD;						
