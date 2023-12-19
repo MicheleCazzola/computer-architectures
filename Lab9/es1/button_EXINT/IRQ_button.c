@@ -72,12 +72,12 @@ void EINT1_IRQHandler (void)	  	/* KEY1														 */
 	NVIC_DisableIRQ(EINT0_IRQn);
 	NVIC_DisableIRQ(EINT2_IRQn);
 	
+	// Disable INT0 and KEY2 pins
+	LPC_PINCON -> PINSEL4 &= ~(1 << 20);
+	LPC_PINCON -> PINSEL4 &= ~(1 << 24);
+	
 	// Enable timer 0 for 3 s waiting
 	enable_timer(0);
-	
-	// Clear pending interrupts on INT0 and KEY2
-	NVIC_ClearPendingIRQ(EINT0_IRQn);
-	NVIC_ClearPendingIRQ(EINT2_IRQn);
 	
 	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt */
 }
@@ -88,12 +88,20 @@ void EINT2_IRQHandler (void)	  	/* KEY2														 */
 	NVIC_DisableIRQ(EINT0_IRQn);
 	NVIC_DisableIRQ(EINT1_IRQn);
 	
+	// Disable INT0 and KEY1 pins
+	LPC_PINCON -> PINSEL4 &= ~(1 << 20);
+	LPC_PINCON -> PINSEL4 &= ~(1 << 22);
+	
 	// Morse translation
 	res = translate_morse(vett_input, input_length, vett_output, output_length, CHANGE_SYMBOL, SPACE, SENTENCE_END);
 	
 	// Enable INT0 and KEY1
 	NVIC_EnableIRQ(EINT0_IRQn);
 	NVIC_EnableIRQ(EINT1_IRQn);
+	
+	// Enable INT0 and KEY1 pins
+	LPC_PINCON -> PINSEL4 |= (1 << 20);
+	LPC_PINCON -> PINSEL4 |= (1 << 22);
 	
 	// Enable timer 1 for blinking LEDs
 	enable_timer(1);
