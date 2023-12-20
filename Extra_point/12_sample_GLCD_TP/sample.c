@@ -25,7 +25,10 @@
 #include "GLCD/GLCD.h" 
 #include "TouchPanel/TouchPanel.h"
 #include "timer/timer.h"
-#include "graphics/interface.h"
+#include "quoridor/quoridor.h"
+#include "RIT/RIT.h"
+#include "BUTTON_EXINT/button.h"
+#include "joystick/joystick.h"
 
 #define SIMULATOR 1
 
@@ -37,13 +40,14 @@ extern uint8_t ScaleFlag; // <- ScaleFlag needs to visible in order for the emul
 int main(void)
 {
   SystemInit();  												/* System Initialization (i.e., PLL)  */
+	BUTTON_init();
 	
   LCD_Initialization();
 	
 	TP_Init();
-	TouchPanel_Calibrate();
+	//TouchPanel_Calibrate();
 	
-	LCD_Clear(Blue);
+	
 	//GUI_Text(0, 280, (uint8_t *) " touch here : 1 sec to clear  ", Blue, White);
 	
 	//init_timer(0, 0x1312D0 ); 						/* 50ms * 25MHz = 1.25*10^6 = 0x1312D0 */
@@ -53,11 +57,12 @@ int main(void)
 	
 	//enable_timer(0);
 	
-	drawChessPlatform();
-	drawToken(0,3,PLAYER2);
-	drawToken(6,3,PLAYER1);
+	initGame();
+	init_timer(0, 0x017D7840);
+	init_RIT(0x004C4B40);
+	joystick_init();
+	enable_RIT();
 	
-	writeWalls(8,8);
 	
 	LPC_SC->PCON |= 0x1;									/* power-down	mode										*/
 	LPC_SC->PCON &= ~(0x2);						

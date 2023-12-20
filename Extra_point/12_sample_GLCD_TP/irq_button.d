@@ -1,5 +1,5 @@
-.\irq_button.o: ..\..\Lab9\es1\button_EXINT\IRQ_button.c
-.\irq_button.o: ..\..\Lab9\es1\button_EXINT\button.h
+.\irq_button.o: BUTTON_EXINT\IRQ_button.c
+.\irq_button.o: BUTTON_EXINT\button.h
 .\irq_button.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h
 .\irq_button.o: C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h
 .\irq_button.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\stdint.h
@@ -9,6 +9,7 @@
 .\irq_button.o: C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h
 .\irq_button.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h
 .\irq_button.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\stdlib.h
-.\irq_button.o: ..\..\Lab9\es1\button_EXINT\../led/led.h
-.\irq_button.o: ..\..\Lab9\es1\button_EXINT\../timer/timer.h
-.\irq_button.o: ..\..\Lab9\es1\button_EXINT\../RIT/RIT.h
+.\irq_button.o: BUTTON_EXINT\../led/led.h
+.\irq_button.o: BUTTON_EXINT\../timer/timer.h
+.\irq_button.o: BUTTON_EXINT\../RIT/RIT.h
+.\irq_button.o: BUTTON_EXINT\../quoridor/quoridor.h

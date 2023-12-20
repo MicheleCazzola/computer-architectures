@@ -5,6 +5,7 @@
 #include "../led/led.h"
 #include "../timer/timer.h"
 #include "../RIT/RIT.h"	
+#include "../quoridor/quoridor.h"
 
 #define VETT_IN_MAX_LEN 100
 #define VETT_OUT_MAX_LEN 100
@@ -29,14 +30,7 @@ extern int down_key1;
 extern int down_key2;	
 
 void INT0_function(void){
-	int i;
-	
-	reset_timer(1);
-	LED_Out(0);
-	
-	for(i = 0; i < output_length; i++){
-		vett_output[i] = 0;
-	}
+	mode = PLAYING;
 }
 
 void KEY1_function(void){

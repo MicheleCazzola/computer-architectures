@@ -6,6 +6,9 @@
 	Margin_dim = 3px
 	
 */
+
+#include <stdlib.h>
+#include <string.h>
 #include "interface.h"
 #include "../GLCD/GLCD.h"
 
@@ -98,14 +101,34 @@ void drawToken(int row, int col, int color){
 }
 
 void writeWalls(int wall_p1, int wall_p2){
-	char ss1[1]; 
-	char ss2[1] ;
-	char s1 = wall_p1 + 48;
-	char s2 = wall_p2 + 48;
-	ss1[0] = s1;
-	ss2[0] = s2;
+	unsigned char s1 = (unsigned char) (wall_p1 + '0');
+	unsigned char s2 = (unsigned char) (wall_p2 + '0');
 	GUI_Text(XPOS_TEXT1, ROW1, PLAYER1_MSG, White, Blue);
-	GUI_Text(XPOS_TEXT1, ROW2, ss1, White, Blue);
+	GUI_Text(XPOS_TEXT1, ROW2, (unsigned char *) &(s1), White, Blue);
 	GUI_Text(XPOS_TEXT2, ROW1, PLAYER2_MSG, White, Blue);
-	GUI_Text(XPOS_TEXT2, ROW2, ss2, White, Blue);
+	GUI_Text(XPOS_TEXT2, ROW2, (unsigned char *) &(s2), White, Blue);
+}
+
+void writeTimeRemaining(int time){
+	unsigned char s[5];
+	s[0] = time / 10 + '0';
+	s[1] = time % 10 + '0';
+	s[2] = ' ';
+	s[3] = 's';
+	GUI_Text(XPOS_TIME, ROW_TIME, s, White, Blue);
+}
+
+void drawSquareArea(int r, int c){
+	int x0, y0, x1, y1, cnt;
+	
+	// Upper horiz
+	x0 = MARGIN_WIDTH + c * (SPACE_WIDTH + SQUARE_SIDE) + 1;
+	x1 = x0 + SQUARE_SIDE - 1;
+	y0 = MARGIN_WIDTH + r * (SPACE_WIDTH + SQUARE_SIDE) + 1;
+	y1 = y0;
+	
+	for(cnt = 0; cnt < SQUARE_SIDE - 1; cnt++, y0++, y1++){
+		LCD_DrawLine(x0, y0, x1, y1, Green);
+	}
+	
 }

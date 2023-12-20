@@ -1,5 +1,5 @@
-.\lib_button.o: ..\..\Lab9\es1\button_EXINT\lib_button.c
-.\lib_button.o: ..\..\Lab9\es1\button_EXINT\button.h
+.\lib_button.o: BUTTON_EXINT\lib_button.c
+.\lib_button.o: BUTTON_EXINT\button.h
 .\lib_button.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h
 .\lib_button.o: C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h
 .\lib_button.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\stdint.h

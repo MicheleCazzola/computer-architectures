@@ -10,4 +10,7 @@
 .\sample.o: GLCD/GLCD.h
 .\sample.o: TouchPanel/TouchPanel.h
 .\sample.o: timer/timer.h
-.\sample.o: graphics/interface.h
+.\sample.o: quoridor/quoridor.h
+.\sample.o: RIT/RIT.h
+.\sample.o: BUTTON_EXINT/button.h
+.\sample.o: joystick/joystick.h

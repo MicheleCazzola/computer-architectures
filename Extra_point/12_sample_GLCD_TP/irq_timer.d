@@ -11,3 +11,5 @@
 .\irq_timer.o: timer\timer.h
 .\irq_timer.o: timer\../GLCD/GLCD.h
 .\irq_timer.o: timer\../TouchPanel/TouchPanel.h
+.\irq_timer.o: timer\../quoridor/quoridor.h
+.\irq_timer.o: timer\../graphics/interface.h

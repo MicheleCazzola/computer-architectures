@@ -1,4 +1,6 @@
 .\interface.o: graphics\interface.c
+.\interface.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\stdlib.h
+.\interface.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\string.h
 .\interface.o: graphics\interface.h
 .\interface.o: graphics\../GLCD/GLCD.h
 .\interface.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\LPC17xx.h
