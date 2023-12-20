@@ -13,7 +13,7 @@
 #define SENTENCE_END 4
 
 // Morse translation function header
-extern int translate_morse(char*, int, char*, int, char, char, char);
+//extern int translate_morse(char*, int, char*, int, char, char, char);
 
 // Global variables
 unsigned int input_length, output_length;
@@ -94,7 +94,7 @@ void KEY2_function(void){
 	LPC_PINCON->PINSEL4 &= ~(1 << 22);
 
 	// Morse translation
-	res = translate_morse(vett_input, input_length, vett_output, output_length, CHANGE_SYMBOL, SPACE, SENTENCE_END);
+	//res = translate_morse(vett_input, input_length, vett_output, output_length, CHANGE_SYMBOL, SPACE, SENTENCE_END);
 	
 	// Enable INT0 and KEY1
 	NVIC_EnableIRQ(EINT0_IRQn);
