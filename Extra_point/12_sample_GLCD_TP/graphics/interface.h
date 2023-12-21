@@ -4,6 +4,8 @@
 #include "../GLCD/GLCD.h"
 
 
+#define BGCOLOR Blue
+#define VALID_MOVE_COLOR Green
 #define NUM_SQUARES 7
 #define NUM_BOXES 3
 #define SQUARE_SIDE 30
@@ -13,8 +15,8 @@
 #define BOX_HEIGHT 50
 #define BOX_SPACE_MARGIN_WIDTH 3
 #define PADDING (10 + MARGIN_WIDTH + 6*SPACE_WIDTH + NUM_SQUARES*SQUARE_SIDE)
-#define PLAYER1 White
-#define PLAYER2 Red
+#define PLAYER1_COLOR White
+#define PLAYER2_COLOR Red
 #define TOKEN_SIDE 11
 #define XPOS_TEXT1 (MARGIN_WIDTH + 5)
 #define XPOS_TEXT2 (XPOS_TEXT1 + 2 * BOX_SPACE_MARGIN_WIDTH + 2 * BOX_WIDTH)
@@ -31,6 +33,6 @@ void drawBox(int i);
 void drawToken(int i, int j, int color);
 void writeWalls(int wall_p1, int wall_p2);
 void writeTimeRemaining(int time);
-void drawSquareArea(int r, int c);
+void drawSquareArea(int r, int c, int color);
 
 #endif

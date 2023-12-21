@@ -40,11 +40,11 @@ extern uint8_t ScaleFlag; // <- ScaleFlag needs to visible in order for the emul
 int main(void)
 {
   SystemInit();  												/* System Initialization (i.e., PLL)  */
-	BUTTON_init();
-	
-  LCD_Initialization();
+	LCD_Initialization();
 	
 	TP_Init();
+	BUTTON_init();
+  
 	//TouchPanel_Calibrate();
 	
 	
@@ -57,11 +57,11 @@ int main(void)
 	
 	//enable_timer(0);
 	
-	initGame();
 	init_timer(0, 0x017D7840);
 	init_RIT(0x004C4B40);
 	joystick_init();
 	enable_RIT();
+	initGame();
 	
 	
 	LPC_SC->PCON |= 0x1;									/* power-down	mode										*/
@@ -70,6 +70,7 @@ int main(void)
   while (1)	
   {
 		__ASM("wfi");
+		
   }
 }
 

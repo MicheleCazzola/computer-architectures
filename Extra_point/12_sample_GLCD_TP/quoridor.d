@@ -1,5 +1,6 @@
 .\quoridor.o: quoridor\quoridor.c
 .\quoridor.o: quoridor\quoridor.h
+.\quoridor.o: quoridor\../timer/timer.h
 .\quoridor.o: quoridor\../graphics/interface.h
 .\quoridor.o: quoridor\../graphics/../GLCD/GLCD.h
 .\quoridor.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\LPC17xx.h

@@ -26,7 +26,7 @@ int joystick_up(int up){
 		/* Joytick UP pressed */
 		up++;
 		switch(up){
-			case 1: move(0,-1);
+			case 1: setNextPos(0,-1);
 				break;
 			default:
 				break;
@@ -41,10 +41,10 @@ int joystick_up(int up){
 
 int joystick_down(int down){
 	if((LPC_GPIO1->FIOPIN & (1<<26)) == 0){	
-		/* Joytick UP pressed */
+		/* Joytick DOWN pressed */
 		down++;
 		switch(down){
-			case 1: // move down
+			case 1: setNextPos(0,1);
 				break;
 			default:
 				break;
@@ -59,10 +59,10 @@ int joystick_down(int down){
 
 int joystick_left(int left){
 	if((LPC_GPIO1->FIOPIN & (1<<27)) == 0){	
-		/* Joytick UP pressed */
+		/* Joytick LEFT pressed */
 		left++;
 		switch(left){
-			case 1: // move left
+			case 1: setNextPos(-1,0);
 				break;
 			default:
 				break;
@@ -77,10 +77,10 @@ int joystick_left(int left){
 
 int joystick_right(int right){
 	if((LPC_GPIO1->FIOPIN & (1<<28)) == 0){	
-		/* Joytick UP pressed */
+		/* Joytick RIGHT pressed */
 		right++;
 		switch(right){
-			case 1: // move right
+			case 1: setNextPos(1,0);
 				break;
 			default:
 				break;
@@ -95,10 +95,10 @@ int joystick_right(int right){
 
 int joystick_select(int sel){
 	if((LPC_GPIO1->FIOPIN & (1<<25)) == 0){	
-		/* Joytick UP pressed */
+		/* Joytick SELECT pressed */
 		sel++;
 		switch(sel){
-			case 1: // confirm
+			case 1: move();
 				break;
 			default:
 				break;

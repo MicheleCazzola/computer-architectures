@@ -34,8 +34,6 @@ extern int mode;
 void INT0_function(void){
 	setMode(PLAYING);
 	setPlayer(PLAYER1);
-	
-	enable_timer(0);
 }
 
 void KEY1_function(void){

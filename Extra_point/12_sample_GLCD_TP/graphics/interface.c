@@ -115,20 +115,21 @@ void writeTimeRemaining(int time){
 	s[1] = time % 10 + '0';
 	s[2] = ' ';
 	s[3] = 's';
+	s[4] = '\0';
 	GUI_Text(XPOS_TIME, ROW_TIME, s, White, Blue);
 }
 
-void drawSquareArea(int r, int c){
+void drawSquareArea(int r, int c, int color){
 	int x0, y0, x1, y1, cnt;
 	
 	// Upper horiz
 	x0 = MARGIN_WIDTH + c * (SPACE_WIDTH + SQUARE_SIDE) + 1;
-	x1 = x0 + SQUARE_SIDE - 1;
+	x1 = x0 + SQUARE_SIDE - 2;
 	y0 = MARGIN_WIDTH + r * (SPACE_WIDTH + SQUARE_SIDE) + 1;
 	y1 = y0;
 	
 	for(cnt = 0; cnt < SQUARE_SIDE - 1; cnt++, y0++, y1++){
-		LCD_DrawLine(x0, y0, x1, y1, Green);
+		LCD_DrawLine(x0, y0, x1, y1, color);
 	}
 	
 }
