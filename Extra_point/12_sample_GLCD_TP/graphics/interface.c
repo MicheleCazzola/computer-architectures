@@ -133,3 +133,27 @@ void drawSquareArea(int r, int c, int color){
 	}
 	
 }
+
+void drawWall(int row, int col, int direction, int color){
+	int i, x0, x1, y0, y1, xc, yc;
+	xc = MARGIN_WIDTH + SQUARE_SIDE + row * (SQUARE_SIDE + SPACE_WIDTH) + 2;
+	yc = MARGIN_WIDTH + SQUARE_SIDE + col * (SQUARE_SIDE + SPACE_WIDTH) + 2;
+	if(direction == HORIZONTAL_WALL){
+		x0 = xc - WALL_LENGTH/2;
+		x1 = xc + WALL_LENGTH/2;
+		y0 = yc - (SPACE_WIDTH-1)/2;;
+		for(i = 0; i < SPACE_WIDTH-1; i++){
+			LCD_DrawLine(x0, y0+i, x1, y0+i, color);
+			
+		}
+	}
+	if(direction == VERTICAL_WALL){
+		x0 = xc - (SPACE_WIDTH-1)/2;
+		y0 = yc - WALL_LENGTH/2;
+		y1 = yc + WALL_LENGTH/2;
+		for(i = 0; i < SPACE_WIDTH-1; i++){
+			LCD_DrawLine(x0+i, y0, x0+i, y1, color);
+		}
+	}
+	
+}

@@ -26,6 +26,10 @@
 #define ROW_TIME (PADDING + 20)
 #define PLAYER1_MSG "P1 Wall"
 #define PLAYER2_MSG "P2 Wall"
+#define WALL_LENGTH (2 * SQUARE_SIDE + SPACE_WIDTH)
+#define VERTICAL_WALL 0
+#define HORIZONTAL_WALL 1
+#define WALL_COLOR Red
 
 void drawChessPlatform(void);
 void drawSquare(int row, int col);
@@ -34,5 +38,6 @@ void drawToken(int i, int j, int color);
 void writeWalls(int wall_p1, int wall_p2);
 void writeTimeRemaining(int time);
 void drawSquareArea(int r, int c, int color);
+void drawWall(int row, int col, int direction, int color);
 
 #endif

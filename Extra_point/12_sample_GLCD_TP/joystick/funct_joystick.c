@@ -13,6 +13,7 @@
 #include "../led/led.h"
 #include "../quoridor/quoridor.h"
 
+extern int pending_wall;
 
 /*----------------------------------------------------------------------------
   Function that turns on requested led
@@ -26,7 +27,7 @@ int joystick_up(int up){
 		/* Joytick UP pressed */
 		up++;
 		switch(up){
-			case 1: setNextPos(0,-1);
+			case 1: pending_wall == 0 ? setNextPos(0,-1) : setNextWall(0,-1);
 				break;
 			default:
 				break;
@@ -98,7 +99,7 @@ int joystick_select(int sel){
 		/* Joytick SELECT pressed */
 		sel++;
 		switch(sel){
-			case 1: move();
+			case 1: pending_wall == 0 ? move() : confirmWall();
 				break;
 			default:
 				break;
