@@ -14,6 +14,7 @@
 #include "../quoridor/quoridor.h"
 
 extern int pending_wall;
+extern int mode;
 
 /*----------------------------------------------------------------------------
   Function that turns on requested led
@@ -27,7 +28,7 @@ int joystick_up(int up){
 		/* Joytick UP pressed */
 		up++;
 		switch(up){
-			case 1: pending_wall == 0 ? setNextPos(0,-1) : setNextWall(0,-1);
+			case 1: (pending_wall == 0 && mode == PLAYING) ? setNextPos(0,-1) : setNextWall(0,-1);
 				break;
 			default:
 				break;
@@ -45,7 +46,7 @@ int joystick_down(int down){
 		/* Joytick DOWN pressed */
 		down++;
 		switch(down){
-			case 1: setNextPos(0,1);
+			case 1: (pending_wall == 0 && mode == PLAYING) ? setNextPos(0,1) : setNextWall(0,1);
 				break;
 			default:
 				break;
@@ -63,7 +64,7 @@ int joystick_left(int left){
 		/* Joytick LEFT pressed */
 		left++;
 		switch(left){
-			case 1: setNextPos(-1,0);
+			case 1: (pending_wall == 0 && mode == PLAYING) ? setNextPos(-1,0) : setNextWall(-1,0);
 				break;
 			default:
 				break;
@@ -81,7 +82,7 @@ int joystick_right(int right){
 		/* Joytick RIGHT pressed */
 		right++;
 		switch(right){
-			case 1: setNextPos(1,0);
+			case 1: (pending_wall == 0 && mode == PLAYING) ? setNextPos(1,0) : setNextWall(1,0);
 				break;
 			default:
 				break;
@@ -99,7 +100,7 @@ int joystick_select(int sel){
 		/* Joytick SELECT pressed */
 		sel++;
 		switch(sel){
-			case 1: pending_wall == 0 ? move() : confirmWall();
+			case 1: (pending_wall == 0 && mode == PLAYING) ? move() : confirmWall();
 				break;
 			default:
 				break;

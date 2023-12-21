@@ -13,13 +13,34 @@
 #define HORIZONTAL_WALL 1
 #define WALL_DEFAULT_ROW 2
 #define WALL_DEFAULT_COL 3
+#define MAX_NUM_WALLS 8
+#define START_X_PLAYER1 3
+#define START_Y_PLAYER1 6
+#define START_X_PLAYER2 3 
+#define START_Y_PLAYER2 0
+
+
+typedef struct {
+	int x;
+	int y;
+} Coordinates;
 
 typedef struct{
-	int rowC[8];
-	int colC[8];
+	Coordinates position[MAX_NUM_WALLS];
 	int dir[8];
 	int used;
 } wallType;
+
+typedef struct {
+	int mode;
+	int time_remaining;
+	int player;
+	int pending_wall;
+	int last_move;
+	int validMove;
+	Coordinates currentPos[2];
+	wallType walls[2];
+} PlayType;
 
 void initGame(void);
 void setMode(int modeValue);

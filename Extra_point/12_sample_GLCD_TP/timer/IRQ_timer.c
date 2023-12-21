@@ -25,18 +25,19 @@
 **
 ******************************************************************************/
 
+extern PlayType playState;
 extern int time_remaining, player;
 extern int currX[2], currY[2], nextPos[2];
 
 void TIMER0_IRQHandler (void)
 {
-	writeTimeRemaining(--time_remaining);
+	writeTimeRemaining(--playState.time_remaining);
 	
 	reset_timer(0);
-	if(time_remaining == 0){
-		setColorMove(currX[player-1], currY[player-1], BGCOLOR);
-		saveMove(player-1, PLAYER_MOVE, OUT_OF_TIME_MOVE, nextPos[0], nextPos[1]);
-		setPlayer(3-player);
+	if(playState.time_remaining == 0){
+		setColorMove(playState.currentPos[playState.player-1].x, playState.currentPos[playState.player-1].y, BGCOLOR);
+		saveMove(playState.player-1, PLAYER_MOVE, OUT_OF_TIME_MOVE, nextPos[0], nextPos[1]);
+		setPlayer(3-playState.player);
 	}
 	else{
 		enable_timer(0);

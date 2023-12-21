@@ -18,28 +18,37 @@ extern int down_int0;
 extern int down_key1;
 extern int down_key2;	
 
+extern PlayType playState;
+extern int player;
 extern int mode;
 extern int pending_wall;
+extern wallType walls[2];
 
 void INT0_function(void){
-	if(pending_wall == 0){
+	if(playState.pending_wall == 0){
 		setMode(PLAYING);
 		setPlayer(PLAYER1);
 	}
 }
 
 void KEY1_function(void){
-	if(pending_wall == 0){
-		newWall(WALL_DEFAULT_COL, WALL_DEFAULT_ROW, HORIZONTAL_WALL);
-	}
-	else{
-		undoWall();
+	if(playState.mode == PLAYING){
+		if(playState.pending_wall == 0){
+			if(playState.walls[player-1].used < MAX_NUM_WALLS) {
+				newWall(WALL_DEFAULT_COL, WALL_DEFAULT_ROW, HORIZONTAL_WALL);
+			}
+		}
+		else{
+			undoWall();
+		}
 	}
 }
 
 void KEY2_function(void){
-	if(pending_wall == 1){
-		rotateWall();
+	if(playState.mode == PLAYING){
+		if(playState.pending_wall == 1){
+			rotateWall();
+		}
 	}
 }
 	

@@ -30,86 +30,142 @@ Rebuild target 'Target 1'
 assembling startup_LPC17xx.s...
 compiling AsciiLib.c...
 compiling core_cm3.c...
-compiling sample.c...
-quoridor/quoridor.h(32): warning:  #1295-D: Deprecated declaration undoWall - give arg types
+compiling IRQ_timer.c...
+timer\../quoridor/quoridor.h(53): warning:  #1295-D: Deprecated declaration undoWall - give arg types
   void undoWall();
-quoridor/quoridor.h(33): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
+timer\../quoridor/quoridor.h(54): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
   void rotateWall();
-quoridor/quoridor.h(34): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
+timer\../quoridor/quoridor.h(55): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
   void confirmWall();
-quoridor/quoridor.h(37): warning:  #1-D: last line of file ends without a newline
+timer\../quoridor/quoridor.h(58): warning:  #1-D: last line of file ends without a newline
+  #endif
+timer\IRQ_timer.c: 4 warnings, 0 errors
+compiling sample.c...
+quoridor/quoridor.h(53): warning:  #1295-D: Deprecated declaration undoWall - give arg types
+  void undoWall();
+quoridor/quoridor.h(54): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
+  void rotateWall();
+quoridor/quoridor.h(55): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
+  void confirmWall();
+quoridor/quoridor.h(58): warning:  #1-D: last line of file ends without a newline
   #endif
 sample.c: 4 warnings, 0 errors
 compiling lib_timer.c...
 compiling system_LPC17xx.c...
-compiling IRQ_timer.c...
-timer\../quoridor/quoridor.h(32): warning:  #1295-D: Deprecated declaration undoWall - give arg types
-  void undoWall();
-timer\../quoridor/quoridor.h(33): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
-  void rotateWall();
-timer\../quoridor/quoridor.h(34): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
-  void confirmWall();
-timer\../quoridor/quoridor.h(37): warning:  #1-D: last line of file ends without a newline
-  #endif
-timer\IRQ_timer.c: 4 warnings, 0 errors
+compiling HzLib.c...
 compiling IRQ_RIT.c...
 compiling lib_RIT.c...
 compiling TouchPanel.c...
 compiling IRQ_button.c...
-BUTTON_EXINT\../quoridor/quoridor.h(32): warning:  #1295-D: Deprecated declaration undoWall - give arg types
+BUTTON_EXINT\../quoridor/quoridor.h(53): warning:  #1295-D: Deprecated declaration undoWall - give arg types
   void undoWall();
-BUTTON_EXINT\../quoridor/quoridor.h(33): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
+BUTTON_EXINT\../quoridor/quoridor.h(54): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
   void rotateWall();
-BUTTON_EXINT\../quoridor/quoridor.h(34): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
+BUTTON_EXINT\../quoridor/quoridor.h(55): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
   void confirmWall();
-BUTTON_EXINT\../quoridor/quoridor.h(37): warning:  #1-D: last line of file ends without a newline
+BUTTON_EXINT\../quoridor/quoridor.h(58): warning:  #1-D: last line of file ends without a newline
   #endif
 BUTTON_EXINT\IRQ_button.c: 4 warnings, 0 errors
 compiling lib_button.c...
-compiling HzLib.c...
-compiling lib_joystick.c...
-compiling funct_joystick.c...
-joystick\../quoridor/quoridor.h(32): warning:  #1295-D: Deprecated declaration undoWall - give arg types
+compiling quoridor.c...
+quoridor\quoridor.h(53): warning:  #1295-D: Deprecated declaration undoWall - give arg types
   void undoWall();
-joystick\../quoridor/quoridor.h(33): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
+quoridor\quoridor.h(54): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
   void rotateWall();
-joystick\../quoridor/quoridor.h(34): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
+quoridor\quoridor.h(55): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
   void confirmWall();
-joystick\../quoridor/quoridor.h(37): warning:  #1-D: last line of file ends without a newline
+quoridor\quoridor.h(58): warning:  #1-D: last line of file ends without a newline
+  #endif
+quoridor\quoridor.c(39): error:  #136: struct "<unnamed>"  has no field "rowC"
+  		if(wallBetweenCells(currY[player-1], c, currX[player-1], r, walls[wallPlayer-1].rowC[i], walls[wallPlayer-1].colC[i], walls[wallPlayer-1].dir[i])){
+quoridor\quoridor.c(39): error:  #136: struct "<unnamed>"  has no field "colC"
+  		if(wallBetweenCells(currY[player-1], c, currX[player-1], r, walls[wallPlayer-1].rowC[i], walls[wallPlayer-1].colC[i], walls[wallPlayer-1].dir[i])){
+quoridor\quoridor.c(69): error:  #136: struct "<unnamed>"  has no field "rowC"
+  			overlap = walls[playerWalls-1].rowC[i] == r || walls[playerWalls-1].colC[i] == c;
+quoridor\quoridor.c(69): error:  #136: struct "<unnamed>"  has no field "colC"
+  			overlap = walls[playerWalls-1].rowC[i] == r || walls[playerWalls-1].colC[i] == c;
+quoridor\quoridor.c(73): error:  #136: struct "<unnamed>"  has no field "rowC"
+  			overlap = walls[playerWalls-1].rowC[i] == r && walls[playerWalls-1].colC[i] == c;
+quoridor\quoridor.c(73): error:  #136: struct "<unnamed>"  has no field "colC"
+  			overlap = walls[playerWalls-1].rowC[i] == r && walls[playerWalls-1].colC[i] == c;
+quoridor\quoridor.c(81): warning:  #177-D: variable "i"  was declared but never referenced
+  	int i, numWalls_p1, numWalls_p2, overlap1, overlap2;
+quoridor\quoridor.c(81): warning:  #177-D: variable "numWalls_p1"  was declared but never referenced
+  	int i, numWalls_p1, numWalls_p2, overlap1, overlap2;
+quoridor\quoridor.c(81): warning:  #177-D: variable "numWalls_p2"  was declared but never referenced
+  	int i, numWalls_p1, numWalls_p2, overlap1, overlap2;
+quoridor\quoridor.c(112): warning:  #940-D: missing return statement at end of non-void function "targetPos" 
+  }
+quoridor\quoridor.c(116): error:  #136: struct "<unnamed>"  has no field "rowC"
+  	walls[player-1].rowC[i] = rowCenter;
+quoridor\quoridor.c(117): error:  #136: struct "<unnamed>"  has no field "colC"
+  	walls[player-1].colC[i] = colCenter;
+quoridor\quoridor.c(181): warning:  #1293-D: assignment in condition
+  	if((validMove = validPos(finalPosX, finalPosY))){
+quoridor\quoridor.c(179): warning:  #177-D: variable "i"  was declared but never referenced
+  	int finalPosX, finalPosY, i;
+quoridor\quoridor.c(219): error:  #136: struct "<unnamed>"  has no field "rowC"
+  	rowC = walls[player-1].rowC[walls[player-1].used];
+quoridor\quoridor.c(220): error:  #136: struct "<unnamed>"  has no field "colC"
+  	colC = walls[player-1].colC[walls[player-1].used];
+quoridor\quoridor.c(226): error:  #136: struct "<unnamed>"  has no field "rowC"
+  			drawWall(walls[i].rowC[j], walls[i].colC[j], walls[i].dir[j], WALL_COLOR);
+quoridor\quoridor.c(226): error:  #136: struct "<unnamed>"  has no field "colC"
+  			drawWall(walls[i].rowC[j], walls[i].colC[j], walls[i].dir[j], WALL_COLOR);
+quoridor\quoridor.c(236): error:  #136: struct "<unnamed>"  has no field "rowC"
+  	rowC = walls[player-1].rowC[walls[player-1].used];
+quoridor\quoridor.c(237): error:  #136: struct "<unnamed>"  has no field "colC"
+  	colC = walls[player-1].colC[walls[player-1].used];
+quoridor\quoridor.c(244): error:  #136: struct "<unnamed>"  has no field "rowC"
+  			drawWall(walls[i].rowC[j], walls[i].colC[j], walls[i].dir[j], WALL_COLOR);
+quoridor\quoridor.c(244): error:  #136: struct "<unnamed>"  has no field "colC"
+  			drawWall(walls[i].rowC[j], walls[i].colC[j], walls[i].dir[j], WALL_COLOR);
+quoridor\quoridor.c(256): error:  #136: struct "<unnamed>"  has no field "rowC"
+  	if(validWallPos(walls[player-1].rowC[i], walls[player-1].colC[i], walls[player-1].dir[i], &overlapped_wall_index, &player_index)){
+quoridor\quoridor.c(256): error:  #136: struct "<unnamed>"  has no field "colC"
+  	if(validWallPos(walls[player-1].rowC[i], walls[player-1].colC[i], walls[player-1].dir[i], &overlapped_wall_index, &player_index)){
+quoridor\quoridor.c(259): error:  #136: struct "<unnamed>"  has no field "rowC"
+  		saveMove(player-1, WALL_PLACEMENT, walls[player-1].dir[i], walls[player-1].rowC[i], walls[player-1].colC[i]);
+quoridor\quoridor.c(259): error:  #136: struct "<unnamed>"  has no field "colC"
+  		saveMove(player-1, WALL_PLACEMENT, walls[player-1].dir[i], walls[player-1].rowC[i], walls[player-1].colC[i]);
+quoridor\quoridor.c(264): error:  #136: struct "<unnamed>"  has no field "rowC"
+  		drawWall(walls[player-1].rowC[i], walls[player-1].colC[i], walls[player-1].dir[i], BGCOLOR);
+quoridor\quoridor.c(264): error:  #136: struct "<unnamed>"  has no field "colC"
+  		drawWall(walls[player-1].rowC[i], walls[player-1].colC[i], walls[player-1].dir[i], BGCOLOR);
+quoridor\quoridor.c(265): error:  #136: struct "<unnamed>"  has no field "rowC"
+  		drawWall(walls[player_index].rowC[overlapped_wall_index], walls[player_index].colC[overlapped_wall_index], walls[player_index].dir[overlapped_wall_index], WALL_COLOR);
+quoridor\quoridor.c(265): error:  #136: struct "<unnamed>"  has no field "colC"
+  		drawWall(walls[player_index].rowC[overlapped_wall_index], walls[player_index].colC[overlapped_wall_index], walls[player_index].dir[overlapped_wall_index], WALL_COLOR);
+quoridor\quoridor.c(272): error:  #136: struct "<unnamed>"  has no field "rowC"
+  	rowC = walls[player-1].rowC[walls[player-1].used];
+quoridor\quoridor.c(273): error:  #136: struct "<unnamed>"  has no field "colC"
+  	colC = walls[player-1].colC[walls[player-1].used];
+quoridor\quoridor.c(282): error:  #136: struct "<unnamed>"  has no field "rowC"
+  	rowC = walls[player-1].rowC[i] + h;
+quoridor\quoridor.c(283): error:  #136: struct "<unnamed>"  has no field "colC"
+  	colC = walls[player-1].colC[i] + v;
+quoridor\quoridor.c(280): warning:  #550-D: variable "dir"  was set but never used
+  	int rowC, colC, i, dir;
+quoridor\quoridor.c: 11 warnings, 28 errors
+compiling funct_joystick.c...
+joystick\../quoridor/quoridor.h(53): warning:  #1295-D: Deprecated declaration undoWall - give arg types
+  void undoWall();
+joystick\../quoridor/quoridor.h(54): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
+  void rotateWall();
+joystick\../quoridor/quoridor.h(55): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
+  void confirmWall();
+joystick\../quoridor/quoridor.h(58): warning:  #1-D: last line of file ends without a newline
   #endif
 joystick\funct_joystick.c: 4 warnings, 0 errors
-compiling funct_led.c...
+compiling lib_joystick.c...
 compiling lib_led.c...
+compiling funct_led.c...
 compiling interface.c...
 graphics\interface.c(159): warning:  #1-D: last line of file ends without a newline
   }
 graphics\interface.c: 1 warning, 0 errors
-compiling quoridor.c...
-quoridor\quoridor.h(32): warning:  #1295-D: Deprecated declaration undoWall - give arg types
-  void undoWall();
-quoridor\quoridor.h(33): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
-  void rotateWall();
-quoridor\quoridor.h(34): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
-  void confirmWall();
-quoridor\quoridor.h(37): warning:  #1-D: last line of file ends without a newline
-  #endif
-quoridor\quoridor.c(42): warning:  #177-D: variable "i"  was declared but never referenced
-  	int i, numWalls_p1, numWalls_p2, overlap1, overlap2;
-quoridor\quoridor.c(42): warning:  #177-D: variable "numWalls_p1"  was declared but never referenced
-  	int i, numWalls_p1, numWalls_p2, overlap1, overlap2;
-quoridor\quoridor.c(42): warning:  #177-D: variable "numWalls_p2"  was declared but never referenced
-  	int i, numWalls_p1, numWalls_p2, overlap1, overlap2;
-quoridor\quoridor.c(65): warning:  #940-D: missing return statement at end of non-void function "targetPos" 
-  }
-quoridor\quoridor.c(133): warning:  #1293-D: assignment in condition
-  	if((validMove = validPos(finalPosX, finalPosY))){
-quoridor\quoridor.c(131): warning:  #177-D: variable "i"  was declared but never referenced
-  	int finalPosX, finalPosY, i;
-quoridor\quoridor.c: 10 warnings, 0 errors
 compiling GLCD.c...
-linking...
-Program Size: Code=27288 RO-data=1772 RW-data=108 ZI-data=884  
-".\sample.axf" - 0 Error(s), 27 Warning(s).
+".\sample.axf" - 28 Error(s), 28 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -132,7 +188,8 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.6.0
-Build Time Elapsed:  00:00:02
+Target not created.
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
