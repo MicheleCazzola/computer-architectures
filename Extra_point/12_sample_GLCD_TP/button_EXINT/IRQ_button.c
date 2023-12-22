@@ -28,6 +28,9 @@ void KEY1_function(void){
 			if(playState.walls[playState.player-1].used < MAX_NUM_WALLS) {
 				newWall(WALL_DEFAULT_POS, HORIZONTAL_WALL);
 			}
+			else{
+				writeMessage("No walls available, move the token");
+			}
 		}
 		else{
 			undoWall();

@@ -30,6 +30,9 @@
 #define VERTICAL_WALL 0
 #define HORIZONTAL_WALL 1
 #define WALL_COLOR Red
+#define X_MESSAGE (MARGIN_WIDTH)
+#define Y_MESSAGE 305
+#define MESSAGE_COLOR White
 
 typedef struct {
 	int x;
@@ -42,5 +45,7 @@ void writeWalls(int wall_p1, int wall_p2);
 void writeTimeRemaining(int time);
 void drawSquareArea(Coordinates pos, int color);
 void drawWall(Coordinates pos, int direction, int color);
+void writeMessage(char message[]);
+void clearMessage();
 
 #endif

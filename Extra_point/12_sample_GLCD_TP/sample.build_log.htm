@@ -30,8 +30,9 @@ Rebuild target 'Target 1'
 assembling startup_LPC17xx.s...
 compiling AsciiLib.c...
 compiling core_cm3.c...
-compiling system_LPC17xx.c...
 compiling sample.c...
+quoridor/../graphics/interface.h(49): warning:  #1295-D: Deprecated declaration clearMessage - give arg types
+  void clearMessage();
 quoridor/quoridor.h(43): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
   void rotateWall();
 quoridor/quoridor.h(44): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
@@ -40,9 +41,12 @@ quoridor/quoridor.h(45): warning:  #1295-D: Deprecated declaration undoWall - gi
   void undoWall();
 quoridor/quoridor.h(48): warning:  #1-D: last line of file ends without a newline
   #endif
-sample.c: 4 warnings, 0 errors
+sample.c: 5 warnings, 0 errors
 compiling lib_timer.c...
+compiling system_LPC17xx.c...
 compiling IRQ_timer.c...
+timer\../quoridor/../graphics/interface.h(49): warning:  #1295-D: Deprecated declaration clearMessage - give arg types
+  void clearMessage();
 timer\../quoridor/quoridor.h(43): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
   void rotateWall();
 timer\../quoridor/quoridor.h(44): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
@@ -51,11 +55,14 @@ timer\../quoridor/quoridor.h(45): warning:  #1295-D: Deprecated declaration undo
   void undoWall();
 timer\../quoridor/quoridor.h(48): warning:  #1-D: last line of file ends without a newline
   #endif
-timer\IRQ_timer.c: 4 warnings, 0 errors
-compiling IRQ_RIT.c...
+timer\IRQ_timer.c: 5 warnings, 0 errors
 compiling TouchPanel.c...
+compiling IRQ_RIT.c...
 compiling lib_RIT.c...
+compiling HzLib.c...
 compiling IRQ_button.c...
+BUTTON_EXINT\../quoridor/../graphics/interface.h(49): warning:  #1295-D: Deprecated declaration clearMessage - give arg types
+  void clearMessage();
 BUTTON_EXINT\../quoridor/quoridor.h(43): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
   void rotateWall();
 BUTTON_EXINT\../quoridor/quoridor.h(44): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
@@ -64,10 +71,11 @@ BUTTON_EXINT\../quoridor/quoridor.h(45): warning:  #1295-D: Deprecated declarati
   void undoWall();
 BUTTON_EXINT\../quoridor/quoridor.h(48): warning:  #1-D: last line of file ends without a newline
   #endif
-BUTTON_EXINT\IRQ_button.c: 4 warnings, 0 errors
-compiling HzLib.c...
+BUTTON_EXINT\IRQ_button.c: 5 warnings, 0 errors
 compiling lib_button.c...
 compiling funct_joystick.c...
+joystick\../quoridor/../graphics/interface.h(49): warning:  #1295-D: Deprecated declaration clearMessage - give arg types
+  void clearMessage();
 joystick\../quoridor/quoridor.h(43): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
   void rotateWall();
 joystick\../quoridor/quoridor.h(44): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
@@ -78,15 +86,21 @@ joystick\../quoridor/quoridor.h(48): warning:  #1-D: last line of file ends with
   #endif
 joystick\funct_joystick.c(144): warning:  #1-D: last line of file ends without a newline
   */
-joystick\funct_joystick.c: 5 warnings, 0 errors
+joystick\funct_joystick.c: 6 warnings, 0 errors
 compiling lib_joystick.c...
-compiling funct_led.c...
 compiling lib_led.c...
+compiling funct_led.c...
 compiling interface.c...
-graphics\interface.c(158): warning:  #1-D: last line of file ends without a newline
+graphics\interface.h(49): warning:  #1295-D: Deprecated declaration clearMessage - give arg types
+  void clearMessage();
+graphics\interface.c(169): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+  	GUI_Text(X_MESSAGE, Y_MESSAGE, message, MESSAGE_COLOR, BGCOLOR);
+graphics\interface.c(170): warning:  #1-D: last line of file ends without a newline
   }
-graphics\interface.c: 1 warning, 0 errors
+graphics\interface.c: 3 warnings, 0 errors
 compiling quoridor.c...
+quoridor\../graphics/interface.h(49): warning:  #1295-D: Deprecated declaration clearMessage - give arg types
+  void clearMessage();
 quoridor\quoridor.h(43): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
   void rotateWall();
 quoridor\quoridor.h(44): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
@@ -97,48 +111,48 @@ quoridor\quoridor.h(48): warning:  #1-D: last line of file ends without a newlin
   #endif
 quoridor\../queue/queue.h(11): warning:  #1-D: last line of file ends without a newline
   #endif
-quoridor\quoridor.c(72): warning:  #177-D: variable "i"  was declared but never referenced
-  	int queue_dim, i, j;
-quoridor\quoridor.c(72): warning:  #177-D: variable "j"  was declared but never referenced
-  	int queue_dim, i, j;
-quoridor\quoridor.c(131): warning:  #177-D: variable "i"  was declared but never referenced
-  	int i, numWalls_p1, numWalls_p2, overlap1, overlap2;
-quoridor\quoridor.c(131): warning:  #177-D: variable "numWalls_p1"  was declared but never referenced
-  	int i, numWalls_p1, numWalls_p2, overlap1, overlap2;
-quoridor\quoridor.c(131): warning:  #177-D: variable "numWalls_p2"  was declared but never referenced
-  	int i, numWalls_p1, numWalls_p2, overlap1, overlap2;
-quoridor\quoridor.c(163): warning:  #940-D: missing return statement at end of non-void function "targetPos" 
+quoridor\quoridor.c(46): warning:  #940-D: missing return statement at end of non-void function "targetPos" 
   }
-quoridor\quoridor.c(191): warning:  #177-D: variable "i"  was declared but never referenced
+quoridor\quoridor.c(91): warning:  #177-D: variable "finalPos"  was declared but never referenced
+  	Coordinates currElem, adjElem, finalPos;
+quoridor\quoridor.c(156): warning:  #177-D: variable "i"  was declared but never referenced
+  	int i, numWalls_p1, numWalls_p2, overlap1, overlap2;
+quoridor\quoridor.c(156): warning:  #177-D: variable "numWalls_p1"  was declared but never referenced
+  	int i, numWalls_p1, numWalls_p2, overlap1, overlap2;
+quoridor\quoridor.c(156): warning:  #177-D: variable "numWalls_p2"  was declared but never referenced
+  	int i, numWalls_p1, numWalls_p2, overlap1, overlap2;
+quoridor\quoridor.c(205): warning:  #177-D: variable "i"  was declared but never referenced
   	int newDir, i, j, p;
-quoridor\quoridor.c(191): warning:  #177-D: variable "j"  was declared but never referenced
+quoridor\quoridor.c(205): warning:  #177-D: variable "j"  was declared but never referenced
   	int newDir, i, j, p;
-quoridor\quoridor.c(191): warning:  #177-D: variable "p"  was declared but never referenced
+quoridor\quoridor.c(205): warning:  #177-D: variable "p"  was declared but never referenced
   	int newDir, i, j, p;
-quoridor\quoridor.c(268): warning:  #1293-D: assignment in condition
-  	if((playState.validMove = validPos(finalPos))){
-quoridor\quoridor.c(266): warning:  #177-D: variable "finalPosX"  was declared but never referenced
+quoridor\quoridor.c(299): warning:  #1293-D: assignment in condition
+  	if((playState.validMove = validPos(finalPos, playState.currentPos[playState.player-1]))){
+quoridor\quoridor.c(297): warning:  #177-D: variable "finalPosX"  was declared but never referenced
   	int finalPosX, finalPosY, i;
-quoridor\quoridor.c(266): warning:  #177-D: variable "finalPosY"  was declared but never referenced
+quoridor\quoridor.c(297): warning:  #177-D: variable "finalPosY"  was declared but never referenced
   	int finalPosX, finalPosY, i;
-quoridor\quoridor.c(266): warning:  #177-D: variable "i"  was declared but never referenced
+quoridor\quoridor.c(297): warning:  #177-D: variable "i"  was declared but never referenced
   	int finalPosX, finalPosY, i;
-quoridor\quoridor.c(302): warning:  #177-D: variable "rowC"  was declared but never referenced
+quoridor\quoridor.c(346): warning:  #177-D: variable "rowC"  was declared but never referenced
   	int rowC, colC, currDir, nextDir, i, j;
-quoridor\quoridor.c(302): warning:  #177-D: variable "colC"  was declared but never referenced
+quoridor\quoridor.c(346): warning:  #177-D: variable "colC"  was declared but never referenced
   	int rowC, colC, currDir, nextDir, i, j;
-quoridor\quoridor.c(302): warning:  #177-D: variable "i"  was declared but never referenced
+quoridor\quoridor.c(346): warning:  #177-D: variable "i"  was declared but never referenced
   	int rowC, colC, currDir, nextDir, i, j;
-quoridor\quoridor.c(302): warning:  #177-D: variable "j"  was declared but never referenced
+quoridor\quoridor.c(346): warning:  #177-D: variable "j"  was declared but never referenced
   	int rowC, colC, currDir, nextDir, i, j;
-quoridor\quoridor.c(342): warning:  #177-D: variable "rowC"  was declared but never referenced
+quoridor\quoridor.c(390): warning:  #177-D: variable "rowC"  was declared but never referenced
   	int rowC, colC, i, dir;
-quoridor\quoridor.c(342): warning:  #177-D: variable "colC"  was declared but never referenced
+quoridor\quoridor.c(390): warning:  #177-D: variable "colC"  was declared but never referenced
   	int rowC, colC, i, dir;
-quoridor\quoridor.c(342): warning:  #550-D: variable "dir"  was set but never used
+quoridor\quoridor.c(390): warning:  #550-D: variable "dir"  was set but never used
   	int rowC, colC, i, dir;
 quoridor\quoridor.c: 25 warnings, 0 errors
 compiling queue.c...
+queue\../queue/../quoridor/../graphics/interface.h(49): warning:  #1295-D: Deprecated declaration clearMessage - give arg types
+  void clearMessage();
 queue\../queue/../quoridor/quoridor.h(43): warning:  #1295-D: Deprecated declaration rotateWall - give arg types
   void rotateWall();
 queue\../queue/../quoridor/quoridor.h(44): warning:  #1295-D: Deprecated declaration confirmWall - give arg types
@@ -149,13 +163,13 @@ queue\../queue/../quoridor/quoridor.h(48): warning:  #1-D: last line of file end
   #endif
 queue\../queue/queue.h(11): warning:  #1-D: last line of file ends without a newline
   #endif
-queue\queue.c(23): warning:  #1-D: last line of file ends without a newline
+queue\queue.c(24): warning:  #1-D: last line of file ends without a newline
   }
-queue\queue.c: 6 warnings, 0 errors
+queue\queue.c: 7 warnings, 0 errors
 compiling GLCD.c...
 linking...
-Program Size: Code=28428 RO-data=1836 RW-data=48 ZI-data=936  
-".\sample.axf" - 0 Error(s), 49 Warning(s).
+Program Size: Code=29144 RO-data=1868 RW-data=48 ZI-data=1480  
+".\sample.axf" - 0 Error(s), 56 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -178,7 +192,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.6.0
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

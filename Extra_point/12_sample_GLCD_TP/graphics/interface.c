@@ -76,6 +76,7 @@ static void drawBox(int index){
 	LCD_DrawLine(x0, y0, x1, y1, White);
 }
 
+
 void drawChessPlatform(){
 	int i, j;
 	for(i = 0; i < NUM_SQUARES; i++){
@@ -154,5 +155,16 @@ void drawWall(Coordinates pos, int direction, int color){
 			LCD_DrawLine(x0+i, y0, x0+i, y1, color);
 		}
 	}
-	
+}
+
+void clearMessage(){
+	int i;
+	for(i = Y_MESSAGE; i < 320; i++){
+		LCD_DrawLine(X_MESSAGE, i, 240, i, BGCOLOR);
+	}
+}
+
+void writeMessage(char message[]){
+	clearMessage();
+	GUI_Text(X_MESSAGE, Y_MESSAGE, message, MESSAGE_COLOR, BGCOLOR);
 }

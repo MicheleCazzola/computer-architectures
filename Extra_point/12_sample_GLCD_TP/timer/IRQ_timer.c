@@ -34,8 +34,15 @@ void TIMER0_IRQHandler (void)
 	
 	reset_timer(0);
 	if(playState.time_remaining == 0){
-		setColorMove(playState.currentPos[playState.player - 1], BGCOLOR);
-		saveMove(playState.player-1, PLAYER_MOVE, OUT_OF_TIME_MOVE, nextPos);
+		if(playState.pending_wall == 0){
+			setColorMove(playState.currentPos[playState.player - 1], BGCOLOR);
+			saveMove(playState.player-1, PLAYER_MOVE, OUT_OF_TIME_MOVE, nextPos);
+		}
+		else{
+			drawWall(playState.walls[playState.player-1].position[playState.walls[playState.player-1].used],
+									playState.walls[playState.player-1].dir[playState.walls[playState.player-1].used], BGCOLOR);
+		}
+		
 		setPlayer(3 - playState.player);
 	}
 	else{

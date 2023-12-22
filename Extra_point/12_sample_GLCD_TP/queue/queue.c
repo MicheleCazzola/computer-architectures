@@ -13,6 +13,7 @@ Coordinates dequeue(Coordinates *queue, int *dim){
 	Coordinates result = queue[0];
 	for(i = 0; i < (*dim)-1; i++){
 		queue[i] = queue[i+1];
+		queue[i+1].x = queue[i+1].y = 0;
 	}
 	(*dim)--;
 	return result;

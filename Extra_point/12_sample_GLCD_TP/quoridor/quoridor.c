@@ -1,3 +1,4 @@
+#include <string.h>
 #include "quoridor.h"
 #include "../timer/timer.h"
 #include "../graphics/interface.h"
@@ -11,12 +12,15 @@
 //int validMove;
 //wallType walls[2];
 
+#define MESSAGE_LENGTH 30
+
 const Coordinates START_POS_PLAYER1 = {3,6};
 const Coordinates START_POS_PLAYER2 = {3,0};
 const Coordinates WALL_DEFAULT_POS = {3,2};
 
 PlayType playState;
 Coordinates nextPos;
+char message[MESSAGE_LENGTH] = "\0\0";
 
 static int abs(int x){
 	return x > 0 ? x : -x;
@@ -30,38 +34,50 @@ static int centerWallInPlatform(Coordinates pos){
 	return 0 <= pos.x && pos.x < NUM_SQUARES-1 && 0 <= pos.y && pos.y < NUM_SQUARES-1;
 }
 
+static int targetPos(Coordinates srcPos, Coordinates destPos, Coordinates *finalPos){
+	int stepX = destPos.x - srcPos.x, stepY = destPos.y - srcPos.y;
+	if(playState.currentPos[3 - playState.player - 1].x == destPos.x &&
+				playState.currentPos[3 - playState.player - 1].y == destPos.y){
+		stepY = (srcPos.x == destPos.x) ? -1*(2 * (destPos.y < srcPos.y) - 1)*(abs(destPos.y - srcPos.y)+1) : 0;
+		stepX = (srcPos.y == destPos.y) ? -1*(2 * (destPos.x < srcPos.x) - 1)*(abs(destPos.x - srcPos.x)+1) : 0;
+	}
+	finalPos->x = srcPos.x + stepX;
+	finalPos->y = srcPos.y + stepY;
+}
+
 static int wallBetweenCells(Coordinates srcPos, Coordinates destPos, Coordinates centerPos, int dir){
 	//int disconnected = 0;
 	if(dir == HORIZONTAL_WALL){
-		if(srcPos.x == centerPos.x && destPos.x == centerPos.x && srcPos.y == destPos.y-1 && centerPos.y == srcPos.y) return 1;
-		if(srcPos.x == centerPos.x && destPos.x == centerPos.x && destPos.y == srcPos.y-1 && centerPos.y == destPos.y) return 1;
+		if(srcPos.x == destPos.x && (destPos.x == centerPos.x || destPos.x == centerPos.x+1) && srcPos.y <= centerPos.y && centerPos.y < destPos.y) return 1;
+		if(srcPos.x == destPos.x && (destPos.x == centerPos.x || destPos.x == centerPos.x+1) && destPos.y <= centerPos.y && centerPos.y < srcPos.y) return 1;
 	}
 	else{
-		if(srcPos.y == centerPos.y && destPos.y == centerPos.y && srcPos.x == destPos.x-1 && centerPos.x == srcPos.x) return 1;
-		if(srcPos.y == centerPos.y && destPos.y == centerPos.y && destPos.x == srcPos.x-1 && centerPos.x == destPos.x) return 1;
+		if(srcPos.y == destPos.y && (destPos.y == centerPos.y || destPos.y == centerPos.y+1) && srcPos.x <= centerPos.x && centerPos.x < destPos.x) return 1;
+		if(srcPos.y == destPos.y && (destPos.y == centerPos.y || destPos.y == centerPos.y+1) && destPos.x <= centerPos.x && centerPos.x < srcPos.x) return 1;
 	}
 	return 0;
 }
 
-static int noPlayerWallBetween(Coordinates adjPos, int wallPlayer){
+static int noPlayerWallBetween(Coordinates adjPos, Coordinates currentPos, int wallPlayer){
 	int i;
-	for(i = 0; i < playState.walls[wallPlayer-1].used; i++){
-		if(wallBetweenCells(playState.currentPos[playState.player-1], adjPos, playState.walls[wallPlayer-1].position[i], playState.walls[wallPlayer-1].dir[i])){
+	int wall_in_progress = wallPlayer == playState.player && playState.pending_wall == 1;
+	for(i = 0; i < playState.walls[wallPlayer-1].used + wall_in_progress; i++){
+		if(wallBetweenCells(currentPos, adjPos, playState.walls[wallPlayer-1].position[i], playState.walls[wallPlayer-1].dir[i])){
 			return 0;
 		}
 	}
 	return 1;
 }
 
-static int noWallBetween(Coordinates adjPos){
-	return noPlayerWallBetween(adjPos, PLAYER1) && noPlayerWallBetween(adjPos, PLAYER2);
+static int noWallBetween(Coordinates adjPos, Coordinates currentPos){
+	return noPlayerWallBetween(adjPos, currentPos, PLAYER1) && noPlayerWallBetween(adjPos, currentPos, PLAYER2);
 }
 
-static int validPos(Coordinates pos){
+static int validPos(Coordinates pos, Coordinates currentPos){
 	int in_platform, connected;
 	
 	in_platform = posInPlatform(pos);
-	connected = noWallBetween(pos);
+	connected = noWallBetween(pos, currentPos);
 	
 	return in_platform && connected;
 }
@@ -70,23 +86,23 @@ static int validPos(Coordinates pos){
 static int check_reachability(int player){
 	
 	int queue_dim, i, j;
-	Coordinates queue[10];
-	int visited[NUM_SQUARES][NUM_SQUARES];
-	Coordinates currElem, adjElem;
-	/*
+	Coordinates queue[NUM_SQUARES*NUM_SQUARES];
+	int enqueued[NUM_SQUARES][NUM_SQUARES];
+	Coordinates currElem, adjElem, finalPos;
+	
 	for(i = 0; i < NUM_SQUARES; i++){
 		for(j = 0; j < NUM_SQUARES; j++){
-			visited[i][j] = 0;
+			enqueued[i][j] = 0;
 		}
-	}*/
+	}
 	
 	queue_dim = 0;
 	currElem = playState.currentPos[player-1];
 	enqueue(queue, currElem, &queue_dim);
+	enqueued[currElem.x][currElem.y] = 1;
 	
 	while(!is_empty(queue, queue_dim)){
 		currElem = dequeue(queue, &queue_dim);
-		visited[currElem.x][currElem.y] = 1;
 		
 		if(currElem.y == 6*(player-1)){
 			clear_queue(queue, &queue_dim);
@@ -95,11 +111,12 @@ static int check_reachability(int player){
 		
 		for(adjElem.x = currElem.x - 1; adjElem.x <= currElem.x + 1; adjElem.x++){
 			for(adjElem.y = currElem.y - 1; adjElem.y <= currElem.y + 1; adjElem.y++){
-				//targetPos(currElem, tempPos, &finalPos);
-				if(validPos(adjElem)){
+				//targetPos(currElem, adjElem, &finalPos);
+				if(validPos(adjElem, currElem)){
 					if(adjElem.x == currElem.x ^ adjElem.y == currElem.y){
-						if(visited[adjElem.x][adjElem.y] == 0){
+						if(enqueued[adjElem.x][adjElem.y] == 0){
 							enqueue(queue, adjElem, &queue_dim);
+							enqueued[adjElem.x][adjElem.y] = 1;
 						}
 					}
 				}
@@ -116,11 +133,19 @@ static int exists_overlapping_wall(int playerWalls, Coordinates centerPos, int d
 	for(i = 0; i < numWalls && !overlap; i++){
 		if(dir == playState.walls[playerWalls-1].dir[i]){
 			*overlapping = i;
-			overlap = playState.walls[playerWalls-1].position[i].x == centerPos.x || playState.walls[playerWalls-1].position[i].y == centerPos.y;
+			if(dir == HORIZONTAL_WALL){
+				overlap = playState.walls[playerWalls-1].position[i].y == centerPos.y &&
+									abs(playState.walls[playerWalls-1].position[i].x - centerPos.x) <= 1;
+			}
+			else{
+				overlap = playState.walls[playerWalls-1].position[i].x == centerPos.x && 
+									abs(playState.walls[playerWalls-1].position[i].y - centerPos.y) <= 1;
+			}
 		}
 		else{
 			*overlapping = i;
-			overlap = playState.walls[playerWalls-1].position[i].x == centerPos.x && playState.walls[playerWalls-1].position[i].y == centerPos.y;
+			overlap = playState.walls[playerWalls-1].position[i].x == centerPos.x &&
+								playState.walls[playerWalls-1].position[i].y == centerPos.y;
 		}
 	} 
 	
@@ -149,17 +174,6 @@ static int validWallPos(Coordinates centerPos, int dir, int *overlapped, int *pl
 	not_overlap = check_not_overlapping(centerPos, dir, overlapped, player);
 	
 	return valid_position && r1 && r2 && not_overlap;
-}
-
-static int targetPos(Coordinates srcPos, Coordinates destPos, Coordinates *finalPos){
-	int stepX = destPos.x - srcPos.x, stepY = destPos.y - srcPos.y;
-	if(playState.currentPos[3 - playState.player - 1].x == destPos.x &&
-				playState.currentPos[3 - playState.player - 1].y == destPos.y){
-		stepY = (srcPos.x == destPos.x) ? -1*(2 * (destPos.y < srcPos.y) - 1)*(abs(destPos.y - srcPos.y)+1) : 0;
-		stepX = (srcPos.y == destPos.y) ? -1*(2 * (destPos.x < srcPos.x) - 1)*(abs(destPos.x - srcPos.x)+1) : 0;
-	}
-	finalPos->x = srcPos.x + stepX;
-	finalPos->y = srcPos.y + stepY;
 }
 
 static void setWall(Coordinates centerPos, int direction){
@@ -213,20 +227,29 @@ void saveMove(int playerId, int moveType, int wallOrientation, Coordinates destP
 static void init_players(){
 	playState.currentPos[PLAYER1-1] = START_POS_PLAYER1;
 	playState.currentPos[PLAYER2-1] = START_POS_PLAYER2;
+	drawToken(START_POS_PLAYER1, PLAYER1_COLOR);
+	drawToken(START_POS_PLAYER2, PLAYER2_COLOR);
+	writeWalls(MAX_NUM_WALLS, MAX_NUM_WALLS);
+}
+
+static void init_interface(){
+	LCD_Clear(Blue);
+	drawChessPlatform();
+}
+
+static void init_players_data(){
+	setMode(WAITING);
+	init_players();
+	playState.pending_wall = 0;
+	if(strlen(message) > 0){
+		writeMessage(message);
+		message[0] = '\0';
+	}
 }
 
 void initGame(){
-	LCD_Clear(Blue);
-	
-	drawChessPlatform();
-	
-	init_players();
-	drawToken(START_POS_PLAYER1, PLAYER1_COLOR);
-	drawToken(START_POS_PLAYER2, PLAYER2_COLOR);
-	
-	writeWalls(MAX_NUM_WALLS, MAX_NUM_WALLS);
-	setMode(WAITING);
-	playState.pending_wall = 0;
+	init_interface();
+	init_players_data();
 }
 
 void setMode(int modeValue){
@@ -239,8 +262,16 @@ void setMode(int modeValue){
 
 void setPlayer(int playerValue){
 	
+	if(playState.pending_wall == 1){
+		redrawWalls();
+	}
+	
+	clearMessage();
+	
+	playState.validMove = 0;
 	playState.player = playerValue;
 	playState.time_remaining = 20;
+	playState.pending_wall = 0;
 	setColorMove(playState.currentPos[playState.player-1], VALID_MOVE_COLOR);
 	enable_timer(0);
 }
@@ -251,7 +282,7 @@ void setColorMove(Coordinates pos, int color){
 	for(tempPos.x = pos.x - 1; tempPos.x <= pos.x + 1; tempPos.x++){
 		for(tempPos.y = pos.y - 1; tempPos.y <= pos.y + 1; tempPos.y++){
 			targetPos(pos, tempPos, &finalPos);
-			if(validPos(finalPos)){
+			if(validPos(finalPos, playState.currentPos[playState.player-1])){
 				if(finalPos.x == pos.x ^ finalPos.y == pos.y){
 					drawSquareArea(finalPos, color);
 				}
@@ -265,7 +296,7 @@ void setNextPos(int h, int v){
 	Coordinates destPos = getMovedPos(playState.currentPos[playState.player - 1], h, v);
 	int finalPosX, finalPosY, i;
 	targetPos(playState.currentPos[playState.player-1], destPos, &finalPos);
-	if((playState.validMove = validPos(finalPos))){
+	if((playState.validMove = validPos(finalPos, playState.currentPos[playState.player-1]))){
 		nextPos = finalPos;
 	}
 	else{
@@ -274,19 +305,32 @@ void setNextPos(int h, int v){
 }
 
 void move(){
-	reset_timer(0);
-	
-	drawToken(playState.currentPos[playState.player-1], BGCOLOR);
-	setColorMove(playState.currentPos[playState.player-1], BGCOLOR);
-	drawToken(nextPos, (playState.player == PLAYER1) ? PLAYER1_COLOR : PLAYER2_COLOR);
-	
-	playState.currentPos[playState.player-1] = nextPos;
 	
 	if(playState.validMove){
+		
+		reset_timer(0);
+	
+		drawToken(playState.currentPos[playState.player-1], BGCOLOR);
+		setColorMove(playState.currentPos[playState.player-1], BGCOLOR);
+		drawToken(nextPos, (playState.player == PLAYER1) ? PLAYER1_COLOR : PLAYER2_COLOR);
+		
+		playState.currentPos[playState.player-1] = nextPos;
+		
 		saveMove(playState.player-1, PLAYER_MOVE, PLAYER_MOVE, playState.currentPos[playState.player-1]);
+		
+		if(playState.currentPos[playState.player-1].y == 6 * (playState.player-1)){
+			char pchar = (char)(playState.player + '0');
+			char messageLoc[MESSAGE_LENGTH] = "Player ";
+			strcat(messageLoc, (const char *) &pchar);
+			strcat(messageLoc, " won! INT0 to restart");
+			strcpy(message, messageLoc);
+			initGame();
+		}
+		else{
+			setPlayer(3 - playState.player);
+		}
 	}
 	
-	setPlayer(3 - playState.player);
 }
 
 void newWall(Coordinates centerPos, int direction){
@@ -315,15 +359,19 @@ void confirmWall(){
 	int i = playState.walls[playState.player-1].used;
 	int overlapped_wall_index, player_index;
 	if(validWallPos(playState.walls[playState.player - 1].position[i], playState.walls[playState.player-1].dir[i], &overlapped_wall_index, &player_index)){
+		
 		playState.pending_wall = 0;
 		playState.walls[playState.player-1].used++;
 		saveMove(playState.player-1, WALL_PLACEMENT, playState.walls[playState.player-1].dir[i], playState.walls[playState.player - 1].position[i]);
+		
 		writeWalls(MAX_NUM_WALLS - playState.walls[PLAYER1-1].used ,MAX_NUM_WALLS - playState.walls[PLAYER2-1].used);
 		setPlayer(3 - playState.player);
 	}
 	else{
-		drawWall(playState.walls[playState.player-1].position[i], playState.walls[playState.player-1].dir[i], BGCOLOR);
-		drawWall(playState.walls[player_index].position[overlapped_wall_index], playState.walls[player_index].dir[overlapped_wall_index], WALL_COLOR);
+		writeMessage("Position not valid");
+		//drawWall(playState.walls[playState.player-1].position[i], playState.walls[playState.player-1].dir[i], BGCOLOR);
+		//redrawWalls();
+		//drawWall(playState.walls[player_index].position[overlapped_wall_index], playState.walls[player_index].dir[overlapped_wall_index], WALL_COLOR);
 	}
 }
 
@@ -341,6 +389,9 @@ void undoWall(){
 void setNextWall(int h, int v){
 	int rowC, colC, i, dir;
 	Coordinates pos;
+	
+	clearMessage();
+	
 	i = playState.walls[playState.player-1].used;
 	pos = getMovedPos(playState.walls[playState.player-1].position[i], h, v);
 	dir = playState.walls[playState.player-1].dir[i];

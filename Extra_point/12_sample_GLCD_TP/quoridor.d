@@ -1,4 +1,5 @@
 .\quoridor.o: quoridor\quoridor.c
+.\quoridor.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\string.h
 .\quoridor.o: quoridor\quoridor.h
 .\quoridor.o: quoridor\../graphics/interface.h
 .\quoridor.o: quoridor\../graphics/../GLCD/GLCD.h
