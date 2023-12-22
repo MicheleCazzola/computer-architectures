@@ -12,20 +12,7 @@
 #include "interface.h"
 #include "../GLCD/GLCD.h"
 
-void drawChessPlatform(){
-	int i, j;
-	for(i = 0; i < NUM_SQUARES; i++){
-		for(j = 0; j < NUM_SQUARES; j++){
-			drawSquare(i, j);
-		}
-	}
-	
-	for(i = 0; i < NUM_BOXES; i++){
-		drawBox(i);
-	}
-}
-
-void drawSquare(int row, int col){
+static void drawSquare(int row, int col){
 	int x0, y0, x1, y1;
 	
 	// Upper horiz
@@ -57,7 +44,7 @@ void drawSquare(int row, int col){
 	LCD_DrawLine(x0, y0, x1, y1, White);
 }
 
-void drawBox(int index){
+static void drawBox(int index){
 	int x0, y0, x1, y1;
 	
 	// Upper horiz
@@ -89,10 +76,23 @@ void drawBox(int index){
 	LCD_DrawLine(x0, y0, x1, y1, White);
 }
 
-void drawToken(int row, int col, int color){
+void drawChessPlatform(){
+	int i, j;
+	for(i = 0; i < NUM_SQUARES; i++){
+		for(j = 0; j < NUM_SQUARES; j++){
+			drawSquare(i, j);
+		}
+	}
+	
+	for(i = 0; i < NUM_BOXES; i++){
+		drawBox(i);
+	}
+}
+
+void drawToken(Coordinates pos, int color){
 	int xp, yp, i, j;
-	xp = MARGIN_WIDTH + col * (SPACE_WIDTH + SQUARE_SIDE) + (SQUARE_SIDE)/2;
-	yp = MARGIN_WIDTH + row * (SPACE_WIDTH + SQUARE_SIDE) + (SQUARE_SIDE)/2;
+	xp = MARGIN_WIDTH + pos.x * (SPACE_WIDTH + SQUARE_SIDE) + (SQUARE_SIDE)/2;
+	yp = MARGIN_WIDTH + pos.y * (SPACE_WIDTH + SQUARE_SIDE) + (SQUARE_SIDE)/2;
 	for(i = -TOKEN_SIDE/2; i < TOKEN_SIDE/2; i++){
 		for(j = -TOKEN_SIDE/2; j < TOKEN_SIDE/2; j++){
 			LCD_SetPoint(xp+i, yp+j, color);
@@ -119,13 +119,13 @@ void writeTimeRemaining(int time){
 	GUI_Text(XPOS_TIME, ROW_TIME, s, White, Blue);
 }
 
-void drawSquareArea(int r, int c, int color){
+void drawSquareArea(Coordinates pos, int color){
 	int x0, y0, x1, y1, cnt;
 	
 	// Upper horiz
-	x0 = MARGIN_WIDTH + c * (SPACE_WIDTH + SQUARE_SIDE) + 1;
+	x0 = MARGIN_WIDTH + pos.x * (SPACE_WIDTH + SQUARE_SIDE) + 1;
 	x1 = x0 + SQUARE_SIDE - 2;
-	y0 = MARGIN_WIDTH + r * (SPACE_WIDTH + SQUARE_SIDE) + 1;
+	y0 = MARGIN_WIDTH + pos.y * (SPACE_WIDTH + SQUARE_SIDE) + 1;
 	y1 = y0;
 	
 	for(cnt = 0; cnt < SQUARE_SIDE - 1; cnt++, y0++, y1++){
@@ -134,17 +134,16 @@ void drawSquareArea(int r, int c, int color){
 	
 }
 
-void drawWall(int row, int col, int direction, int color){
+void drawWall(Coordinates pos, int direction, int color){
 	int i, x0, x1, y0, y1, xc, yc;
-	xc = MARGIN_WIDTH + SQUARE_SIDE + row * (SQUARE_SIDE + SPACE_WIDTH) + 2;
-	yc = MARGIN_WIDTH + SQUARE_SIDE + col * (SQUARE_SIDE + SPACE_WIDTH) + 2;
+	xc = MARGIN_WIDTH + SQUARE_SIDE + pos.x * (SQUARE_SIDE + SPACE_WIDTH) + 2;
+	yc = MARGIN_WIDTH + SQUARE_SIDE + pos.y * (SQUARE_SIDE + SPACE_WIDTH) + 2;
 	if(direction == HORIZONTAL_WALL){
 		x0 = xc - WALL_LENGTH/2;
 		x1 = xc + WALL_LENGTH/2;
 		y0 = yc - (SPACE_WIDTH-1)/2;;
 		for(i = 0; i < SPACE_WIDTH-1; i++){
 			LCD_DrawLine(x0, y0+i, x1, y0+i, color);
-			
 		}
 	}
 	if(direction == VERTICAL_WALL){

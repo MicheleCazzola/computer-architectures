@@ -33,12 +33,19 @@ extern int joystick_left(int left);
 extern int joystick_right(int right);
 extern int joystick_select(int select);
 
+extern void joystick_controller(int *pressed);
+
 int down_int0 = 0;
 int down_key1 = 0;
 int down_key2 = 0;
 
 void RIT_IRQHandler (void)
 {		
+	static int directions[5] = {0, 0, 0, 0, 0};
+	
+	joystick_controller(directions);
+	
+	/*
 	static int up = 0;
 	static int down = 0;
 	static int right = 0;
@@ -50,6 +57,8 @@ void RIT_IRQHandler (void)
 	left = joystick_left(left);
 	right = joystick_right(right);
 	sel = joystick_select(sel);
+	
+	*/
 	
 	// INT0
 	if(down_int0 > 0){

@@ -11,6 +11,7 @@
 .\sample.o: TouchPanel/TouchPanel.h
 .\sample.o: timer/timer.h
 .\sample.o: quoridor/quoridor.h
+.\sample.o: quoridor/../graphics/interface.h
 .\sample.o: RIT/RIT.h
 .\sample.o: BUTTON_EXINT/button.h
 .\sample.o: joystick/joystick.h

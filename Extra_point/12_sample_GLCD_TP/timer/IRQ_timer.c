@@ -26,8 +26,7 @@
 ******************************************************************************/
 
 extern PlayType playState;
-extern int time_remaining, player;
-extern int currX[2], currY[2], nextPos[2];
+extern Coordinates nextPos;
 
 void TIMER0_IRQHandler (void)
 {
@@ -35,9 +34,9 @@ void TIMER0_IRQHandler (void)
 	
 	reset_timer(0);
 	if(playState.time_remaining == 0){
-		setColorMove(playState.currentPos[playState.player-1].x, playState.currentPos[playState.player-1].y, BGCOLOR);
-		saveMove(playState.player-1, PLAYER_MOVE, OUT_OF_TIME_MOVE, nextPos[0], nextPos[1]);
-		setPlayer(3-playState.player);
+		setColorMove(playState.currentPos[playState.player - 1], BGCOLOR);
+		saveMove(playState.player-1, PLAYER_MOVE, OUT_OF_TIME_MOVE, nextPos);
+		setPlayer(3 - playState.player);
 	}
 	else{
 		enable_timer(0);

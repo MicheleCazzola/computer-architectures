@@ -1,6 +1,5 @@
 .\quoridor.o: quoridor\quoridor.c
 .\quoridor.o: quoridor\quoridor.h
-.\quoridor.o: quoridor\../timer/timer.h
 .\quoridor.o: quoridor\../graphics/interface.h
 .\quoridor.o: quoridor\../graphics/../GLCD/GLCD.h
 .\quoridor.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\LPC17xx.h
@@ -11,3 +10,5 @@
 .\quoridor.o: C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armcc.h
 .\quoridor.o: C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h
 .\quoridor.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h
+.\quoridor.o: quoridor\../timer/timer.h
+.\quoridor.o: quoridor\../queue/queue.h

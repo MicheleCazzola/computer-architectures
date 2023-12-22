@@ -31,13 +31,16 @@
 #define HORIZONTAL_WALL 1
 #define WALL_COLOR Red
 
+typedef struct {
+	int x;
+	int y;
+} Coordinates;
+
 void drawChessPlatform(void);
-void drawSquare(int row, int col);
-void drawBox(int i);
-void drawToken(int i, int j, int color);
+void drawToken(Coordinates pos, int color);
 void writeWalls(int wall_p1, int wall_p2);
 void writeTimeRemaining(int time);
-void drawSquareArea(int r, int c, int color);
-void drawWall(int row, int col, int direction, int color);
+void drawSquareArea(Coordinates pos, int color);
+void drawWall(Coordinates pos, int direction, int color);
 
 #endif

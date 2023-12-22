@@ -13,3 +13,5 @@
 .\irq_button.o: BUTTON_EXINT\../timer/timer.h
 .\irq_button.o: BUTTON_EXINT\../RIT/RIT.h
 .\irq_button.o: BUTTON_EXINT\../quoridor/quoridor.h
+.\irq_button.o: BUTTON_EXINT\../quoridor/../graphics/interface.h
+.\irq_button.o: BUTTON_EXINT\../quoridor/../graphics/../GLCD/GLCD.h

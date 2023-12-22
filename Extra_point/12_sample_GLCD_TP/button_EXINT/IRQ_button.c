@@ -7,22 +7,13 @@
 #include "../RIT/RIT.h"	
 #include "../quoridor/quoridor.h"
 
-#define VETT_IN_MAX_LEN 100
-#define VETT_OUT_MAX_LEN 100
-#define CHANGE_SYMBOL 2
-#define SPACE 3
-#define SENTENCE_END 4
-
 // Control flags
 extern int down_int0;
 extern int down_key1;
-extern int down_key2;	
+extern int down_key2;
 
 extern PlayType playState;
-extern int player;
-extern int mode;
-extern int pending_wall;
-extern wallType walls[2];
+extern Coordinates WALL_DEFAULT_POS;
 
 void INT0_function(void){
 	if(playState.pending_wall == 0){
@@ -34,8 +25,8 @@ void INT0_function(void){
 void KEY1_function(void){
 	if(playState.mode == PLAYING){
 		if(playState.pending_wall == 0){
-			if(playState.walls[player-1].used < MAX_NUM_WALLS) {
-				newWall(WALL_DEFAULT_COL, WALL_DEFAULT_ROW, HORIZONTAL_WALL);
+			if(playState.walls[playState.player-1].used < MAX_NUM_WALLS) {
+				newWall(WALL_DEFAULT_POS, HORIZONTAL_WALL);
 			}
 		}
 		else{
