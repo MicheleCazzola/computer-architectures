@@ -651,7 +651,7 @@ void GUI_Text(uint16_t Xpos, uint16_t Ypos, uint8_t *str,uint16_t Color, uint16_
         PutChar( Xpos, Ypos, TempChar, Color, bkColor );    
         if( Xpos < MAX_X - 8 )
         {
-            Xpos += 8;
+            Xpos += 7; // 8
         } 
         else if ( Ypos < MAX_Y - 16 )
         {

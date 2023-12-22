@@ -48,30 +48,30 @@ static void drawBox(int index){
 	int x0, y0, x1, y1;
 	
 	// Upper horiz
-	x0 = MARGIN_WIDTH + index * (BOX_WIDTH + SPACE_WIDTH);
+	x0 = BOX_SPACE_MARGIN_WIDTH + index * (BOX_WIDTH + BOX_SPACE_MARGIN_WIDTH);
 	x1 = x0 + BOX_WIDTH;
-	y0 = PADDING + MARGIN_WIDTH;
+	y0 = PADDING + BOX_SPACE_MARGIN_WIDTH;
 	y1 = y0;
 	LCD_DrawLine(x0, y0, x1, y1, White);
 	
 	// Lower horiz
-	x0 = MARGIN_WIDTH + index * (BOX_WIDTH + SPACE_WIDTH);
+	x0 = BOX_SPACE_MARGIN_WIDTH + index * (BOX_WIDTH + BOX_SPACE_MARGIN_WIDTH);
 	x1 = x0 + BOX_WIDTH;
-	y0 = PADDING + MARGIN_WIDTH + BOX_HEIGHT;
+	y0 = PADDING + BOX_SPACE_MARGIN_WIDTH + BOX_HEIGHT;
 	y1 = y0;
 	LCD_DrawLine(x0, y0, x1, y1, White);
 	
 	// Left vert
-	x0 = MARGIN_WIDTH + index * (BOX_WIDTH + SPACE_WIDTH);
+	x0 = BOX_SPACE_MARGIN_WIDTH + index * (BOX_WIDTH + BOX_SPACE_MARGIN_WIDTH);
 	x1 = x0;
-	y0 = PADDING + MARGIN_WIDTH;
+	y0 = PADDING + BOX_SPACE_MARGIN_WIDTH;
 	y1 = y0 + BOX_HEIGHT;
 	LCD_DrawLine(x0, y0, x1, y1, White);
 	
 	// Right vert
-	x0 = MARGIN_WIDTH + index * (BOX_WIDTH + SPACE_WIDTH) + BOX_WIDTH;
+	x0 = BOX_SPACE_MARGIN_WIDTH + index * (BOX_WIDTH + BOX_SPACE_MARGIN_WIDTH) + BOX_WIDTH;
 	x1 = x0;
-	y0 = PADDING + MARGIN_WIDTH;
+	y0 = PADDING + BOX_SPACE_MARGIN_WIDTH;
 	y1 = y0 + BOX_HEIGHT;
 	LCD_DrawLine(x0, y0, x1, y1, White);
 }
@@ -166,5 +166,10 @@ void clearMessage(){
 
 void writeMessage(char message[]){
 	clearMessage();
-	GUI_Text(X_MESSAGE, Y_MESSAGE, message, MESSAGE_COLOR, BGCOLOR);
+	if(strlen(message) < MAX_X / 7){
+		GUI_Text(X_MESSAGE, Y_MESSAGE, message, MESSAGE_COLOR, BGCOLOR);
+	} 
+	else{
+		GUI_Text(X_MESSAGE-2, Y_MESSAGE, message, MESSAGE_COLOR, BGCOLOR);
+	}
 }

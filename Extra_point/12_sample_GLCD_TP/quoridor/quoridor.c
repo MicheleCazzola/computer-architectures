@@ -17,6 +17,7 @@
 const Coordinates START_POS_PLAYER1 = {3,6};
 const Coordinates START_POS_PLAYER2 = {3,0};
 const Coordinates WALL_DEFAULT_POS = {3,2};
+const int WALL_COLORS[2] = {White, Red};
 
 PlayType playState;
 Coordinates nextPos;
@@ -187,7 +188,7 @@ static void redrawWalls(){
 	int i, j;
 	for(i = 0; i < 2; i++){
 		for(j = 0; j < playState.walls[i].used; j++){
-			drawWall(playState.walls[i].position[j], playState.walls[i].dir[j], WALL_COLOR);
+			drawWall(playState.walls[i].position[j], playState.walls[i].dir[j], WALL_COLORS[i]);
 		}
 	}
 }
@@ -209,7 +210,7 @@ static void moveWall(int h, int v){
 	
 	redrawWalls();
 	
-	drawWall(getMovedPos(newPos, h, v), newDir, WALL_COLOR);
+	drawWall(getMovedPos(newPos, h, v), newDir, WALL_COLORS[playState.player-1]);
 	setWall(getMovedPos(newPos, h, v), newDir);
 }
 
@@ -237,10 +238,17 @@ static void init_interface(){
 	drawChessPlatform();
 }
 
+static void clearWalls(){
+	playState.walls[PLAYER1-1].used = 0;
+	playState.walls[PLAYER2-1].used = 0;
+}
+
 static void init_players_data(){
 	setMode(WAITING);
 	init_players();
 	playState.pending_wall = 0;
+	clearWalls();
+	
 	if(strlen(message) > 0){
 		writeMessage(message);
 		message[0] = '\0';
@@ -272,7 +280,9 @@ void setPlayer(int playerValue){
 	playState.player = playerValue;
 	playState.time_remaining = 20;
 	playState.pending_wall = 0;
+	playState.last_move = 0xFFFFFFFF;
 	setColorMove(playState.currentPos[playState.player-1], VALID_MOVE_COLOR);
+	writeTimeRemaining(playState.time_remaining);
 	enable_timer(0);
 }
 
@@ -337,7 +347,7 @@ void newWall(Coordinates centerPos, int direction){
 	playState.pending_wall = 1;
 	setWall(centerPos, direction);
 	//drawWall(rowCenter, colCenter, direction, WALL_COLOR);
-	drawWall(centerPos, direction, playState.player == PLAYER1 ? Red : Yellow);
+	drawWall(centerPos, direction, WALL_COLORS[playState.player-1]);
 	setColorMove(playState.currentPos[playState.player-1], BGCOLOR);
 }
 
@@ -351,7 +361,7 @@ void rotateWall(){
 	
 	redrawWalls();
 	
-	drawWall(newPos, nextDir, WALL_COLOR);
+	drawWall(newPos, nextDir, WALL_COLORS[playState.player-1]);
 	setWall(newPos, nextDir);
 }
 
