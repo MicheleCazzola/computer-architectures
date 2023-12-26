@@ -35,10 +35,10 @@ static int centerWallInPlatform(Coordinates pos){
 	return 0 <= pos.x && pos.x < NUM_SQUARES-1 && 0 <= pos.y && pos.y < NUM_SQUARES-1;
 }
 
-static int targetPos(Coordinates srcPos, Coordinates destPos, Coordinates *finalPos){
+static void targetPos(Coordinates srcPos, Coordinates destPos, int player, Coordinates *finalPos){
 	int stepX = destPos.x - srcPos.x, stepY = destPos.y - srcPos.y;
-	if(playState.currentPos[3 - playState.player - 1].x == destPos.x &&
-				playState.currentPos[3 - playState.player - 1].y == destPos.y){
+	if(playState.currentPos[3 - player - 1].x == destPos.x &&
+				playState.currentPos[3 - player - 1].y == destPos.y){
 		stepY = (srcPos.x == destPos.x) ? -1*(2 * (destPos.y < srcPos.y) - 1)*(abs(destPos.y - srcPos.y)+1) : 0;
 		stepX = (srcPos.y == destPos.y) ? -1*(2 * (destPos.x < srcPos.x) - 1)*(abs(destPos.x - srcPos.x)+1) : 0;
 	}
@@ -112,12 +112,12 @@ static int check_reachability(int player){
 		
 		for(adjElem.x = currElem.x - 1; adjElem.x <= currElem.x + 1; adjElem.x++){
 			for(adjElem.y = currElem.y - 1; adjElem.y <= currElem.y + 1; adjElem.y++){
-				//targetPos(currElem, adjElem, &finalPos);
-				if(validPos(adjElem, currElem)){
-					if(adjElem.x == currElem.x ^ adjElem.y == currElem.y){
-						if(enqueued[adjElem.x][adjElem.y] == 0){
-							enqueue(queue, adjElem, &queue_dim);
-							enqueued[adjElem.x][adjElem.y] = 1;
+				targetPos(currElem, adjElem, player, &finalPos);
+				if(validPos(finalPos, currElem)){
+					if(finalPos.x == currElem.x ^ finalPos.y == currElem.y){
+						if(enqueued[finalPos.x][finalPos.y] == 0){
+							enqueue(queue, finalPos, &queue_dim);
+							enqueued[finalPos.x][finalPos.y] = 1;
 						}
 					}
 				}
@@ -154,7 +154,7 @@ static int exists_overlapping_wall(int playerWalls, Coordinates centerPos, int d
 }
 
 static int check_not_overlapping(Coordinates centerPos, int dir, int *overlapping, int *player){
-	int i, numWalls_p1, numWalls_p2, overlap1, overlap2;
+	int overlap1, overlap2;
 	int overlapping1, overlapping2;
 	overlap1 = exists_overlapping_wall(PLAYER1, centerPos, dir, &overlapping1);
 	overlap2 = exists_overlapping_wall(PLAYER2, centerPos, dir, &overlapping2);
@@ -203,7 +203,7 @@ static Coordinates getMovedPos(Coordinates currentPos, int h, int v){
 
 static void moveWall(int h, int v){
 	Coordinates newPos;
-	int newDir, i, j, p;
+	int newDir;
 	newPos = playState.walls[playState.player - 1].position[playState.walls[playState.player-1].used];
 	newDir = playState.walls[playState.player - 1].dir[playState.walls[playState.player-1].used];
 	drawWall(newPos, newDir, BGCOLOR);
@@ -247,10 +247,13 @@ static void init_players_data(){
 	setMode(WAITING);
 	init_players();
 	playState.pending_wall = 0;
+	playState.written_message = 0;
 	clearWalls();
 	
+	// Mantiene scritta vincitore
 	if(strlen(message) > 0){
 		writeMessage(message);
+		playState.written_message = 1;
 		message[0] = '\0';
 	}
 }
@@ -274,7 +277,7 @@ void setPlayer(int playerValue){
 		redrawWalls();
 	}
 	
-	clearMessage();
+	
 	
 	playState.validMove = 0;
 	playState.player = playerValue;
@@ -282,6 +285,8 @@ void setPlayer(int playerValue){
 	playState.pending_wall = 0;
 	playState.last_move = 0xFFFFFFFF;
 	setColorMove(playState.currentPos[playState.player-1], VALID_MOVE_COLOR);
+	clearMessage(playState.written_message);
+	playState.written_message = 0;
 	writeTimeRemaining(playState.time_remaining);
 	enable_timer(0);
 }
@@ -291,7 +296,7 @@ void setColorMove(Coordinates pos, int color){
 	
 	for(tempPos.x = pos.x - 1; tempPos.x <= pos.x + 1; tempPos.x++){
 		for(tempPos.y = pos.y - 1; tempPos.y <= pos.y + 1; tempPos.y++){
-			targetPos(pos, tempPos, &finalPos);
+			targetPos(pos, tempPos, playState.player, &finalPos);
 			if(validPos(finalPos, playState.currentPos[playState.player-1])){
 				if(finalPos.x == pos.x ^ finalPos.y == pos.y){
 					drawSquareArea(finalPos, color);
@@ -304,9 +309,9 @@ void setColorMove(Coordinates pos, int color){
 void setNextPos(int h, int v){
 	Coordinates finalPos;
 	Coordinates destPos = getMovedPos(playState.currentPos[playState.player - 1], h, v);
-	int finalPosX, finalPosY, i;
-	targetPos(playState.currentPos[playState.player-1], destPos, &finalPos);
-	if((playState.validMove = validPos(finalPos, playState.currentPos[playState.player-1]))){
+	targetPos(playState.currentPos[playState.player-1], destPos, playState.player, &finalPos);
+	playState.validMove = validPos(finalPos, playState.currentPos[playState.player-1]);
+	if(playState.validMove){
 		nextPos = finalPos;
 	}
 	else{
@@ -345,15 +350,15 @@ void move(){
 
 void newWall(Coordinates centerPos, int direction){
 	playState.pending_wall = 1;
+	setColorMove(playState.currentPos[playState.player-1], BGCOLOR);
 	setWall(centerPos, direction);
 	//drawWall(rowCenter, colCenter, direction, WALL_COLOR);
 	drawWall(centerPos, direction, WALL_COLORS[playState.player-1]);
-	setColorMove(playState.currentPos[playState.player-1], BGCOLOR);
 }
 
 void rotateWall(){
 	Coordinates newPos;
-	int rowC, colC, currDir, nextDir, i, j;
+	int currDir, nextDir;
 	newPos = playState.walls[playState.player - 1].position[playState.walls[playState.player-1].used];
 	currDir = playState.walls[playState.player - 1].dir[playState.walls[playState.player-1].used];
 	nextDir = 1 - currDir;
@@ -379,6 +384,7 @@ void confirmWall(){
 	}
 	else{
 		writeMessage("Position not valid");
+		playState.written_message = 1;
 		//drawWall(playState.walls[playState.player-1].position[i], playState.walls[playState.player-1].dir[i], BGCOLOR);
 		//redrawWalls();
 		//drawWall(playState.walls[player_index].position[overlapped_wall_index], playState.walls[player_index].dir[overlapped_wall_index], WALL_COLOR);
@@ -397,14 +403,16 @@ void undoWall(){
 }
 
 void setNextWall(int h, int v){
-	int rowC, colC, i, dir;
+	int i;
+	//dir;
 	Coordinates pos;
 	
-	clearMessage();
+	clearMessage(playState.written_message);
+	playState.written_message = 0;
 	
 	i = playState.walls[playState.player-1].used;
 	pos = getMovedPos(playState.walls[playState.player-1].position[i], h, v);
-	dir = playState.walls[playState.player-1].dir[i];
+	//dir = playState.walls[playState.player-1].dir[i];
 	if(centerWallInPlatform(pos)){
 		moveWall(h, v);
 	}

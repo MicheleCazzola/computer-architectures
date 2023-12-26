@@ -22,6 +22,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "LPC17xx.h"
+//#include "led/led.h"
 #include "GLCD/GLCD.h" 
 #include "TouchPanel/TouchPanel.h"
 #include "timer/timer.h"
@@ -42,8 +43,9 @@ int main(void)
   SystemInit();  												/* System Initialization (i.e., PLL)  */
 	LCD_Initialization();
 	
-	TP_Init();
+	//TP_Init();
 	BUTTON_init();
+	//LED_init();
   
 	//TouchPanel_Calibrate();
 	
@@ -57,11 +59,14 @@ int main(void)
 	
 	//enable_timer(0);
 	
-	init_timer(0, 0x017D7840);
-	init_RIT(0x004C4B40);
+	// Timer 1 s con 25 MHz
+	init_timer(0, 0x017D7840);			
+	// RIT 50 ms con 100 MHz: priorità superiore ai pulsanti
+	init_RIT(0x004C4B40);			
 	joystick_init();
 	enable_RIT();
 	initGame();
+	
 	
 	
 	LPC_SC->PCON |= 0x1;									/* power-down	mode										*/

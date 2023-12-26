@@ -33,7 +33,7 @@ void joystick_controller(int *pressed) {
 	int i;
 	for(i = 0; i <= 4; i++){
 		if((LPC_GPIO1->FIOPIN & (1<<(i + 25))) == 0){	
-			/* Joytick UP/DOWN/LEFT/RIGHT pressed */
+			/* Joystick UP/DOWN/LEFT/RIGHT pressed */
 			pressed[i]++;
 			if(pressed[i] == 1){
 				if(playState.pending_wall == 0 && playState.mode == PLAYING){

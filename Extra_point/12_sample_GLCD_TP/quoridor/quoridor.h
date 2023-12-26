@@ -28,6 +28,7 @@ typedef struct {
 	int pending_wall;
 	int last_move;
 	int validMove;
+	int written_message;
 	Coordinates currentPos[2];
 	wallType walls[2];
 } PlayType;
@@ -40,9 +41,9 @@ void setNextPos(int h, int v);
 void move(void);
 void saveMove(int playerId, int moveType, int wallOrientation, Coordinates destPos);
 void newWall(Coordinates centerPos, int direction);
-void rotateWall();
-void confirmWall();
-void undoWall();
+void rotateWall(void);
+void confirmWall(void);
+void undoWall(void);
 void setNextWall(int h, int v);
 
 #endif

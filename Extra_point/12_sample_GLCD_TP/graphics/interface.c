@@ -157,19 +157,24 @@ void drawWall(Coordinates pos, int direction, int color){
 	}
 }
 
-void clearMessage(){
+void clearMessage(int written){
 	int i;
-	for(i = Y_MESSAGE; i < 320; i++){
+	
+	if(!written){
+		return;
+	}
+	
+	for(i = Y_MESSAGE; i < 317; i++){
 		LCD_DrawLine(X_MESSAGE, i, 240, i, BGCOLOR);
 	}
 }
 
 void writeMessage(char message[]){
-	clearMessage();
-	if(strlen(message) < MAX_X / 7){
-		GUI_Text(X_MESSAGE, Y_MESSAGE, message, MESSAGE_COLOR, BGCOLOR);
+	//clearMessage();
+	if(strlen(message) < MAX_X / 8){
+		GUI_Text(X_MESSAGE, Y_MESSAGE, (unsigned char *) message, MESSAGE_COLOR, BGCOLOR);
 	} 
 	else{
-		GUI_Text(X_MESSAGE-2, Y_MESSAGE, message, MESSAGE_COLOR, BGCOLOR);
+		GUI_Text(0, Y_MESSAGE, (unsigned char *) message, MESSAGE_COLOR, BGCOLOR);
 	}
 }

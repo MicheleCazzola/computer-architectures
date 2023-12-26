@@ -43,6 +43,8 @@ void RIT_IRQHandler (void)
 {		
 	static int directions[5] = {0, 0, 0, 0, 0};
 	
+	disable_RIT();
+	reset_RIT();
 	joystick_controller(directions);
 	
 	/*
@@ -108,6 +110,7 @@ void RIT_IRQHandler (void)
 		}
 	}
 	
+	enable_RIT();
   LPC_RIT->RICTRL |= 0x1;	/* clear interrupt flag */
 	
   return;

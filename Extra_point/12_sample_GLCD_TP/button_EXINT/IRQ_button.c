@@ -16,20 +16,23 @@ extern PlayType playState;
 extern Coordinates WALL_DEFAULT_POS;
 
 void INT0_function(void){
-	if(playState.pending_wall == 0){
+	if(playState.mode != PLAYING){
 		setMode(PLAYING);
 		setPlayer(PLAYER1);
 	}
+	
 }
 
 void KEY1_function(void){
 	if(playState.mode == PLAYING){
+		clearMessage(playState.written_message);
 		if(playState.pending_wall == 0){
 			if(playState.walls[playState.player-1].used < MAX_NUM_WALLS) {
 				newWall(WALL_DEFAULT_POS, HORIZONTAL_WALL);
 			}
 			else{
 				writeMessage("No walls available, move the token");
+				playState.written_message = 1;
 			}
 		}
 		else{
@@ -51,6 +54,7 @@ void EINT0_IRQHandler (void)	  	/* INT0														 */
 	down_int0 = 1;
 	NVIC_DisableIRQ(EINT0_IRQn);
 	LPC_PINCON->PINSEL4 &= ~(1 << 20);
+	
 	LPC_SC->EXTINT &= (1 << 0);     /* clear pending interrupt         */
 }
 

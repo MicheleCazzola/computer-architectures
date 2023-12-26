@@ -46,6 +46,6 @@ void writeTimeRemaining(int time);
 void drawSquareArea(Coordinates pos, int color);
 void drawWall(Coordinates pos, int direction, int color);
 void writeMessage(char message[]);
-void clearMessage();
+void clearMessage(int written);
 
 #endif
