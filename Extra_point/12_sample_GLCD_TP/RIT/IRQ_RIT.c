@@ -43,24 +43,13 @@ void RIT_IRQHandler (void)
 {		
 	static int directions[5] = {0, 0, 0, 0, 0};
 	
+	// Stop RIT: periodo breve, si evita
+	// di farlo avanzare durante il suo handler
 	disable_RIT();
 	reset_RIT();
+	
+	// Polling joistick
 	joystick_controller(directions);
-	
-	/*
-	static int up = 0;
-	static int down = 0;
-	static int right = 0;
-	static int left = 0;
-	static int sel = 0;
-	
-	up = joystick_up(up);
-	down = joystick_down(down);
-	left = joystick_left(left);
-	right = joystick_right(right);
-	sel = joystick_select(sel);
-	
-	*/
 	
 	// INT0
 	if(down_int0 > 0){
@@ -110,7 +99,9 @@ void RIT_IRQHandler (void)
 		}
 	}
 	
+	// Riavvio RIT
 	enable_RIT();
+	
   LPC_RIT->RICTRL |= 0x1;	/* clear interrupt flag */
 	
   return;

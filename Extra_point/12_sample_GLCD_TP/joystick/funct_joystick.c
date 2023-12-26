@@ -15,7 +15,7 @@
 
 #define NO_MOVE -1
 
-extern PlayType playState;
+extern MatchType ms;
 
 /*----------------------------------------------------------------------------
   Function that turns on requested led
@@ -32,113 +32,30 @@ void joystick_controller(int *pressed) {
 	
 	int i;
 	for(i = 0; i <= 4; i++){
+		
+		// Joystick UP/DOWN/LEFT/RIGHT/SELECT premuto
 		if((LPC_GPIO1->FIOPIN & (1<<(i + 25))) == 0){	
-			/* Joystick UP/DOWN/LEFT/RIGHT pressed */
 			pressed[i]++;
+			// Prima pressione
 			if(pressed[i] == 1){
-				if(playState.pending_wall == 0 && playState.mode == PLAYING){
+				
+				// Modalità movimento pedina
+				if(ms.pending_wall == 0 && ms.mode == PLAYING){
+					// Se SELECT -> Movimento pedina
+					// Altrimenti -> Impostazione nuova posizione
 					(i == 0) ? move() : setNextPos(moves[i][0], moves[i][1]);
 				}
+				// Modalità posizionamento muro
 				else{
+					// Se SELECT -> Conferma muro
+					// Altrimenti -> Movimento muro (senza conferma)
 					(i == 0) ? confirmWall() : setNextWall(moves[i][0], moves[i][1]);
 				}
 			}
 		}
+		// Joystick UP/DOWN/LEFT/RIGHT/SELECT rilasciato
 		else{
 				pressed[i]=0;
 		}
 	}
 }
-
-/*
-int joystick_up(int up){
-	if((LPC_GPIO1->FIOPIN & (1<<29)) == 0){	
-		// Joytick UP pressed 
-		up++;
-		switch(up){
-			case 1: (playState.pending_wall == 0 && mode == PLAYING) ? setNextPos(0,-1) : setNextWall(0,-1);
-				break;
-			default:
-				break;
-		}
-	}
-	else{
-			up=0;
-	}
-	
-	return up;
-}
-
-int joystick_down(int down){
-	if((LPC_GPIO1->FIOPIN & (1<<26)) == 0){	
-		// Joytick DOWN pressed 
-		down++;
-		switch(down){
-			case 1: (pending_wall == 0 && mode == PLAYING) ? setNextPos(0,1) : setNextWall(0,1);
-				break;
-			default:
-				break;
-		}
-	}
-	else{
-			down=0;
-	}
-	
-	return down;
-}
-
-int joystick_left(int left){
-	if((LPC_GPIO1->FIOPIN & (1<<27)) == 0){	
-		// Joytick LEFT pressed 
-		left++;
-		switch(left){
-			case 1: (pending_wall == 0 && mode == PLAYING) ? setNextPos(-1,0) : setNextWall(-1,0);
-				break;
-			default:
-				break;
-		}
-	}
-	else{
-			left=0;
-	}
-	
-	return left;
-}
-
-int joystick_right(int right){
-	if((LPC_GPIO1->FIOPIN & (1<<28)) == 0){	
-		// Joytick RIGHT pressed 
-		right++;
-		switch(right){
-			case 1: (pending_wall == 0 && mode == PLAYING) ? setNextPos(1,0) : setNextWall(1,0);
-				break;
-			default:
-				break;
-		}
-	}
-	else{
-			right=0;
-	}
-	
-	return right;
-}
-
-int joystick_select(int sel){
-	if((LPC_GPIO1->FIOPIN & (1<<25)) == 0){	
-		// Joytick SELECT pressed
-		sel++;
-		switch(sel){
-			case 1: (pending_wall == 0 && mode == PLAYING) ? move() : confirmWall();
-				break;
-			default:
-				break;
-		}
-	}
-	else{
-			sel=0;
-	}
-	
-	return sel;
-}
-
-*/

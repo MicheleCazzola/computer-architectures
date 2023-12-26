@@ -12,29 +12,44 @@ extern int down_int0;
 extern int down_key1;
 extern int down_key2;
 
-extern PlayType playState;
+extern MatchType ms;
 extern Coordinates WALL_DEFAULT_POS;
 
 void INT0_function(void){
-	if(playState.mode != PLAYING){
+	
+	// Se in modalità attesa
+	if(ms.mode != PLAYING){
+		
+		// Cambio modalità a gioco
 		setMode(PLAYING);
+		
+		// Inizia il giocatore 1
 		setPlayer(PLAYER1);
 	}
 	
 }
 
 void KEY1_function(void){
-	if(playState.mode == PLAYING){
-		clearMessage(playState.written_message);
-		if(playState.pending_wall == 0){
-			if(playState.walls[playState.player-1].used < MAX_NUM_WALLS) {
+	
+	// Se in modalità gioco
+	if(ms.mode == PLAYING){
+		
+		// Cancellazione messaggio
+		clearMessage();
+		
+		// Se assenza di muri pendenti
+		if(ms.pending_wall == 0){
+			
+			// Se ancora muri disponibili -> Creazione nuovo muro
+			if(ms.walls[ms.player-1].used < MAX_NUM_WALLS) {
 				newWall(WALL_DEFAULT_POS, HORIZONTAL_WALL);
 			}
+			// Altrimenti -> Messaggio di errore
 			else{
 				writeMessage("No walls available, move the token");
-				playState.written_message = 1;
 			}
 		}
+		// Altrimenti -> Annullamento muro
 		else{
 			undoWall();
 		}
@@ -42,8 +57,10 @@ void KEY1_function(void){
 }
 
 void KEY2_function(void){
-	if(playState.mode == PLAYING){
-		if(playState.pending_wall == 1){
+	
+	// Se in modalità gioco con muri pendenti -> Rotazione del muro
+	if(ms.mode == PLAYING){
+		if(ms.pending_wall == 1){
 			rotateWall();
 		}
 	}

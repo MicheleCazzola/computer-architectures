@@ -14,13 +14,16 @@
 #define BOX_WIDTH 76
 #define BOX_HEIGHT 50
 #define BOX_SPACE_MARGIN_WIDTH 3
+#define GRID_COLOR White
 #define PADDING (10 + MARGIN_WIDTH + 6*SPACE_WIDTH + NUM_SQUARES*SQUARE_SIDE)
 #define PLAYER1_COLOR White
 #define PLAYER2_COLOR Red
 #define TOKEN_SIDE 11
 #define XPOS_TEXT1 (MARGIN_WIDTH + 5)
+#define XPOS_WALLS1 (MARGIN_WIDTH + BOX_WIDTH/2 - 4)
 #define XPOS_TEXT2 (XPOS_TEXT1 + 2 * BOX_SPACE_MARGIN_WIDTH + 2 * BOX_WIDTH)
-#define XPOS_TIME (XPOS_TEXT1 + BOX_SPACE_MARGIN_WIDTH + BOX_WIDTH)
+#define XPOS_WALLS2 (XPOS_WALLS1 + 2 * BOX_SPACE_MARGIN_WIDTH + 2 * BOX_WIDTH)
+#define XPOS_TIME (XPOS_TEXT1 + BOX_SPACE_MARGIN_WIDTH + BOX_WIDTH + BOX_WIDTH/2 - 20)
 #define ROW1 (PADDING + 10)
 #define ROW2 (ROW1 + 15)
 #define ROW_TIME (PADDING + 20)
@@ -41,11 +44,12 @@ typedef struct {
 
 void drawChessPlatform(void);
 void drawToken(Coordinates pos, int color);
-void writeWalls(int wall_p1, int wall_p2);
+void writeWallsStats(int wall_p1, int wall_p2);
 void writeTimeRemaining(int time);
 void drawSquareArea(Coordinates pos, int color);
 void drawWall(Coordinates pos, int direction, int color);
-void writeMessage(char message[]);
-void clearMessage(int written);
+void writeMessage(char message_content[]);
+void clearMessage(void);
 
 #endif
+

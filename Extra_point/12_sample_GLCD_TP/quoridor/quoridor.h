@@ -13,6 +13,7 @@
 #define VERTICAL_WALL 0
 #define HORIZONTAL_WALL 1
 #define MAX_NUM_WALLS 8
+#define MESSAGE_LENGTH 30
 
 
 typedef struct{
@@ -28,10 +29,9 @@ typedef struct {
 	int pending_wall;
 	int last_move;
 	int validMove;
-	int written_message;
 	Coordinates currentPos[2];
 	wallType walls[2];
-} PlayType;
+} MatchType;
 
 void initGame(void);
 void setMode(int modeValue);

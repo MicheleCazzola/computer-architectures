@@ -25,26 +25,37 @@
 **
 ******************************************************************************/
 
-extern PlayType playState;
+extern MatchType ms;
 extern Coordinates nextPos;
 
-void TIMER0_IRQHandler (void)
-{
-	writeTimeRemaining(--playState.time_remaining);
+void TIMER0_IRQHandler (void) {
 	
+	// Scrittura tempo rimanente
+	writeTimeRemaining(--ms.time_remaining);
+	
+	// Stop timer
 	reset_timer(0);
-	if(playState.time_remaining == 0){
-		if(playState.pending_wall == 0){
-			setColorMove(playState.currentPos[playState.player - 1], BGCOLOR);
-			saveMove(playState.player-1, PLAYER_MOVE, OUT_OF_TIME_MOVE, nextPos);
+	
+	// Tempo per giocatore terminato
+	if(ms.time_remaining == 0){
+		
+		// Modalità movimento pedina
+		// cancellazione posizioni valide adiacenti
+		// salvataggio mossa (out of time move)
+		if(ms.pending_wall == 0){
+			setColorMove(ms.currentPos[ms.player - 1], BGCOLOR);
+			saveMove(ms.player-1, PLAYER_MOVE, OUT_OF_TIME_MOVE, nextPos);
 		}
+		// Modalità posizionamento muro: cancellazione muro
 		else{
-			drawWall(playState.walls[playState.player-1].position[playState.walls[playState.player-1].used],
-									playState.walls[playState.player-1].dir[playState.walls[playState.player-1].used], BGCOLOR);
+			drawWall(ms.walls[ms.player-1].position[ms.walls[ms.player-1].used],
+									ms.walls[ms.player-1].dir[ms.walls[ms.player-1].used], BGCOLOR);
 		}
 		
-		setPlayer(3 - playState.player);
+		// Cambio giocatore
+		setPlayer(3 - ms.player);
 	}
+	// Tempo per giocatore non terminato
 	else{
 		enable_timer(0);
 	}
