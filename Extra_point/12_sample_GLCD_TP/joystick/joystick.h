@@ -10,3 +10,5 @@
 
 /* lib_joystick */
 void joystick_init(void);
+void connect_joystick(void);
+void disconnect_joystick(void);

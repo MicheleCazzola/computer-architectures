@@ -24,10 +24,10 @@ typedef struct{
 
 typedef struct {
 	int mode;
-	int time_remaining;
+	int timeRemaining;
 	int player;
-	int pending_wall;
-	int last_move;
+	int pendingWall;
+	int lastMove;
 	int validMove;
 	Coordinates currentPos[2];
 	wallType walls[2];

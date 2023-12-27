@@ -1,6 +1,5 @@
 
 #include "button.h"
-#include "lpc17xx.h"
 
 /**
  * @brief  Function that initializes Buttons
@@ -24,4 +23,13 @@ void BUTTON_init(void) {
 	NVIC_SetPriority(EINT1_IRQn, 2);				 
   NVIC_EnableIRQ(EINT0_IRQn);              /* enable irq in nvic                 */
 	NVIC_SetPriority(EINT0_IRQn, 3);				 /* decreasing priority	from EINT2->0	 */
+}
+
+void enable_button(int pin, IRQn_Type IRQn){
+	LPC_PINCON->PINSEL4 |= (1 << (2 * pin));
+	NVIC_EnableIRQ(IRQn);
+}
+void disable_button(int pin, IRQn_Type IRQn){
+	LPC_PINCON->PINSEL4 &= ~(1 << (2 * pin));
+	NVIC_DisableIRQ(IRQn);
 }

@@ -1,5 +1,6 @@
 #include <string.h>
 #include "quoridor.h"
+#include "../button/button.h"
 #include "../timer/timer.h"
 #include "../graphics/interface.h"
 #include "../queue/queue.h"
@@ -23,6 +24,18 @@ static int abs(int x){
 	return x > 0 ? x : -x;
 }
 
+static int sign(int x){
+	if(x != 0){
+		return x > 0 ? 1 : -1;
+	}
+	return x;
+}
+
+// Get avversario
+static int getOtherPlayer(int player){
+	return 3 - player;
+}
+
 // Check vittoria
 static int victory(Coordinates pos, int player){
 	return pos.y == 6 * (player-1);
@@ -40,11 +53,13 @@ static int centerWallInPlatform(Coordinates pos){
 
 // Get posizione finale in presenza di avversario in posizione adiacente
 static void jumpOverOpponent(Coordinates srcPos, Coordinates destPos, int player, Coordinates *finalPos){
-	int stepX = destPos.x - srcPos.x, stepY = destPos.y - srcPos.y;
-	if(ms.currentPos[3 - player - 1].x == destPos.x &&
-				ms.currentPos[3 - player - 1].y == destPos.y){
-		stepY = (srcPos.x == destPos.x) ? -1*(2 * (destPos.y < srcPos.y) - 1)*(abs(destPos.y - srcPos.y)+1) : 0;
-		stepX = (srcPos.y == destPos.y) ? -1*(2 * (destPos.x < srcPos.x) - 1)*(abs(destPos.x - srcPos.x)+1) : 0;
+	int stepX, stepY;
+	stepX = destPos.x - srcPos.x;
+	stepY = destPos.y - srcPos.y;
+	if(ms.currentPos[getOtherPlayer(player) - 1].x == destPos.x &&
+				ms.currentPos[getOtherPlayer(player) - 1].y == destPos.y){
+		stepX = (srcPos.y == destPos.y) ? sign(stepX) * (abs(stepX) + 1) : 0;
+		stepY = (srcPos.x == destPos.x) ? sign(stepY) * (abs(stepY) + 1) : 0;
 	}
 	finalPos->x = srcPos.x + stepX;
 	finalPos->y = srcPos.y + stepY;
@@ -63,21 +78,19 @@ static int wallBetweenCells(Coordinates srcPos, Coordinates destPos, Coordinates
 	return 0;
 }
 
-// Check presenza di almeno un muro di un giocatore tra due celle
-static int noPlayerWallBetween(Coordinates adjPos, Coordinates currentPos, int wallPlayer){
-	int i;
-	int wall_in_progress = wallPlayer == ms.player && ms.pending_wall == 1;
-	for(i = 0; i < ms.walls[wallPlayer-1].used + wall_in_progress; i++){
-		if(wallBetweenCells(currentPos, adjPos, ms.walls[wallPlayer-1].position[i], ms.walls[wallPlayer-1].dir[i])){
-			return 0;
-		}
-	}
-	return 1;
-}
-
 // Check presenza di almeno un muro tra due celle
 static int noWallBetween(Coordinates adjPos, Coordinates currentPos){
-	return noPlayerWallBetween(adjPos, currentPos, PLAYER1) && noPlayerWallBetween(adjPos, currentPos, PLAYER2);
+	int p, i, wall_in_progress;
+	for(p = 1; p < 3; p++){
+		wall_in_progress = p == ms.player && ms.pendingWall == 1;
+		for(i = 0; i < ms.walls[p-1].used + wall_in_progress; i++){
+			if(wallBetweenCells(currentPos, adjPos, ms.walls[p-1].position[i], ms.walls[p-1].dir[i])){
+				return 0;
+			}
+		}
+	}
+	
+	return 1;
 }
 
 // Check posizione valida per spostamento
@@ -95,7 +108,7 @@ static int validPos(Coordinates pos, Coordinates currentPos){
 // Check raggiungibilità, da parte di un giocatore, di almeno
 // una possibile cella del lato opposto al proprio di partenza
 // Si usa ricerca in ampiezza (BFS) di almeno un percorso esistente
-static int check_reachability(int player){
+static int checkReachability(int player){
 	
 	int queue_dim, i, j;
 	Coordinates queue[NUM_SQUARES*NUM_SQUARES];
@@ -144,20 +157,6 @@ static int check_reachability(int player){
 						}
 				}
 		}
-		/*
-		for(adjElem.x = currElem.x - 1; adjElem.x <= currElem.x + 1; adjElem.x++){
-			for(adjElem.y = currElem.y - 1; adjElem.y <= currElem.y + 1; adjElem.y++){
-				jumpOverOpponent(currElem, adjElem, player, &finalPos);
-				if(validPos(finalPos, currElem)){
-					if(finalPos.x == currElem.x ^ finalPos.y == currElem.y){
-						if(enqueued[finalPos.x][finalPos.y] == 0){
-							enqueue(queue, finalPos, &queue_dim);
-							enqueued[finalPos.x][finalPos.y] = 1;
-						}
-					}
-				}
-			}
-		}*/
 	}
 	
 	return 0;
@@ -193,7 +192,7 @@ static int exists_overlapping_wall(int playerWalls, Coordinates centerPos, int d
 // Check esistenza di un muro sovrapposto a quello corrente
 // Si salvano l'indice del muro a cui il corrente si sovrappone e
 // l'indice del giocatore a cui appartiene il muro
-static int check_not_overlapping(Coordinates centerPos, int dir, int *overlapping, int *player){
+static int checkNotOverlapping(Coordinates centerPos, int dir, int *overlapping, int *player){
 	int overlap1, overlap2, overlapping1, overlapping2;
 	overlap1 = exists_overlapping_wall(PLAYER1, centerPos, dir, &overlapping1);
 	overlap2 = exists_overlapping_wall(PLAYER2, centerPos, dir, &overlapping2);
@@ -214,11 +213,11 @@ static int validWallPos(Coordinates centerPos, int dir, int *overlapped, int *pl
 	valid_position = centerWallInPlatform(centerPos);
 	
 	// Non impedisce possibilità di vittoria per entrambi i giocatori
-	r1 = check_reachability(PLAYER1);
-	r2 = check_reachability(PLAYER2);
+	r1 = checkReachability(PLAYER1);
+	r2 = checkReachability(PLAYER2);
 	
 	// Non si sovrappone a muri esistenti
-	not_overlap = check_not_overlapping(centerPos, dir, overlapped, player);
+	not_overlap = checkNotOverlapping(centerPos, dir, overlapped, player);
 	
 	return valid_position && r1 && r2 && not_overlap;
 }
@@ -273,7 +272,7 @@ static void moveWall(int h, int v){
 }
 
 // Inizializzazione dati dei giocatori
-static void init_players(){
+static void initPlayers(){
 	
 	// Posizione default
 	ms.currentPos[PLAYER1-1] = START_POS_PLAYER1;
@@ -294,7 +293,7 @@ static void clearWalls(){
 }
 
 // Inizializzazione interfaccia
-static void init_interface(){
+static void initInterface(){
 	
 	// Sfondo
 	LCD_Clear(Blue);
@@ -307,21 +306,31 @@ static void init_interface(){
 }
 
 // Inizializzazione logica di gioco
-static void init_players_data(){
+static void initPlayersData(){
 	
 	// Modalità di attesa
 	setMode(WAITING);
 	
 	// Dati dei giocatori
-	init_players();
+	initPlayers();
 	
 	// Nessun muro in fase di posizionamento
-	ms.pending_wall = 0;
+	ms.pendingWall = 0;
 	
 	// Mantenimento scritta vincitore, se presente
 	if(strlen(message) > 0){
 		writeMessage(message);
 	}
+}
+
+// Inizializzazione pulsanti
+static void initControls(){
+	// Abilitazione INT0
+	enable_button(10, EINT0_IRQn);
+	
+	// Disabilitazione KEY1 e KEY2
+	disable_button(11, EINT1_IRQn);
+	disable_button(12, EINT2_IRQn);
 }
 
 // Salvataggio mossa nel formato richiesto
@@ -333,13 +342,14 @@ void saveMove(int playerId, int moveType, int wallOrientation, Coordinates destP
 	newMove |= (destPos.y << 8);
 	newMove |= (destPos.x << 0);
 	
-	ms.last_move = newMove;
+	ms.lastMove = newMove;
 }
 
 // Inizializzazione gioco
 void initGame(){
-	init_interface();
-	init_players_data();
+	initInterface();
+	initPlayersData();
+	initControls();
 }
 
 // Impostazione modalità di gioco
@@ -349,25 +359,33 @@ void setMode(int modeValue){
 	
 	// Tempo iniziale
 	if(ms.mode == PLAYING){
-		ms.time_remaining = 20;
+		ms.timeRemaining = 20;
 	}
 }
 
 // Impostazione giocatore
 void setPlayer(int playerValue){
 	
+	// Disabilitazione KEY1 durante setup del giocatore
+	disable_button(11, EINT1_IRQn);
+	
 	// In presenza di muri non confermati dal giocatore precedente
 	// si ridisegnano quelli presenti (necessario in caso di sovrapposizioni)
-	if(ms.pending_wall == 1){
+	if(ms.pendingWall == 1){
 		redrawWalls();
 	}
 	
+	// Disabilitazione KEY2 (necessario solo in caso di cambio di giocatore)
+	disable_button(12, EINT2_IRQn);
+	
 	// Parametri iniziali
-	ms.validMove = 0;
 	ms.player = playerValue;
-	ms.time_remaining = 20;
-	ms.pending_wall = 0;
-	ms.last_move = 0xFFFFFFFF;
+	ms.timeRemaining = 20;
+	ms.pendingWall = 0;
+	ms.lastMove = 0xFFFFFFFF;
+	
+	ms.validMove = 1;					// il giocatore può "passare" il turno confermando la propria posizione
+	nextPos = ms.currentPos[ms.player-1];
 	
 	// Celle disponibili per spostamento
 	setColorMove(ms.currentPos[ms.player-1], VALID_MOVE_COLOR);
@@ -376,7 +394,10 @@ void setPlayer(int playerValue){
 	clearMessage();
 	
 	// Scrittura tempo rimanente
-	writeTimeRemaining(ms.time_remaining);
+	writeTimeRemaining(ms.timeRemaining);
+	
+	// Abilitazione KEY1: rimane attivo fino al successivo cambio di giocatore
+	enable_button(11, EINT1_IRQn);
 	
 	// Avvio timer (1 s)
 	enable_timer(0);
@@ -409,6 +430,9 @@ void setColorMove(Coordinates pos, int color){
 void setNextPos(int h, int v){
 	Coordinates finalPos, destPos;
 	
+	// Disabilitazione KEY1
+	disable_button(11, EINT1_IRQn);
+	
 	// Eliminazione messaggio, se presente
 	clearMessage();
 	
@@ -428,10 +452,16 @@ void setNextPos(int h, int v){
 		// Caso negativo: posizione invariata
 		nextPos = ms.currentPos[ms.player-1];
 	}
+	
+	// Abilitazione KEY1
+	enable_button(11, EINT1_IRQn);
 }
 
 // Movimento pedina
 void move(){
+	
+	// Disabilitazione KEY1
+	disable_button(11, EINT1_IRQn);
 	
 	// Posizione finale valida
 	if(ms.validMove){
@@ -467,7 +497,7 @@ void move(){
 		}
 		// Se nessuno ha vinto, cambio giocatore
 		else{
-			setPlayer(3 - ms.player);
+			setPlayer(getOtherPlayer(ms.player));
 		}
 	}
 	// Posizione finale non valida: stampa messaggio
@@ -475,13 +505,19 @@ void move(){
 		writeMessage("Move not valid");
 	}
 	
+	// Abilitazione KEY1
+	enable_button(11, EINT1_IRQn);
 }
 
 // Creazione nuovo muro
 void newWall(Coordinates centerPos, int direction){
 	
+	// Disabilitazione KEY1 e KEY2
+	disable_button(11, EINT1_IRQn);
+	disable_button(12, EINT2_IRQn);
+	
 	// Muro in attesa di azione
-	ms.pending_wall = 1;
+	ms.pendingWall = 1;
 	
 	// Cancellazione celle per spostamento
 	setColorMove(ms.currentPos[ms.player-1], BGCOLOR);
@@ -491,12 +527,20 @@ void newWall(Coordinates centerPos, int direction){
 	
 	// Disegno muro
 	drawWall(centerPos, direction, PLAYER_COLORS[ms.player-1]);
+	
+	// Abilitazione KEY1 e KEY2
+	enable_button(11, EINT1_IRQn);
+	enable_button(12, EINT2_IRQn);
 }
 
 // Rotazione muro
 void rotateWall(){
 	Coordinates pos;
 	int currDir, nextDir;
+	
+	// Disabilitazione KEY1 e KEY2
+	disable_button(11, EINT1_IRQn);
+	disable_button(12, EINT2_IRQn);
 	
 	// Cancellazione muro iniziale
 	pos = ms.walls[ms.player - 1].position[ms.walls[ms.player-1].used];
@@ -510,11 +554,19 @@ void rotateWall(){
 	nextDir = 1 - currDir;
 	drawWall(pos, nextDir, PLAYER_COLORS[ms.player-1]);
 	setWall(pos, nextDir);
+	
+	// Abilitazione KEY1 e KEY2
+	enable_button(11, EINT1_IRQn);
+	enable_button(12, EINT2_IRQn);
 }
 
 // Conferma muro
 void confirmWall(){
 	int i, overlapped_wall_index, player_index;
+	
+	// Disabilitazione KEY1 e KEY2
+	disable_button(11, EINT1_IRQn);
+	disable_button(12, EINT2_IRQn);
 	
 	// Se muro valido, conferma
 	i = ms.walls[ms.player-1].used;
@@ -522,7 +574,7 @@ void confirmWall(){
 			&overlapped_wall_index, &player_index)){
 		
 		// Muro confermato
-		ms.pending_wall = 0;
+		ms.pendingWall = 0;
 				
 		// Incremento numero muri usati
 		ms.walls[ms.player-1].used++;
@@ -535,12 +587,16 @@ void confirmWall(){
 		writeWallsStats(MAX_NUM_WALLS - ms.walls[PLAYER1-1].used, MAX_NUM_WALLS - ms.walls[PLAYER2-1].used);
 				
 		// Cambio giocatore
-		setPlayer(3 - ms.player);
+		setPlayer(getOtherPlayer(ms.player));
 	}
 	// Se muro non valido, messaggio di errore
 	else{
 		writeMessage("Position not valid");
 	}
+	
+	// Abilitazione KEY1 e KEY2
+	enable_button(11, EINT1_IRQn);
+	enable_button(12, EINT2_IRQn);
 }
 
 // Annullamento muro
@@ -548,8 +604,12 @@ void undoWall(){
 	int dir;
 	Coordinates pos;
 	
+	// Disabilitazione KEY1 e KEY2
+	disable_button(11, EINT1_IRQn);
+	disable_button(12, EINT2_IRQn);
+	
 	// Muro annullato
-	ms.pending_wall = 0;
+	ms.pendingWall = 0;
 	
 	// Cancellazione muro
 	pos = ms.walls[ms.player-1].position[ms.walls[ms.player-1].used];
@@ -561,12 +621,20 @@ void undoWall(){
 	
 	// Evidenziazione celle valide per spostamento
 	setColorMove(ms.currentPos[ms.player-1], VALID_MOVE_COLOR);
+	
+	// Abilitazione KEY1 e KEY2
+	enable_button(11, EINT1_IRQn);
+	enable_button(12, EINT2_IRQn);
 }
 
 // Impostazione nuovo muro
 void setNextWall(int h, int v){
 	int i;
 	Coordinates pos;
+	
+	// Disabilitazione KEY1 e KEY2
+	disable_button(11, EINT1_IRQn);
+	disable_button(12, EINT2_IRQn);
 	
 	// Cancellazione eventuale messaggio
 	clearMessage();
@@ -581,6 +649,10 @@ void setNextWall(int h, int v){
 	else{
 		writeMessage("Position not valid");
 	}
+	
+	// Abilitazione KEY1 e KEY2
+	enable_button(11, EINT1_IRQn);
+	enable_button(12, EINT2_IRQn);
 }
 
 

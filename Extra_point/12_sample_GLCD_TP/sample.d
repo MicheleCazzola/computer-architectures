@@ -13,5 +13,5 @@
 .\sample.o: quoridor/quoridor.h
 .\sample.o: quoridor/../graphics/interface.h
 .\sample.o: RIT/RIT.h
-.\sample.o: BUTTON_EXINT/button.h
+.\sample.o: button/button.h
 .\sample.o: joystick/joystick.h

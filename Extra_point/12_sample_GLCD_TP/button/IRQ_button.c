@@ -16,54 +16,50 @@ extern MatchType ms;
 extern Coordinates WALL_DEFAULT_POS;
 
 void INT0_function(void){
+		
+	// Cambio modalità a gioco
+	setMode(PLAYING);
 	
-	// Se in modalità attesa
-	if(ms.mode != PLAYING){
-		
-		// Cambio modalità a gioco
-		setMode(PLAYING);
-		
-		// Inizia il giocatore 1
-		setPlayer(PLAYER1);
-	}
+	// Inizia il giocatore 1
+	setPlayer(PLAYER1);
 	
 }
 
 void KEY1_function(void){
+		
+	// Cancellazione messaggio
+	clearMessage();
 	
-	// Se in modalità gioco
-	if(ms.mode == PLAYING){
+	// Se assenza di muri pendenti
+	if(ms.pendingWall == 0){
 		
-		// Cancellazione messaggio
-		clearMessage();
-		
-		// Se assenza di muri pendenti
-		if(ms.pending_wall == 0){
-			
-			// Se ancora muri disponibili -> Creazione nuovo muro
-			if(ms.walls[ms.player-1].used < MAX_NUM_WALLS) {
-				newWall(WALL_DEFAULT_POS, HORIZONTAL_WALL);
-			}
-			// Altrimenti -> Messaggio di errore
-			else{
-				writeMessage("No walls available, move the token");
-			}
+		// Se ancora muri disponibili -> Creazione nuovo muro
+		// e abilitazione KEY2: rimane attivo finché è presente
+		// un muro non ancora confermato
+		if(ms.walls[ms.player-1].used < MAX_NUM_WALLS) {
+			newWall(WALL_DEFAULT_POS, HORIZONTAL_WALL);
+			enable_button(12, EINT2_IRQn);
 		}
-		// Altrimenti -> Annullamento muro
+		// Altrimenti -> Messaggio di errore
 		else{
-			undoWall();
+			writeMessage("No walls available, move the token");
 		}
+	}
+	// Altrimenti -> Annullamento muro e disabilitazione KEY2
+	else{
+		disable_button(12, EINT2_IRQn);
+		undoWall();
 	}
 }
 
 void KEY2_function(void){
 	
 	// Se in modalità gioco con muri pendenti -> Rotazione del muro
-	if(ms.mode == PLAYING){
-		if(ms.pending_wall == 1){
+	//if(ms.mode == PLAYING){
+		//if(ms.pendingWall == 1){
 			rotateWall();
-		}
-	}
+		//}
+	//}
 }
 	
 void EINT0_IRQHandler (void)	  	/* INT0														 */

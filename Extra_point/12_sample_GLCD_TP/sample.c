@@ -28,7 +28,7 @@
 #include "timer/timer.h"
 #include "quoridor/quoridor.h"
 #include "RIT/RIT.h"
-#include "BUTTON_EXINT/button.h"
+#include "button/button.h"
 #include "joystick/joystick.h"
 
 #define SIMULATOR 1
@@ -44,7 +44,7 @@ int main(void)
 	LCD_Initialization();
 	
 	//TP_Init();
-	BUTTON_init();
+	
 	//LED_init();
   
 	//TouchPanel_Calibrate();
@@ -64,6 +64,7 @@ int main(void)
 	// RIT 50 ms con 100 MHz: priorità superiore ai pulsanti
 	init_RIT(0x004C4B40);			
 	joystick_init();
+	BUTTON_init();
 	enable_RIT();
 	initGame();
 	

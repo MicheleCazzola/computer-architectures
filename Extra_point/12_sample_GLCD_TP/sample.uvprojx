@@ -507,22 +507,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>buttonEXINT</GroupName>
+          <GroupName>button</GroupName>
           <Files>
             <File>
               <FileName>IRQ_button.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\BUTTON_EXINT\IRQ_button.c</FilePath>
+              <FilePath>.\button\IRQ_button.c</FilePath>
             </File>
             <File>
               <FileName>lib_button.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\BUTTON_EXINT\lib_button.c</FilePath>
+              <FilePath>.\button\lib_button.c</FilePath>
             </File>
             <File>
               <FileName>button.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\BUTTON_EXINT\button.h</FilePath>
+              <FilePath>.\button\button.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -30,9 +30,8 @@ void joystick_controller(int *pressed) {
 		{0, -1}		// UP
 	};
 	
-	int i;
+	int i;	
 	for(i = 0; i <= 4; i++){
-		
 		// Joystick UP/DOWN/LEFT/RIGHT/SELECT premuto
 		if((LPC_GPIO1->FIOPIN & (1<<(i + 25))) == 0){	
 			pressed[i]++;
@@ -40,7 +39,7 @@ void joystick_controller(int *pressed) {
 			if(pressed[i] == 1){
 				
 				// Modalità movimento pedina
-				if(ms.pending_wall == 0 && ms.mode == PLAYING){
+				if(ms.pendingWall == 0){
 					// Se SELECT -> Movimento pedina
 					// Altrimenti -> Impostazione nuova posizione
 					(i == 0) ? move() : setNextPos(moves[i][0], moves[i][1]);

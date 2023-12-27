@@ -20,3 +20,11 @@ void joystick_init(void) {
   LPC_PINCON->PINSEL3 &= ~(3<<26);	//PIN mode GPIO (00b value per P1.29)
 	LPC_GPIO1->FIODIR   &= ~(1<<29);	//P1.25 Input (joysticks on PORT1 defined as Input) 
 }
+
+void connect_joystick(){
+	LPC_PINCON->PINSEL3 |= (0x1F << 25);
+}
+
+void disconnect_joystick(){
+	LPC_PINCON->PINSEL3 &= ~(0x1F << 25);
+}

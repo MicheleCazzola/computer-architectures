@@ -11,7 +11,8 @@
 #include "RIT.h"
 #include "../led/led.h"
 #include "../timer/timer.h"
-#include "../BUTTON_EXINT/button.h"
+#include "../button/button.h"
+#include "../quoridor/quoridor.h"
 
 /******************************************************************************
 ** Function name:		RIT_IRQHandler
@@ -27,13 +28,9 @@ extern void INT0_function(void);
 extern void KEY1_function(void);
 extern void KEY2_function(void);
 
-extern int joystick_up(int up);
-extern int joystick_down(int down);
-extern int joystick_left(int left);
-extern int joystick_right(int right);
-extern int joystick_select(int select);
-
 extern void joystick_controller(int *pressed);
+
+extern MatchType ms;
 
 int down_int0 = 0;
 int down_key1 = 0;
@@ -48,10 +45,20 @@ void RIT_IRQHandler (void)
 	disable_RIT();
 	reset_RIT();
 	
-	// Polling joistick
-	joystick_controller(directions);
+	// Polling joystick, solo se KEY1 è abilitata
+	// Il joystick è sempre abilitato, ma viene
+	// controllato in polling solo se può produrre
+	// un movimento della pedina/muro sulla scacchiera
+	// Nessun controllo su INT0, in quanto è controllato
+	// già dalla prima condizione
+	// COME EFFETTUARE:
+	// Se uno tra KEY1 e KEY2 è premuto, non ha effetto
+	if((LPC_PINCON->PINSEL4 & (3 << 22)) >> 22 == 1){
+		joystick_controller(directions);
+	}
 	
-	// INT0
+	// INT0: sempre in mutua esclusione rispetto a KEY1,
+	// KEY2 e joystick
 	if(down_int0 > 0){
 		down_int0++;
 		if((LPC_GPIO2->FIOPIN & (1<<10)) == 0){
@@ -62,8 +69,10 @@ void RIT_IRQHandler (void)
 			}
 		else {	/* button released */
 			down_int0=0;
-			NVIC_EnableIRQ(EINT0_IRQn);							 /* enable Button interrupts			*/
-			LPC_PINCON->PINSEL4    |= (1 << 20);     /* External interrupt 0 pin selection */
+			if((LPC_PINCON->PINSEL4 & (3 << 22)) >> 22 == 0){
+				NVIC_EnableIRQ(EINT0_IRQn);							 /* enable Button interrupts			*/
+				LPC_PINCON->PINSEL4    |= (1 << 20);     /* External interrupt 0 pin selection */
+			}
 		}
 	}
 	
@@ -83,8 +92,8 @@ void RIT_IRQHandler (void)
 		}
 	}
 	
-	// KEY2
-	if(down_key2 > 0){
+	// KEY2: se viene premuto insieme a KEY1, non ha effetto
+	else if(down_key2 > 0){
 		down_key2++;
 		if((LPC_GPIO2->FIOPIN & (1<<12)) == 0){
 				switch(down_key2){

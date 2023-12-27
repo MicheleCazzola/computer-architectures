@@ -10,4 +10,7 @@
 .\irq_rit.o: RIT\RIT.h
 .\irq_rit.o: RIT\../led/led.h
 .\irq_rit.o: RIT\../timer/timer.h
-.\irq_rit.o: RIT\../BUTTON_EXINT/button.h
+.\irq_rit.o: RIT\../button/button.h
+.\irq_rit.o: RIT\../quoridor/quoridor.h
+.\irq_rit.o: RIT\../quoridor/../graphics/interface.h
+.\irq_rit.o: RIT\../quoridor/../graphics/../GLCD/GLCD.h
