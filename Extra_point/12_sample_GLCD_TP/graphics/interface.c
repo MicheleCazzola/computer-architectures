@@ -54,21 +54,21 @@ void drawToken(Coordinates pos, int color){
 void writeWallsStats(int wall_p1, int wall_p2){
 	unsigned char s1 = (unsigned char) (wall_p1 + '0');
 	unsigned char s2 = (unsigned char) (wall_p2 + '0');
-	GUI_Text(XPOS_TEXT1, ROW1, (unsigned char *) PLAYER1_MSG, White, Blue);
-	GUI_Text(XPOS_WALLS1, ROW2, (unsigned char *) &(s1), White, Blue);
-	GUI_Text(XPOS_TEXT2, ROW1, (unsigned char *) PLAYER2_MSG, White, Blue);
-	GUI_Text(XPOS_WALLS2, ROW2, (unsigned char *) &(s2), White, Blue);
+	GUI_Text(XPOS_TEXT1, ROW1, (unsigned char *) PLAYER1_MSG, TEXT_COLOR, BGCOLOR);
+	GUI_Text(XPOS_WALLS1, ROW2, (unsigned char *) &(s1), TEXT_COLOR, BGCOLOR);
+	GUI_Text(XPOS_TEXT2, ROW1, (unsigned char *) PLAYER2_MSG, TEXT_COLOR, BGCOLOR);
+	GUI_Text(XPOS_WALLS2, ROW2, (unsigned char *) &(s2), TEXT_COLOR, BGCOLOR);
 }
 
 // Scrittura tempo rimanente
-void writeTimeRemaining(int time){
+void writeTimeRemaining(int time, int color){
 	unsigned char s[5];
 	s[0] = time / 10 + '0';
 	s[1] = time % 10 + '0';
 	s[2] = ' ';
 	s[3] = 's';
 	s[4] = '\0';
-	GUI_Text(XPOS_TIME, ROW_TIME, s, White, Blue);
+	GUI_Text(XPOS_TIME, ROW_TIME, s, color, BGCOLOR);
 }
 
 // Disegno area interna al quadrato

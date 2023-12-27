@@ -31,7 +31,7 @@ extern Coordinates nextPos;
 void TIMER0_IRQHandler (void) {
 	
 	// Scrittura tempo rimanente
-	writeTimeRemaining(--ms.timeRemaining);
+	writeTimeRemaining(--ms.timeRemaining, TIME_COLOR);
 	
 	// Stop timer
 	reset_timer(0);

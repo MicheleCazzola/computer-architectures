@@ -13,7 +13,7 @@
 #define VERTICAL_WALL 0
 #define HORIZONTAL_WALL 1
 #define MAX_NUM_WALLS 8
-#define MESSAGE_LENGTH 30
+#define MESSAGE_LENGTH (MAX_X / 8 + 1)
 
 
 typedef struct{

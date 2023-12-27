@@ -23,7 +23,7 @@
 #define XPOS_WALLS1 (MARGIN_WIDTH + BOX_WIDTH/2 - 4)
 #define XPOS_TEXT2 (XPOS_TEXT1 + 2 * BOX_SPACE_MARGIN_WIDTH + 2 * BOX_WIDTH)
 #define XPOS_WALLS2 (XPOS_WALLS1 + 2 * BOX_SPACE_MARGIN_WIDTH + 2 * BOX_WIDTH)
-#define XPOS_TIME (XPOS_TEXT1 + BOX_SPACE_MARGIN_WIDTH + BOX_WIDTH + BOX_WIDTH/2 - 20)
+#define XPOS_TIME (2 * BOX_SPACE_MARGIN_WIDTH + BOX_WIDTH + BOX_WIDTH/2 - 16)
 #define ROW1 (PADDING + 10)
 #define ROW2 (ROW1 + 15)
 #define ROW_TIME (PADDING + 20)
@@ -32,10 +32,11 @@
 #define WALL_LENGTH (2 * SQUARE_SIDE + SPACE_WIDTH)
 #define VERTICAL_WALL 0
 #define HORIZONTAL_WALL 1
-#define WALL_COLOR Red
 #define X_MESSAGE (MARGIN_WIDTH)
 #define Y_MESSAGE 305
 #define MESSAGE_COLOR White
+#define TIME_COLOR White
+#define TEXT_COLOR White
 
 typedef struct {
 	int x;
@@ -45,7 +46,7 @@ typedef struct {
 void drawChessPlatform(void);
 void drawToken(Coordinates pos, int color);
 void writeWallsStats(int wall_p1, int wall_p2);
-void writeTimeRemaining(int time);
+void writeTimeRemaining(int time, int color);
 void drawSquareArea(Coordinates pos, int color);
 void drawWall(Coordinates pos, int direction, int color);
 void writeMessage(char message_content[]);

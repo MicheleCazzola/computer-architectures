@@ -5,10 +5,20 @@
 #include "../graphics/interface.h"
 #include "../queue/queue.h"
 
+// Posizioni (x,y) iniziali dei giocatori
 const Coordinates START_POS_PLAYER1 = {3,6};
 const Coordinates START_POS_PLAYER2 = {3,0};
+
+// Posizione iniziale muro generico
 const Coordinates WALL_DEFAULT_POS = {3,2};
+
+// Colore pedina per ogni giocatore
 const int PLAYER_COLORS[2] = {White, Red};
+
+// Colore muro per ogni giocatore
+const int WALL_COLORS[2] = {White, Red};
+
+// Spostamenti consentiti consentite
 const int moves[4][2] = {
 	{-1, 0},
 	{0, -1},
@@ -16,10 +26,16 @@ const int moves[4][2] = {
 	{1, 0}
 };
 
+// Variabile di stato del gioco
 MatchType ms;
+
+// Posizione futura della pedina
 Coordinates nextPos;
+
+// Messaggio stampato a video
 char message[MESSAGE_LENGTH] = "\0\0";
 
+// Funzioni matematiche
 static int abs(int x){
 	return x > 0 ? x : -x;
 }
@@ -235,7 +251,7 @@ static void redrawWalls(){
 	int i, j;
 	for(i = 0; i < 2; i++){
 		for(j = 0; j < ms.walls[i].used; j++){
-			drawWall(ms.walls[i].position[j], ms.walls[i].dir[j], PLAYER_COLORS[i]);
+			drawWall(ms.walls[i].position[j], ms.walls[i].dir[j], WALL_COLORS[i]);
 		}
 	}
 }
@@ -265,7 +281,7 @@ static void moveWall(int h, int v){
 	redrawWalls();
 	
 	// Disegno nuovo muro, in posizione spostata
-	drawWall(getMovedPos(pos, h, v), dir, PLAYER_COLORS[ms.player-1]);
+	drawWall(getMovedPos(pos, h, v), dir, WALL_COLORS[ms.player-1]);
 	
 	// Aggiunta muro al vettore
 	setWall(getMovedPos(pos, h, v), dir);
@@ -296,7 +312,7 @@ static void clearWalls(){
 static void initInterface(){
 	
 	// Sfondo
-	LCD_Clear(Blue);
+	LCD_Clear(BGCOLOR);
 	
 	// Scacchiera e box per statistiche
 	drawChessPlatform();
@@ -369,14 +385,17 @@ void setPlayer(int playerValue){
 	// Disabilitazione KEY1 durante setup del giocatore
 	disable_button(11, EINT1_IRQn);
 	
+	// Disabilitazione KEY2 (necessario solo in caso di cambio di giocatore)
+	disable_button(12, EINT2_IRQn);
+	
+	// Cancellazione tempo iniziale
+	writeTimeRemaining(ms.timeRemaining, BGCOLOR);
+	
 	// In presenza di muri non confermati dal giocatore precedente
 	// si ridisegnano quelli presenti (necessario in caso di sovrapposizioni)
 	if(ms.pendingWall == 1){
 		redrawWalls();
 	}
-	
-	// Disabilitazione KEY2 (necessario solo in caso di cambio di giocatore)
-	disable_button(12, EINT2_IRQn);
 	
 	// Parametri iniziali
 	ms.player = playerValue;
@@ -394,7 +413,7 @@ void setPlayer(int playerValue){
 	clearMessage();
 	
 	// Scrittura tempo rimanente
-	writeTimeRemaining(ms.timeRemaining);
+	writeTimeRemaining(ms.timeRemaining, TIME_COLOR);
 	
 	// Abilitazione KEY1: rimane attivo fino al successivo cambio di giocatore
 	enable_button(11, EINT1_IRQn);
@@ -526,7 +545,7 @@ void newWall(Coordinates centerPos, int direction){
 	setWall(centerPos, direction);
 	
 	// Disegno muro
-	drawWall(centerPos, direction, PLAYER_COLORS[ms.player-1]);
+	drawWall(centerPos, direction, WALL_COLORS[ms.player-1]);
 	
 	// Abilitazione KEY1 e KEY2
 	enable_button(11, EINT1_IRQn);
@@ -552,7 +571,7 @@ void rotateWall(){
 	
 	// Disegno muro ruotato e sua impostazione
 	nextDir = 1 - currDir;
-	drawWall(pos, nextDir, PLAYER_COLORS[ms.player-1]);
+	drawWall(pos, nextDir, WALL_COLORS[ms.player-1]);
 	setWall(pos, nextDir);
 	
 	// Abilitazione KEY1 e KEY2
