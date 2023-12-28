@@ -92,8 +92,8 @@ void RIT_IRQHandler (void)
 		}
 	}
 	
-	// KEY2: se viene premuto insieme a KEY1, non ha effetto
-	else if(down_key2 > 0){
+	// KEY2
+	if(down_key2 > 0){
 		down_key2++;
 		if((LPC_GPIO2->FIOPIN & (1<<12)) == 0){
 				switch(down_key2){

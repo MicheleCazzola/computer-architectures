@@ -38,7 +38,7 @@ void KEY1_function(void){
 		// un muro non ancora confermato
 		if(ms.walls[ms.player-1].used < MAX_NUM_WALLS) {
 			newWall(WALL_DEFAULT_POS, HORIZONTAL_WALL);
-			enable_button(12, EINT2_IRQn);
+			//enable_button(12, EINT2_IRQn);
 		}
 		// Altrimenti -> Messaggio di errore
 		else{
@@ -47,7 +47,7 @@ void KEY1_function(void){
 	}
 	// Altrimenti -> Annullamento muro e disabilitazione KEY2
 	else{
-		disable_button(12, EINT2_IRQn);
+		//disable_button(12, EINT2_IRQn);
 		undoWall();
 	}
 }

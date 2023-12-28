@@ -140,19 +140,19 @@ static int checkReachability(int player){
 	
 	// Inizializzazione coda FIFO e
 	// inserimento posizione corrente del giocatore
-	queue_dim = 0;
+	initQueue(queue, &queue_dim);
 	currElem = ms.currentPos[player-1];
 	enqueue(queue, currElem, &queue_dim);
 	enqueued[currElem.x][currElem.y] = 1;
 	
 	// La ricerca procede, nel caso negativo,
 	// fino allo svuotamento della coda
-	while(!is_empty(queue, queue_dim)){
+	while(!isEmpty(queue, queue_dim)){
 		currElem = dequeue(queue, &queue_dim);
 		
 		// Check vittoria
 		if(victory(currElem, player)){
-			clear_queue(queue, &queue_dim);
+			clearQueue(queue, &queue_dim);
 			return 1;
 		}
 		
@@ -641,9 +641,9 @@ void undoWall(){
 	// Evidenziazione celle valide per spostamento
 	setColorMove(ms.currentPos[ms.player-1], VALID_MOVE_COLOR);
 	
-	// Abilitazione KEY1 e KEY2
+	// Abilitazione KEY1
 	enable_button(11, EINT1_IRQn);
-	enable_button(12, EINT2_IRQn);
+	//enable_button(12, EINT2_IRQn);
 }
 
 // Impostazione nuovo muro
