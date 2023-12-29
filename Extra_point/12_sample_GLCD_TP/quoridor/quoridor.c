@@ -126,7 +126,7 @@ static int validPos(Coordinates pos, Coordinates currentPos){
 // Si usa ricerca in ampiezza (BFS) di almeno un percorso esistente
 static int checkReachability(int player){
 	
-	int queue_dim, i, j;
+	int i, j;
 	Coordinates queue[NUM_SQUARES*NUM_SQUARES];
 	int enqueued[NUM_SQUARES][NUM_SQUARES];
 	Coordinates currElem, adjElem, finalPos;
@@ -140,19 +140,19 @@ static int checkReachability(int player){
 	
 	// Inizializzazione coda FIFO e
 	// inserimento posizione corrente del giocatore
-	initQueue(queue, &queue_dim);
+	initQueue(queue);
 	currElem = ms.currentPos[player-1];
-	enqueue(queue, currElem, &queue_dim);
+	enqueue(queue, currElem);
 	enqueued[currElem.x][currElem.y] = 1;
 	
 	// La ricerca procede, nel caso negativo,
 	// fino allo svuotamento della coda
-	while(!isEmpty(queue, queue_dim)){
-		currElem = dequeue(queue, &queue_dim);
+	while(!isEmpty(queue)){
+		currElem = dequeue(queue);
 		
 		// Check vittoria
 		if(victory(currElem, player)){
-			clearQueue(queue, &queue_dim);
+			clearQueue(queue);
 			return 1;
 		}
 		
@@ -168,7 +168,7 @@ static int checkReachability(int player){
 			jumpOverOpponent(currElem, adjElem, player, &finalPos);
 			if(validPos(finalPos, currElem)){
 						if(enqueued[finalPos.x][finalPos.y] == 0){
-							enqueue(queue, finalPos, &queue_dim);
+							enqueue(queue, finalPos);
 							enqueued[finalPos.x][finalPos.y] = 1;
 						}
 				}
@@ -342,11 +342,11 @@ static void initPlayersData(){
 // Inizializzazione pulsanti
 static void initControls(){
 	// Abilitazione INT0
-	enable_button(10, EINT0_IRQn);
+	enable_button(INT0_PIN, EINT0_IRQn);
 	
 	// Disabilitazione KEY1 e KEY2
-	disable_button(11, EINT1_IRQn);
-	disable_button(12, EINT2_IRQn);
+	disable_button(KEY1_PIN, EINT1_IRQn);
+	disable_button(KEY2_PIN, EINT2_IRQn);
 }
 
 // Salvataggio mossa nel formato richiesto
@@ -382,12 +382,6 @@ void setMode(int modeValue){
 // Impostazione giocatore
 void setPlayer(int playerValue){
 	
-	// Disabilitazione KEY1 durante setup del giocatore
-	disable_button(11, EINT1_IRQn);
-	
-	// Disabilitazione KEY2 (necessario solo in caso di cambio di giocatore)
-	disable_button(12, EINT2_IRQn);
-	
 	// Cancellazione tempo iniziale
 	writeTimeRemaining(ms.timeRemaining, BGCOLOR);
 	
@@ -414,9 +408,6 @@ void setPlayer(int playerValue){
 	
 	// Scrittura tempo rimanente
 	writeTimeRemaining(ms.timeRemaining, TIME_COLOR);
-	
-	// Abilitazione KEY1: rimane attivo fino al successivo cambio di giocatore
-	enable_button(11, EINT1_IRQn);
 	
 	// Avvio timer (1 s)
 	enable_timer(0);
@@ -449,9 +440,6 @@ void setColorMove(Coordinates pos, int color){
 void setNextPos(int h, int v){
 	Coordinates finalPos, destPos;
 	
-	// Disabilitazione KEY1
-	disable_button(11, EINT1_IRQn);
-	
 	// Eliminazione messaggio, se presente
 	clearMessage();
 	
@@ -471,16 +459,10 @@ void setNextPos(int h, int v){
 		// Caso negativo: posizione invariata
 		nextPos = ms.currentPos[ms.player-1];
 	}
-	
-	// Abilitazione KEY1
-	enable_button(11, EINT1_IRQn);
 }
 
 // Movimento pedina
 void move(){
-	
-	// Disabilitazione KEY1
-	disable_button(11, EINT1_IRQn);
 	
 	// Posizione finale valida
 	if(ms.validMove){
@@ -523,17 +505,10 @@ void move(){
 	else{
 		writeMessage("Move not valid");
 	}
-	
-	// Abilitazione KEY1
-	enable_button(11, EINT1_IRQn);
 }
 
 // Creazione nuovo muro
 void newWall(Coordinates centerPos, int direction){
-	
-	// Disabilitazione KEY1 e KEY2
-	disable_button(11, EINT1_IRQn);
-	disable_button(12, EINT2_IRQn);
 	
 	// Muro in attesa di azione
 	ms.pendingWall = 1;
@@ -546,20 +521,12 @@ void newWall(Coordinates centerPos, int direction){
 	
 	// Disegno muro
 	drawWall(centerPos, direction, WALL_COLORS[ms.player-1]);
-	
-	// Abilitazione KEY1 e KEY2
-	enable_button(11, EINT1_IRQn);
-	enable_button(12, EINT2_IRQn);
 }
 
 // Rotazione muro
 void rotateWall(){
 	Coordinates pos;
 	int currDir, nextDir;
-	
-	// Disabilitazione KEY1 e KEY2
-	disable_button(11, EINT1_IRQn);
-	disable_button(12, EINT2_IRQn);
 	
 	// Cancellazione muro iniziale
 	pos = ms.walls[ms.player - 1].position[ms.walls[ms.player-1].used];
@@ -573,24 +540,17 @@ void rotateWall(){
 	nextDir = 1 - currDir;
 	drawWall(pos, nextDir, WALL_COLORS[ms.player-1]);
 	setWall(pos, nextDir);
-	
-	// Abilitazione KEY1 e KEY2
-	enable_button(11, EINT1_IRQn);
-	enable_button(12, EINT2_IRQn);
 }
 
 // Conferma muro
 void confirmWall(){
 	int i, overlapped_wall_index, player_index;
 	
-	// Disabilitazione KEY1 e KEY2
-	disable_button(11, EINT1_IRQn);
-	disable_button(12, EINT2_IRQn);
-	
 	// Se muro valido, conferma
 	i = ms.walls[ms.player-1].used;
-	if(validWallPos(ms.walls[ms.player - 1].position[i], ms.walls[ms.player-1].dir[i],
-			&overlapped_wall_index, &player_index)){
+	ms.validMove = validWallPos(ms.walls[ms.player - 1].position[i], ms.walls[ms.player-1].dir[i],
+			&overlapped_wall_index, &player_index);
+	if(ms.validMove){
 		
 		// Muro confermato
 		ms.pendingWall = 0;
@@ -612,20 +572,12 @@ void confirmWall(){
 	else{
 		writeMessage("Position not valid");
 	}
-	
-	// Abilitazione KEY1 e KEY2
-	enable_button(11, EINT1_IRQn);
-	enable_button(12, EINT2_IRQn);
 }
 
 // Annullamento muro
 void undoWall(){
 	int dir;
 	Coordinates pos;
-	
-	// Disabilitazione KEY1 e KEY2
-	disable_button(11, EINT1_IRQn);
-	disable_button(12, EINT2_IRQn);
 	
 	// Muro annullato
 	ms.pendingWall = 0;
@@ -640,20 +592,12 @@ void undoWall(){
 	
 	// Evidenziazione celle valide per spostamento
 	setColorMove(ms.currentPos[ms.player-1], VALID_MOVE_COLOR);
-	
-	// Abilitazione KEY1
-	enable_button(11, EINT1_IRQn);
-	//enable_button(12, EINT2_IRQn);
 }
 
 // Impostazione nuovo muro
 void setNextWall(int h, int v){
 	int i;
 	Coordinates pos;
-	
-	// Disabilitazione KEY1 e KEY2
-	disable_button(11, EINT1_IRQn);
-	disable_button(12, EINT2_IRQn);
 	
 	// Cancellazione eventuale messaggio
 	clearMessage();
@@ -668,10 +612,6 @@ void setNextWall(int h, int v){
 	else{
 		writeMessage("Position not valid");
 	}
-	
-	// Abilitazione KEY1 e KEY2
-	enable_button(11, EINT1_IRQn);
-	enable_button(12, EINT2_IRQn);
 }
 
 

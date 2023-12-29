@@ -8,7 +8,7 @@
 .\funct_joystick.o: C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h
 .\funct_joystick.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h
 .\funct_joystick.o: joystick\joystick.h
-.\funct_joystick.o: joystick\../led/led.h
+.\funct_joystick.o: joystick\../button/button.h
 .\funct_joystick.o: joystick\../quoridor/quoridor.h
 .\funct_joystick.o: joystick\../quoridor/../graphics/interface.h
 .\funct_joystick.o: joystick\../quoridor/../graphics/../GLCD/GLCD.h

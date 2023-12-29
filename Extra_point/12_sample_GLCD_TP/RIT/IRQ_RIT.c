@@ -14,16 +14,6 @@
 #include "../button/button.h"
 #include "../quoridor/quoridor.h"
 
-/******************************************************************************
-** Function name:		RIT_IRQHandler
-**
-** Descriptions:		REPETITIVE INTERRUPT TIMER handler
-**
-** parameters:			None
-** Returned value:		None
-**
-******************************************************************************/
-
 extern void INT0_function(void);
 extern void KEY1_function(void);
 extern void KEY2_function(void);
@@ -35,6 +25,18 @@ extern MatchType ms;
 int down_int0 = 0;
 int down_key1 = 0;
 int down_key2 = 0;
+char selected = 0;
+
+/******************************************************************************
+** Function name:		RIT_IRQHandler
+**
+** Descriptions:		REPETITIVE INTERRUPT TIMER handler
+**
+** parameters:			None
+** Returned value:		None
+**
+******************************************************************************/
+
 
 void RIT_IRQHandler (void)
 {		
@@ -45,20 +47,21 @@ void RIT_IRQHandler (void)
 	disable_RIT();
 	reset_RIT();
 	
-	// Polling joystick, solo se KEY1 è abilitata
+	// Polling joystick, solo se KEY1 è abilitata e nessun pulsante è premuto
 	// Il joystick è sempre abilitato, ma viene
 	// controllato in polling solo se può produrre
 	// un movimento della pedina/muro sulla scacchiera
 	// Nessun controllo su INT0, in quanto è controllato
 	// già dalla prima condizione
-	// COME EFFETTUARE:
-	// Se uno tra KEY1 e KEY2 è premuto, non ha effetto
-	if((LPC_PINCON->PINSEL4 & (3 << 22)) >> 22 == 1){
+	// Si sceglie di dare priorità alla funzione dei pulsanti
+	if((LPC_PINCON->PINSEL4 & (3 << 22)) >> 22 == 1 &&
+			(selected & (INT0_MASK | KEY1_MASK | KEY2_MASK)) == 0){
 		joystick_controller(directions);
 	}
 	
 	// INT0: sempre in mutua esclusione rispetto a KEY1,
 	// KEY2 e joystick
+	//if((selected & 0xFF) == INT0_MASK){
 	if(down_int0 > 0){
 		down_int0++;
 		if((LPC_GPIO2->FIOPIN & (1<<10)) == 0){
@@ -69,14 +72,14 @@ void RIT_IRQHandler (void)
 			}
 		else {	/* button released */
 			down_int0=0;
-			if((LPC_PINCON->PINSEL4 & (3 << 22)) >> 22 == 0){
-				NVIC_EnableIRQ(EINT0_IRQn);							 /* enable Button interrupts			*/
-				LPC_PINCON->PINSEL4    |= (1 << 20);     /* External interrupt 0 pin selection */
+			if(disabled_button(KEY1_PIN)){
+				enable_button(INT0_PIN, EINT0_IRQn);
 			}
 		}
 	}
 	
 	// KEY1
+	//if((selected & 0xFF) == KEY1_MASK){
 	if(down_key1 > 0){
 		down_key1++;
 		if((LPC_GPIO2->FIOPIN & (1<<11)) == 0){
@@ -87,13 +90,13 @@ void RIT_IRQHandler (void)
 			}
 		else {	/* button released */
 			down_key1=0;
-			NVIC_EnableIRQ(EINT1_IRQn);							 /* enable Button interrupts			*/
-			LPC_PINCON->PINSEL4    |= (1 << 22);     /* External interrupt 0 pin selection */
+			enable_button(KEY1_PIN, EINT1_IRQn);
 		}
 	}
 	
 	// KEY2
-	if(down_key2 > 0){
+	//if((selected & 0xFF) == KEY2_MASK){
+	else if(down_key2 > 0){
 		down_key2++;
 		if((LPC_GPIO2->FIOPIN & (1<<12)) == 0){
 				switch(down_key2){
@@ -103,8 +106,7 @@ void RIT_IRQHandler (void)
 			}
 		else {	/* button released */
 			down_key2=0;
-			NVIC_EnableIRQ(EINT2_IRQn);							 /* enable Button interrupts			*/
-			LPC_PINCON->PINSEL4    |= (1 << 24);     /* External interrupt 0 pin selection */
+			enable_button(KEY2_PIN, EINT2_IRQn);
 		}
 	}
 	

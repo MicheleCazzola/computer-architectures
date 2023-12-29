@@ -10,7 +10,7 @@
 
 #include "lpc17xx.h"
 #include "joystick.h"
-#include "../led/led.h"
+#include "../button/button.h"
 #include "../quoridor/quoridor.h"
 
 #define NO_MOVE -1
@@ -38,6 +38,8 @@ void joystick_controller(int *pressed) {
 			// Prima pressione
 			if(pressed[i] == 1){
 				
+				disable_button(KEY1_PIN, EINT1_IRQn);
+				
 				// Modalità movimento pedina
 				if(ms.pendingWall == 0){
 					// Se SELECT -> Movimento pedina
@@ -46,10 +48,33 @@ void joystick_controller(int *pressed) {
 				}
 				// Modalità posizionamento muro
 				else{
+					
+					disable_button(KEY2_PIN, EINT2_IRQn);
+					
 					// Se SELECT -> Conferma muro
 					// Altrimenti -> Movimento muro (senza conferma)
-					(i == 0) ? confirmWall() : setNextWall(moves[i][0], moves[i][1]);
+					if(i == 0){
+						confirmWall();
+						
+						// Riabilitazione KEY2 solo se ancora in movimento
+						if(!ms.validMove){
+							enable_button(KEY2_PIN, EINT2_IRQn);
+						}
+					}
+					else{
+						setNextWall(moves[i][0], moves[i][1]);
+						
+						// Riabilitazione KEY2 solo se ancora in movimento
+						enable_button(KEY2_PIN, EINT2_IRQn);
+					}
 				}
+				
+				// Se la partita non è terminata, si riabilita KEY1
+				if(ms.mode == PLAYING){
+					enable_button(KEY1_PIN, EINT1_IRQn);
+				}
+				
+				
 			}
 		}
 		// Joystick UP/DOWN/LEFT/RIGHT/SELECT rilasciato

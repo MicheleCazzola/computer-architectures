@@ -11,6 +11,7 @@
 extern int down_int0;
 extern int down_key1;
 extern int down_key2;
+extern int selected;
 
 extern MatchType ms;
 extern Coordinates WALL_DEFAULT_POS;
@@ -23,6 +24,10 @@ void INT0_function(void){
 	// Inizia il giocatore 1
 	setPlayer(PLAYER1);
 	
+	enable_button(KEY1_PIN, EINT1_IRQn);
+	
+	// Clear flag
+	selected &= ~INT0_MASK;
 }
 
 void KEY1_function(void){
@@ -38,35 +43,41 @@ void KEY1_function(void){
 		// un muro non ancora confermato
 		if(ms.walls[ms.player-1].used < MAX_NUM_WALLS) {
 			newWall(WALL_DEFAULT_POS, HORIZONTAL_WALL);
-			//enable_button(12, EINT2_IRQn);
+			enable_button(KEY2_PIN, EINT2_IRQn);
 		}
 		// Altrimenti -> Messaggio di errore
 		else{
 			writeMessage("No walls available, move the token");
 		}
 	}
-	// Altrimenti -> Annullamento muro e disabilitazione KEY2
+	// Altrimenti -> Annullamento muro
 	else{
-		//disable_button(12, EINT2_IRQn);
+		disable_button(KEY2_PIN, EINT2_IRQn);
 		undoWall();
 	}
+	
+	// Clear flag
+	selected &= ~KEY1_MASK;
 }
 
 void KEY2_function(void){
 	
-	// Se in modalità gioco con muri pendenti -> Rotazione del muro
-	//if(ms.mode == PLAYING){
-		//if(ms.pendingWall == 1){
-			rotateWall();
-		//}
-	//}
+	disable_button(KEY1_PIN, EINT1_IRQn);
+	
+	// Rotazione muro
+	rotateWall();
+	
+	enable_button(KEY1_PIN, EINT1_IRQn);
+	
+	// Clear flag
+	selected &= ~KEY2_MASK;
 }
 	
 void EINT0_IRQHandler (void)	  	/* INT0														 */
 {
 	down_int0 = 1;
-	NVIC_DisableIRQ(EINT0_IRQn);
-	LPC_PINCON->PINSEL4 &= ~(1 << 20);
+	selected |= INT0_MASK;
+	disable_button(INT0_PIN, EINT0_IRQn);
 	
 	LPC_SC->EXTINT &= (1 << 0);     /* clear pending interrupt         */
 }
@@ -75,16 +86,18 @@ void EINT0_IRQHandler (void)	  	/* INT0														 */
 void EINT1_IRQHandler (void)	  	/* KEY1														 */
 {
 	down_key1 = 1;
-	NVIC_DisableIRQ(EINT1_IRQn);
-	LPC_PINCON->PINSEL4 &= ~(1 << 22);
+	selected |= KEY1_MASK;
+	disable_button(KEY1_PIN, EINT1_IRQn);
+	
 	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt */
 }
 
 void EINT2_IRQHandler (void)	  	/* KEY2														 */
 {
 	down_key2 = 1;
-	NVIC_DisableIRQ(EINT2_IRQn);
-	LPC_PINCON->PINSEL4 &= ~(1 << 24);
+	selected |= KEY2_MASK;
+	disable_button(KEY2_PIN, EINT2_IRQn);
+	
   LPC_SC->EXTINT &= (1 << 2);     /* clear pending interrupt         */    
 }
 

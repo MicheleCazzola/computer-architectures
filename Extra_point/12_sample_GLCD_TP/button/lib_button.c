@@ -33,3 +33,7 @@ void disable_button(int pin, IRQn_Type IRQn){
 	LPC_PINCON->PINSEL4 &= ~(1 << (2 * pin));
 	NVIC_DisableIRQ(IRQn);
 }
+
+int disabled_button(int pin){
+	return (LPC_PINCON->PINSEL4 & (3 << (2*pin))) >> (2*pin) == 0;
+}

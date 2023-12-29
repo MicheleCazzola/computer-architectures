@@ -10,6 +10,7 @@
 .\irq_timer.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h
 .\irq_timer.o: timer\timer.h
 .\irq_timer.o: timer\../GLCD/GLCD.h
+.\irq_timer.o: timer\../button/button.h
 .\irq_timer.o: timer\../TouchPanel/TouchPanel.h
 .\irq_timer.o: timer\../quoridor/quoridor.h
 .\irq_timer.o: timer\../quoridor/../graphics/interface.h

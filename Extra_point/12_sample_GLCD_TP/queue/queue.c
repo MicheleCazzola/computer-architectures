@@ -2,37 +2,25 @@
 
 static int head, tail;
 
-int isEmpty(Coordinates *queue, int dim){
-	//return dim == 0;
+int isEmpty(Coordinates *queue){
 	return head == tail-1;
 }
 
-void initQueue(Coordinates *queue, int *dim){
-	*dim = 0;
+void initQueue(Coordinates *queue){
 	head = -1;
 	tail = 0;
 }
 
-void enqueue(Coordinates *queue, Coordinates elem, int *dim){
-	//queue[(*dim)++ + head] = elem;
+void enqueue(Coordinates *queue, Coordinates elem){
 	queue[tail++] = elem;
 }
 
-Coordinates dequeue(Coordinates *queue, int *dim){
-	int i;
+Coordinates dequeue(Coordinates *queue){
 	Coordinates result = queue[++head];
-	/*
-	for(i = 0; i < (*dim)-1; i++){
-		queue[i] = queue[i+1];
-		queue[i+1].x = queue[i+1].y = 0;
-	}
-	*/
-	//(*dim)--;
 	return result;
 }
 
-void clearQueue(Coordinates *queue, int *dim){
-	*dim = 0;
+void clearQueue(Coordinates *queue){
 	head = -1;
 	tail = 0;
 }

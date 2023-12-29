@@ -22,7 +22,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "LPC17xx.h"
-//#include "led/led.h"
 #include "GLCD/GLCD.h" 
 #include "TouchPanel/TouchPanel.h"
 #include "timer/timer.h"
@@ -44,20 +43,7 @@ int main(void)
 	LCD_Initialization();
 	
 	//TP_Init();
-	
-	//LED_init();
-  
 	//TouchPanel_Calibrate();
-	
-	
-	//GUI_Text(0, 280, (uint8_t *) " touch here : 1 sec to clear  ", Blue, White);
-	
-	//init_timer(0, 0x1312D0 ); 						/* 50ms * 25MHz = 1.25*10^6 = 0x1312D0 */
-	//init_timer(0, 0x6108 ); 						  /* 1ms * 25MHz = 25*10^3 = 0x6108 */
-	//init_timer(0, 0x4E2 ); 						    /* 500us * 25MHz = 1.25*10^3 = 0x4E2 */
-	//init_timer(0, 0xC8 ); 						    /* 8us * 25MHz = 200 ~= 0xC8 */
-	
-	//enable_timer(0);
 	
 	// Timer 1 s con 25 MHz
 	init_timer(0, 0x017D7840);			

@@ -11,6 +11,7 @@
 #include "lpc17xx.h"
 #include "timer.h"
 #include "../GLCD/GLCD.h" 
+#include "../button/button.h"
 #include "../TouchPanel/TouchPanel.h"
 #include "../quoridor/quoridor.h"
 #include "../graphics/interface.h"
@@ -39,6 +40,8 @@ void TIMER0_IRQHandler (void) {
 	// Tempo per giocatore terminato
 	if(ms.timeRemaining == 0){
 		
+		disable_button(KEY1_PIN, EINT1_IRQn);
+		
 		// Modalità movimento pedina
 		// cancellazione posizioni valide adiacenti
 		// salvataggio mossa (out of time move)
@@ -48,12 +51,18 @@ void TIMER0_IRQHandler (void) {
 		}
 		// Modalità posizionamento muro: cancellazione muro
 		else{
+			
+			// Disabilitazione KEY2 -> Si passa in modalità movimento pedina
+			disable_button(KEY2_PIN, EINT2_IRQn);
+			
 			drawWall(ms.walls[ms.player-1].position[ms.walls[ms.player-1].used],
 									ms.walls[ms.player-1].dir[ms.walls[ms.player-1].used], BGCOLOR);
 		}
 		
 		// Cambio giocatore
 		setPlayer(3 - ms.player);
+		
+		enable_button(KEY1_PIN, EINT1_IRQn);
 	}
 	// Tempo per giocatore non terminato
 	else{

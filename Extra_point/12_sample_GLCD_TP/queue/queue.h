@@ -3,10 +3,10 @@
 
 #include "../quoridor/quoridor.h"
 
-int isEmpty(Coordinates *queue, int dim);
-void initQueue(Coordinates *queue, int *dim);
-void enqueue(Coordinates *queue, Coordinates elem, int *dim);
-Coordinates dequeue(Coordinates *queue, int *dim);
-void clearQueue(Coordinates *queue, int *dim);
+int isEmpty(Coordinates *queue);
+void initQueue(Coordinates *queue);
+void enqueue(Coordinates *queue, Coordinates elem);
+Coordinates dequeue(Coordinates *queue);
+void clearQueue(Coordinates *queue);
 
 #endif
