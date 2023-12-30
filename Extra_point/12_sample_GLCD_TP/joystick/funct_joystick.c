@@ -86,7 +86,7 @@ void joystick_controller() {
 					if(i == 0){
 						confirmWall();
 						
-						// Riabilitazione KEY2 solo se ancora in movimento: MODIFICARE
+						// Riabilitazione KEY2 solo se ancora in movimento
 						if(!ms.validMove){
 							enable_button(KEY2_PIN, EINT2_IRQn);
 						}
