@@ -17,11 +17,22 @@
 
 extern MatchType ms;
 
-/*----------------------------------------------------------------------------
-  Function that turns on requested led
- *----------------------------------------------------------------------------*/
-void joystick_controller(int *pressed) {
+// Conta numero di input del joystick selezionati
+static int countPressed(int *pressed){
+	int i, r;
+	for(i = r = 0; i < 5; i++){
+		r += ((LPC_GPIO1->FIOPIN & (1 << (i + 25))) == 0);
+	}
 	
+	return r;
+}
+
+/*----------------------------------------------------------------------------
+  Function that controls joystick
+ *----------------------------------------------------------------------------*/
+void joystick_controller() {
+	
+	// Mosse possibili
 	const int moves[5][2] = {
 		{NO_MOVE, NO_MOVE}, 	// SELECT
 		{0, 1},		// DOWN
@@ -30,10 +41,18 @@ void joystick_controller(int *pressed) {
 		{0, -1}		// UP
 	};
 	
-	int i;	
+	static int pressed[5] = {0, 0, 0, 0, 0};
+	
+	int i;
+	
+	// Se più di un input è premuto, non si esegue nessuna azione
+	if(countPressed(pressed) > 1){
+		return;
+	}
+	
 	for(i = 0; i <= 4; i++){
 		// Joystick UP/DOWN/LEFT/RIGHT/SELECT premuto
-		if((LPC_GPIO1->FIOPIN & (1<<(i + 25))) == 0){	
+		if((LPC_GPIO1->FIOPIN & (1<<(i + 25))) == 0){
 			pressed[i]++;
 			// Prima pressione
 			if(pressed[i] == 1){
@@ -42,9 +61,20 @@ void joystick_controller(int *pressed) {
 				
 				// Modalità movimento pedina
 				if(ms.pendingWall == 0){
+					
 					// Se SELECT -> Movimento pedina
 					// Altrimenti -> Impostazione nuova posizione
-					(i == 0) ? move() : setNextPos(moves[i][0], moves[i][1]);
+					if(i == 0){
+						
+						// Se la posizione di arrivo è diversa da quella corrente -> Spostamento
+						// Si impedisce di confermare la non-mossa della pedina
+						if(!equalCoordinates(getNextPos(), ms.currentPos[ms.player-1])){
+							move();
+						}
+					}
+					else{
+						setNextPos(moves[i][0], moves[i][1]);
+					}
 				}
 				// Modalità posizionamento muro
 				else{
@@ -56,7 +86,7 @@ void joystick_controller(int *pressed) {
 					if(i == 0){
 						confirmWall();
 						
-						// Riabilitazione KEY2 solo se ancora in movimento
+						// Riabilitazione KEY2 solo se ancora in movimento: MODIFICARE
 						if(!ms.validMove){
 							enable_button(KEY2_PIN, EINT2_IRQn);
 						}
@@ -74,11 +104,11 @@ void joystick_controller(int *pressed) {
 					enable_button(KEY1_PIN, EINT1_IRQn);
 				}
 				
-				
 			}
 		}
 		// Joystick UP/DOWN/LEFT/RIGHT/SELECT rilasciato
 		else{
+			if(pressed[i] != 0)
 				pressed[i]=0;
 		}
 	}

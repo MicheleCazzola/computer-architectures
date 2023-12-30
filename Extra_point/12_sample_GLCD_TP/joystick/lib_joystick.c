@@ -17,8 +17,26 @@
 
 void joystick_init(void) {
 	/* joystick select functionality */
-  LPC_PINCON->PINSEL3 &= ~(3<<26);	//PIN mode GPIO (00b value per P1.29)
-	LPC_GPIO1->FIODIR   &= ~(1<<29);	//P1.25 Input (joysticks on PORT1 defined as Input) 
+	
+	// Enable SEL
+  LPC_PINCON->PINSEL3 &= ~(3<<18);
+	LPC_GPIO1->FIODIR   &= ~(1<<25);
+	
+	// Enable DOWN
+  LPC_PINCON->PINSEL3 &= ~(3<<20);
+	LPC_GPIO1->FIODIR   &= ~(1<<26);
+	
+	// Enable LEFT
+  LPC_PINCON->PINSEL3 &= ~(3<<22);
+	LPC_GPIO1->FIODIR   &= ~(1<<27);
+	
+	// Enable RIGHT
+  LPC_PINCON->PINSEL3 &= ~(3<<24);
+	LPC_GPIO1->FIODIR   &= ~(1<<28);
+	
+	// Enable UP
+  LPC_PINCON->PINSEL3 &= ~(3<<26);
+	LPC_GPIO1->FIODIR   &= ~(1<<29);
 }
 
 void connect_joystick(){

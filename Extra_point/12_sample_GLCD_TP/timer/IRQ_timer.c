@@ -31,11 +31,11 @@ extern Coordinates nextPos;
 
 void TIMER0_IRQHandler (void) {
 	
-	// Scrittura tempo rimanente
-	writeTimeRemaining(--ms.timeRemaining, TIME_COLOR);
-	
 	// Stop timer
 	reset_timer(0);
+	
+	// Scrittura tempo rimanente
+	writeTimeRemaining(--ms.timeRemaining, TIME_COLOR);
 	
 	// Tempo per giocatore terminato
 	if(ms.timeRemaining == 0){
@@ -47,7 +47,7 @@ void TIMER0_IRQHandler (void) {
 		// salvataggio mossa (out of time move)
 		if(ms.pendingWall == 0){
 			setColorMove(ms.currentPos[ms.player - 1], BGCOLOR);
-			saveMove(ms.player-1, PLAYER_MOVE, OUT_OF_TIME_MOVE, nextPos);
+			saveMove(ms.player-1, PLAYER_MOVE, OUT_OF_TIME_MOVE, &nextPos);
 		}
 		// Modalità posizionamento muro: cancellazione muro
 		else{

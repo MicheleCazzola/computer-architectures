@@ -9,7 +9,7 @@
 *********************************************************************************************************/
 #include "lpc17xx.h"
 #include "RIT.h"
-#include "../led/led.h"
+#include "../joystick/joystick.h"
 #include "../timer/timer.h"
 #include "../button/button.h"
 #include "../quoridor/quoridor.h"
@@ -17,8 +17,6 @@
 extern void INT0_function(void);
 extern void KEY1_function(void);
 extern void KEY2_function(void);
-
-extern void joystick_controller(int *pressed);
 
 extern MatchType ms;
 
@@ -39,29 +37,15 @@ char selected = 0;
 
 
 void RIT_IRQHandler (void)
-{		
-	static int directions[5] = {0, 0, 0, 0, 0};
+{
 	
 	// Stop RIT: periodo breve, si evita
 	// di farlo avanzare durante il suo handler
 	disable_RIT();
 	reset_RIT();
 	
-	// Polling joystick, solo se KEY1 è abilitata e nessun pulsante è premuto
-	// Il joystick è sempre abilitato, ma viene
-	// controllato in polling solo se può produrre
-	// un movimento della pedina/muro sulla scacchiera
-	// Nessun controllo su INT0, in quanto è controllato
-	// già dalla prima condizione
-	// Si sceglie di dare priorità alla funzione dei pulsanti
-	if((LPC_PINCON->PINSEL4 & (3 << 22)) >> 22 == 1 &&
-			(selected & (INT0_MASK | KEY1_MASK | KEY2_MASK)) == 0){
-		joystick_controller(directions);
-	}
-	
-	// INT0: sempre in mutua esclusione rispetto a KEY1,
-	// KEY2 e joystick
-	//if((selected & 0xFF) == INT0_MASK){
+	// INT0: sempre in mutua esclusione rispetto a KEY1 e KEY2
+	// Il polling del joystick si basa sullo stato di INT0
 	if(down_int0 > 0){
 		down_int0++;
 		if((LPC_GPIO2->FIOPIN & (1<<10)) == 0){
@@ -72,14 +56,16 @@ void RIT_IRQHandler (void)
 			}
 		else {	/* button released */
 			down_int0=0;
+			
+			// Viene riabilitato solo se non ha svolto 
+			// INT0_function(), ovvero se KEY1 è ancora disabilitato
 			if(disabled_button(KEY1_PIN)){
 				enable_button(INT0_PIN, EINT0_IRQn);
 			}
 		}
 	}
 	
-	// KEY1
-	//if((selected & 0xFF) == KEY1_MASK){
+	// KEY1: abilitato in mutua esclusione a INT0
 	if(down_key1 > 0){
 		down_key1++;
 		if((LPC_GPIO2->FIOPIN & (1<<11)) == 0){
@@ -94,8 +80,9 @@ void RIT_IRQHandler (void)
 		}
 	}
 	
-	// KEY2
-	//if((selected & 0xFF) == KEY2_MASK){
+	// KEY2: solo se non è in corso la gestione
+	// dell'interrupt di KEY1 (pressione + 1 RIT)
+	// Abilitato in mutua esclusione a INT0
 	else if(down_key2 > 0){
 		down_key2++;
 		if((LPC_GPIO2->FIOPIN & (1<<12)) == 0){
@@ -107,6 +94,15 @@ void RIT_IRQHandler (void)
 		else {	/* button released */
 			down_key2=0;
 			enable_button(KEY2_PIN, EINT2_IRQn);
+		}
+	}
+	
+	// Polling joystick, solo se né KEY1 né KEY2 sono premuti
+	// e se INT0 è disabilitato, ovvero si è entrati in
+	// modalità gioco
+	else {
+		if(disabled_button(INT0_PIN)){
+			joystick_controller();
 		}
 	}
 	

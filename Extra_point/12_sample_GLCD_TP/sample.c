@@ -48,13 +48,15 @@ int main(void)
 	// Timer 1 s con 25 MHz
 	init_timer(0, 0x017D7840);			
 	// RIT 50 ms con 100 MHz: priorità superiore ai pulsanti
-	init_RIT(0x004C4B40);			
+	init_RIT(0x004C4B40);
+	
 	joystick_init();
+	
 	BUTTON_init();
-	enable_RIT();
+	
 	initGame();
 	
-	
+	enable_RIT();
 	
 	LPC_SC->PCON |= 0x1;									/* power-down	mode										*/
 	LPC_SC->PCON &= ~(0x2);						
