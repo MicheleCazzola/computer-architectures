@@ -16,7 +16,6 @@
  *----------------------------------------------------------------------------*/
 
 void joystick_init(void) {
-	/* joystick select functionality */
 	
 	// Enable SEL
   LPC_PINCON->PINSEL3 &= ~(3<<18);
@@ -37,12 +36,4 @@ void joystick_init(void) {
 	// Enable UP
   LPC_PINCON->PINSEL3 &= ~(3<<26);
 	LPC_GPIO1->FIODIR   &= ~(1<<29);
-}
-
-void connect_joystick(){
-	LPC_PINCON->PINSEL3 |= (0x1F << 25);
-}
-
-void disconnect_joystick(){
-	LPC_PINCON->PINSEL3 &= ~(0x1F << 25);
 }

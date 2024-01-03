@@ -9,8 +9,4 @@
 .\irq_rit.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h
 .\irq_rit.o: RIT\RIT.h
 .\irq_rit.o: RIT\../joystick/joystick.h
-.\irq_rit.o: RIT\../timer/timer.h
 .\irq_rit.o: RIT\../button/button.h
-.\irq_rit.o: RIT\../quoridor/quoridor.h
-.\irq_rit.o: RIT\../quoridor/../graphics/interface.h
-.\irq_rit.o: RIT\../quoridor/../graphics/../GLCD/GLCD.h

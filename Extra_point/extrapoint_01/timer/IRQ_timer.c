@@ -3,16 +3,13 @@
 ** File name:           IRQ_timer.c
 ** Last modified Date:  2014-09-25
 ** Last Version:        V1.00
-** Descriptions:        functions to manage T0 and T1 interrupts
+** Descriptions:        function to manage T0 interrupt
 ** Correlated files:    timer.h
 **--------------------------------------------------------------------------------------------------------
 *********************************************************************************************************/
 #include <string.h>
-#include "lpc17xx.h"
 #include "timer.h"
-#include "../GLCD/GLCD.h" 
 #include "../button/button.h"
-#include "../TouchPanel/TouchPanel.h"
 #include "../quoridor/quoridor.h"
 #include "../graphics/interface.h"
 
@@ -30,6 +27,8 @@ extern MatchType ms;
 extern Coordinates nextPos;
 
 void TIMER0_IRQHandler (void) {
+	
+	Coordinates p;
 	
 	// Stop timer
 	reset_timer(0);
@@ -49,19 +48,21 @@ void TIMER0_IRQHandler (void) {
 			setColorMove(ms.currentPos[ms.player - 1], BGCOLOR);
 			saveMove(ms.player-1, PLAYER_MOVE, OUT_OF_TIME_MOVE, &nextPos);
 		}
-		// Modalità posizionamento muro: cancellazione muro
+		// Modalità posizionamento muro
 		else{
 			
 			// Disabilitazione KEY2 -> Si passa in modalità movimento pedina
 			disable_button(KEY2_PIN, EINT2_IRQn);
 			
-			drawWall(ms.walls[ms.player-1].position[ms.walls[ms.player-1].used],
-									ms.walls[ms.player-1].dir[ms.walls[ms.player-1].used], BGCOLOR);
+			// Cancellazione muro
+			p = ms.walls[ms.player-1].position[ms.walls[ms.player-1].used];
+			drawWall(p.x, p.y, ms.walls[ms.player-1].dir[ms.walls[ms.player-1].used], BGCOLOR);
 		}
 		
 		// Cambio giocatore
 		setPlayer(3 - ms.player);
 		
+		// Riabilitazione KEY1
 		enable_button(KEY1_PIN, EINT1_IRQn);
 	}
 	// Tempo per giocatore non terminato

@@ -612,6 +612,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>coordinates</GroupName>
+          <Files>
+            <File>
+              <FileName>coordinates.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\coordinates\coordinates.c</FilePath>
+            </File>
+            <File>
+              <FileName>coordinates.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\coordinates\coordinates.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>

@@ -10,5 +10,4 @@
 .\funct_joystick.o: joystick\joystick.h
 .\funct_joystick.o: joystick\../button/button.h
 .\funct_joystick.o: joystick\../quoridor/quoridor.h
-.\funct_joystick.o: joystick\../quoridor/../graphics/interface.h
-.\funct_joystick.o: joystick\../quoridor/../graphics/../GLCD/GLCD.h
+.\funct_joystick.o: joystick\../quoridor/../coordinates/coordinates.h

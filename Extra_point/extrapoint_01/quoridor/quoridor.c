@@ -2,8 +2,8 @@
 #include "quoridor.h"
 #include "../button/button.h"
 #include "../timer/timer.h"
-#include "../graphics/interface.h"
 #include "../queue/queue.h"
+#include "../graphics/interface.h"
 
 // Posizioni (x,y) iniziali dei giocatori
 const Coordinates START_POS_PLAYER1 = {3,6};
@@ -18,7 +18,7 @@ const int PLAYER_COLORS[2] = {White, Red};
 // Colore muro per ogni giocatore
 const int WALL_COLORS[2] = {White, Red};
 
-// Spostamenti consentiti consentite
+// Spostamenti consentiti
 const int moves[4][2] = {
 	{-1, 0},		// LEFT
 	{0, -1},		// UP
@@ -35,6 +35,14 @@ Coordinates nextPos;
 // Messaggio stampato a video
 char message[MESSAGE_LENGTH] = "\0\0";
 
+
+/** FUNZIONI INTERNE DEL GIOCO
+ * Non sono esportate all'esterno
+ * Servono solo alle funzioni principali per svolgere check,
+ * get, set e operazioni complesse
+ */
+
+
 // Funzioni matematiche
 static int abs(int x){
 	return x > 0 ? x : -x;
@@ -50,6 +58,11 @@ static int sign(int x){
 // Get avversario
 static int getOtherPlayer(int player){
 	return 3 - player;
+}
+
+// Get nuova posizione pedina
+Coordinates getNextPos(){
+	return nextPos;
 }
 
 // Check vittoria
@@ -70,26 +83,49 @@ static int centerWallInPlatform(Coordinates *pos){
 // Get posizione finale in presenza di avversario in posizione adiacente
 static void jumpOverOpponent(Coordinates *srcPos, Coordinates *destPos, int player, Coordinates *finalPos){
 	int stepX, stepY;
-	stepX = destPos->x - srcPos->x;
-	stepY = destPos->y - srcPos->y;
-	if(ms.currentPos[getOtherPlayer(player) - 1].x == destPos->x &&
-				ms.currentPos[getOtherPlayer(player) - 1].y == destPos->y){
-		stepX = (srcPos->y == destPos->y) ? sign(stepX) * (abs(stepX) + 1) : 0;
-		stepY = (srcPos->x == destPos->x) ? sign(stepY) * (abs(stepY) + 1) : 0;
+	
+	// Calcolo step iniziali
+	stepX = coordDiffX(*destPos, *srcPos);
+	stepY = coordDiffY(*destPos, *srcPos);
+	
+	// In presenza di un avversario nella posizione destinazione,
+	// si incrementa di 1 il modulo dello step, nella direzione opportuna
+	if(equalCoord(ms.currentPos[getOtherPlayer(player) - 1], *destPos)){
+		stepX = (equalCoordY(*srcPos, *destPos)) ? sign(stepX) * (abs(stepX) + 1) : 0;
+		stepY = (equalCoordX(*srcPos, *destPos)) ? sign(stepY) * (abs(stepY) + 1) : 0;
 	}
-	finalPos->x = srcPos->x + stepX;
-	finalPos->y = srcPos->y + stepY;
+				
+	// Assegnazione destinazione finale
+	*finalPos = changeCoord(*srcPos, stepX, stepY);
 }
 
 // Check presenza di un muro specifico tra due celle
 static int wallBetweenCells(Coordinates *srcPos, Coordinates *destPos, Coordinates *centerPos, int dir){
+	
+	// Muro orizzontale
 	if(dir == HORIZONTAL_WALL){
-		if(srcPos->x == destPos->x && (destPos->x == centerPos->x || destPos->x == centerPos->x+1) && srcPos->y <= centerPos->y && centerPos->y < destPos->y) return 1;
-		if(srcPos->x == destPos->x && (destPos->x == centerPos->x || destPos->x == centerPos->x+1) && destPos->y <= centerPos->y && centerPos->y < srcPos->y) return 1;
+		
+		// Spostamento verticale verso il basso
+		if(equalCoordX(*srcPos, *destPos) && (equalCoordX(*centerPos, *destPos) || equalCoordX(*destPos, changeCoord(*centerPos, 1, 0)))
+			&& coordCmpY(*srcPos, *centerPos) <= 0 && coordCmpY(*centerPos, *destPos) < 0)
+				return 1;
+		// Spostamento verticale verso l'alto
+		if(equalCoordX(*srcPos, *destPos) && (equalCoordX(*centerPos, *destPos) || equalCoordX(*destPos, changeCoord(*centerPos, 1, 0)))
+			&& coordCmpY(*destPos, *centerPos) <= 0 && coordCmpY(*centerPos, *srcPos) < 0)
+				return 1;
 	}
+	
+	// Muro verticale
 	else{
-		if(srcPos->y == destPos->y && (destPos->y == centerPos->y || destPos->y == centerPos->y+1) && srcPos->x <= centerPos->x && centerPos->x < destPos->x) return 1;
-		if(srcPos->y == destPos->y && (destPos->y == centerPos->y || destPos->y == centerPos->y+1) && destPos->x <= centerPos->x && centerPos->x < srcPos->x) return 1;
+		
+		// Spostamento verticale verso destra
+		if(equalCoordY(*srcPos, *destPos) && (equalCoordY(*centerPos, *destPos) || equalCoordY(*destPos, changeCoord(*centerPos, 0, 1)))
+			&& coordCmpX(*srcPos, *centerPos) <= 0 && coordCmpX(*centerPos, *destPos) < 0)
+				return 1;
+		// Spostamento verticale verso sinistra
+		if(equalCoordY(*srcPos, *destPos) && (equalCoordY(*centerPos, *destPos) || equalCoordY(*destPos, changeCoord(*centerPos, 0, 1)))
+			&& coordCmpX(*destPos, *centerPos) <= 0 && coordCmpX(*centerPos, *srcPos) < 0)
+				return 1;
 	}
 	return 0;
 }
@@ -97,8 +133,15 @@ static int wallBetweenCells(Coordinates *srcPos, Coordinates *destPos, Coordinat
 // Check presenza di almeno un muro tra due celle
 static int noWallBetween(Coordinates adjPos, Coordinates currentPos){
 	int p, i, wall_in_progress;
-	for(p = 1; p < 3; p++){
-		wall_in_progress = p == ms.player && ms.pendingWall == 1;
+	
+	// Check su entrambi i giocatori
+	for(p = 1; p <= 2; p++){
+		
+		// Check necessità controllo del muro in corso di posizionamento
+		wall_in_progress = (p == ms.player && ms.pendingWall == 1);
+		
+		// Iterazione sui muri: terminazione anticipata con 0, se
+		// un muro è posto tra le due celle
 		for(i = 0; i < ms.walls[p-1].used + wall_in_progress; i++){
 			if(wallBetweenCells(&currentPos, &adjPos, &(ms.walls[p-1].position[i]), ms.walls[p-1].dir[i])){
 				return 0;
@@ -122,20 +165,27 @@ static int validPos(Coordinates pos, Coordinates currentPos){
 }
 
 // Check raggiungibilità, da parte di un giocatore, di almeno
-// una possibile cella del lato opposto al proprio di partenza
+// una cella del lato opposto al proprio lato di partenza
 // Si usa ricerca in ampiezza (BFS) di almeno un percorso esistente
+// Le celle visitate sono inserite in una coda FIFO e marcate con un
+// flag al momento dell'inserimento, per risparmiare spazio allocato
 static int checkReachability(int player){
 	
-	//const int DIM = 15;
-	
 	int i;
-	int	cnt, maxcnt;
+	
+	// Coda FIFO implementata con buffer circolare
+	// per avere QUEUE_DIM < NUM_SQUARES^2 = 49
 	Coordinates queue[QUEUE_DIM];
-	//int enqueued[NUM_SQUARES][NUM_SQUARES];
+	
+	// Vettore di flag, realizzato mediante variabile intera a 64 bit
+	// Il bit k-esimo corrisponde alla cella (x,y), dove
+	// k = x * N + y, con N pari al numero di celle per lato della griglia
 	unsigned long long enqueued;
+	
+	// Variabili di tipo (x,y) per agire sulle celle
 	Coordinates currElem, adjElem, finalPos;
 	
-	// Azzeramento flag di visita, uso long long come vettore di bit
+	// Azzeramento flag di visita
 	enqueued = 0;
 	
 	// Inizializzazione coda FIFO e
@@ -145,48 +195,37 @@ static int checkReachability(int player){
 	enqueue(queue, currElem);
 	enqueued |= (1ULL << (currElem.x * NUM_SQUARES + currElem.y));  
 	
-	cnt = maxcnt = 1;
 	// La ricerca procede, nel caso negativo,
 	// fino allo svuotamento della coda
 	while(!isEmpty(queue)){
 		currElem = dequeue(queue);
-		cnt--;
 		
 		// Check vittoria
 		if(victory(currElem, player)){
-			char s[3] = "00\0";
-			clearQueue(queue);
-			
-			s[0] = (char) (maxcnt / 10 + '0');
-		 	s[1] = (char) (maxcnt % 10 + '0');
-	  	 	writeMessage(s); 
-			for(i = 0; i < 10000; i++){
-				__ASM("nop");
-			}
 			return 1;
 		}
 		
-		// Iterazione sulle adiacenze:
-		// si effettua eventuale correzione e validazione
-		// della posizione destinazione e si inserisce
-		// nella coda, marcando il flag, se essa non
-		// era ancora stata inserita
+		// Iterazione sulle adiacenze
 		for(i = 0; i < 4; i++){
-			adjElem.x = currElem.x + moves[i][0];
-			adjElem.y = currElem.y + moves[i][1];
 			
+			// Set adiacenza corrente
+			adjElem = changeCoord(currElem, moves[i][0], moves[i][1]);
+			
+			// Eventuale correzione in presenza avversario
+			// Considera l'avversario come un ostacolo
+			// Determinante se esso è chiuso solo posteriormente da un muro
 			jumpOverOpponent(&currElem, &adjElem, player, &finalPos);
+			
+			// Validazione posizione
 			if(validPos(finalPos, currElem)){
-						if((enqueued & (1ULL << (finalPos.x * NUM_SQUARES + finalPos.y))) == 0){
-							enqueue(queue, finalPos);
-							enqueued |= (1ULL << (finalPos.x * NUM_SQUARES + finalPos.y));
-							cnt++;
-						}
+				
+				// Se la cella non è in coda, si inserisce e si marca il flag
+				if((enqueued & (1ULL << (finalPos.x * NUM_SQUARES + finalPos.y))) == 0){
+					enqueue(queue, finalPos);
+					enqueued |= (1ULL << (finalPos.x * NUM_SQUARES + finalPos.y));
 				}
+			}
 		}
-		
-		if(cnt > maxcnt)
-			maxcnt = cnt;
 	}
 	
 	return 0;
@@ -194,25 +233,29 @@ static int checkReachability(int player){
 
 // Check esistenza di un muro di un giocatore specifico sovrapposto a quello corrente
 // Si salva l'indice del muro a cui il corrente si sovrappone
-static int exists_overlapping_wall(int playerWalls, Coordinates *centerPos, int dir, int *overlapping){
-	int i, numWalls, overlap = 0;
+// Ritorna un flag boolano, che indica sovrapposizione
+static int exists_overlapping_wall(int playerWalls, Coordinates *centerPos, int dir){
+	int i, numWalls, overlap;
+	
+	// Numero muri del giocatore da verificare
 	numWalls = ms.walls[playerWalls-1].used;
-	for(i = 0; i < numWalls && !overlap; i++){
+	for(i = overlap = 0; i < numWalls && !overlap; i++){
+		
+		// Stessa direzione: sovrapposti se il centro dei muri
+		// differisce per al più un'unità ( = una cella) 
 		if(dir == ms.walls[playerWalls-1].dir[i]){
-			*overlapping = i;
 			if(dir == HORIZONTAL_WALL){
-				overlap = ms.walls[playerWalls-1].position[i].y == centerPos->y &&
-									abs(ms.walls[playerWalls-1].position[i].x - centerPos->x) <= 1;
+				overlap = equalCoordY(ms.walls[playerWalls-1].position[i], *centerPos) &&
+									coordDistX(ms.walls[playerWalls-1].position[i], *centerPos) <= 1;
 			}
 			else{
-				overlap = ms.walls[playerWalls-1].position[i].x == centerPos->x && 
-									abs(ms.walls[playerWalls-1].position[i].y - centerPos->y) <= 1;
+				overlap = equalCoordX(ms.walls[playerWalls-1].position[i], *centerPos) && 
+									coordDistY(ms.walls[playerWalls-1].position[i], *centerPos) <= 1;
 			}
 		}
+		// Direzione ortogonale: sovrapposti solo se aventi stesso centro
 		else{
-			*overlapping = i;
-			overlap = ms.walls[playerWalls-1].position[i].x == centerPos->x &&
-								ms.walls[playerWalls-1].position[i].y == centerPos->y;
+			overlap = equalCoord(ms.walls[playerWalls-1].position[i], *centerPos);
 		}
 	} 
 	
@@ -221,22 +264,20 @@ static int exists_overlapping_wall(int playerWalls, Coordinates *centerPos, int 
 
 // Check esistenza di un muro sovrapposto a quello corrente
 // Si salvano l'indice del muro a cui il corrente si sovrappone e
-// l'indice del giocatore a cui appartiene il muro
-static int checkNotOverlapping(Coordinates *centerPos, int dir, int *overlapping, int *player){
-	int overlap1, overlap2, overlapping1, overlapping2;
-	overlap1 = exists_overlapping_wall(PLAYER1, centerPos, dir, &overlapping1);
-	overlap2 = exists_overlapping_wall(PLAYER2, centerPos, dir, &overlapping2);
+// l'id del giocatore {1,2} a cui appartiene il muro
+// Ritorna un flag booleano di non sovrapposizione
+static int checkNotOverlapping(Coordinates *centerPos, int dir){
+	int overlap1, overlap2;
 	
-	if(overlap1 || overlap2){
-		*player = overlap2;
-		*overlapping = (overlap1 == 1) ? overlapping1 : overlapping2;
-	}
+	// Check sovrapposizione su entrambi i giocatori
+	overlap1 = exists_overlapping_wall(PLAYER1, centerPos, dir);
+	overlap2 = exists_overlapping_wall(PLAYER2, centerPos, dir);
 	
 	return !(overlap1 || overlap2);
 }
 
 // Check validazione muro
-static int validWallPos(Coordinates *centerPos, int dir, int *overlapped, int *player){
+static int validWallPos(Coordinates *centerPos, int dir){
 	int r1, r2, not_overlap, valid_position;
 	
 	// Non out-of-range
@@ -247,14 +288,16 @@ static int validWallPos(Coordinates *centerPos, int dir, int *overlapped, int *p
 	r2 = checkReachability(PLAYER2);
 	
 	// Non si sovrappone a muri esistenti
-	not_overlap = checkNotOverlapping(centerPos, dir, overlapped, player);
+	not_overlap = checkNotOverlapping(centerPos, dir);
 	
 	return valid_position && r1 && r2 && not_overlap;
 }
 
 // Inserimento del nuovo muro nel vettore di muri del giocatore corrente
 static void setWall(Coordinates centerPos, int direction){
-	int i = ms.walls[ms.player-1].used;
+	int i;
+	
+	i = ms.walls[ms.player-1].used;
 	ms.walls[ms.player-1].position[i] = centerPos;
 	ms.walls[ms.player-1].dir[i] = direction;
 }
@@ -263,21 +306,12 @@ static void setWall(Coordinates centerPos, int direction){
 // utile in caso di muri pendenti non confermati, poi cancellati
 static void redrawWalls(){
 	int i, j;
-	for(i = 0; i < 2; i++){
+	for(i = 0; i <= 1; i++){
 		for(j = 0; j < ms.walls[i].used; j++){
-			drawWall(ms.walls[i].position[j], ms.walls[i].dir[j], WALL_COLORS[i]);
+			drawWall(ms.walls[i].position[j].x, ms.walls[i].position[j].y,
+				ms.walls[i].dir[j], WALL_COLORS[i]);
 		}
 	}
-}
-
-// Get nuova posizione, data la corrente e lo spostamento
-static Coordinates getMovedPos(Coordinates currentPos, int h, int v){
-	Coordinates newPos;
-	
-	newPos.x = currentPos.x + h;
-	newPos.y = currentPos.y + v;
-	
-	return newPos;
 }
 
 // Spostamento effettivo di un muro, con colorazione nuovi pixel e
@@ -287,18 +321,28 @@ static void moveWall(int h, int v){
 	int dir;
 	
 	// Ripristino sfondo sotto al vecchio muro
-	pos = ms.walls[ms.player - 1].position[ms.walls[ms.player-1].used];
-	dir = ms.walls[ms.player - 1].dir[ms.walls[ms.player-1].used];
-	drawWall(pos, dir, BGCOLOR);
+	pos = ms.walls[ms.player - 1].position[ms.walls[ms.player - 1].used];
+	dir = ms.walls[ms.player - 1].dir[ms.walls[ms.player - 1].used];
+	drawWall(pos.x, pos.y, dir, BGCOLOR);
 	
 	// Ridisegno muri esistenti già presenti (necessario per sovrapposizioni)
 	redrawWalls();
 	
 	// Disegno nuovo muro, in posizione spostata
-	drawWall(getMovedPos(pos, h, v), dir, WALL_COLORS[ms.player-1]);
+	pos = changeCoord(pos, h, v);
+	drawWall(pos.x, pos.y, dir, WALL_COLORS[ms.player-1]);
 	
 	// Aggiunta muro al vettore
-	setWall(getMovedPos(pos, h, v), dir);
+	setWall(pos, dir);
+}
+
+// Set messaggio vittoria
+static void setVictoryMessage(){
+	char pchar = (char)(ms.player + '0');
+	char messageLoc[MESSAGE_LENGTH] = "Player ";
+	strcat(messageLoc, (const char *) &pchar);
+	strcat(messageLoc, " won! INT0 to restart");
+	strcpy(message, messageLoc);
 }
 
 // Inizializzazione dati dei giocatori
@@ -309,8 +353,8 @@ static void initPlayers(){
 	ms.currentPos[PLAYER2-1] = START_POS_PLAYER2;
 	
 	// Disegno pedine
-	drawToken(START_POS_PLAYER1, PLAYER1_COLOR);
-	drawToken(START_POS_PLAYER2, PLAYER2_COLOR);
+	drawToken(START_POS_PLAYER1.x, START_POS_PLAYER1.y, PLAYER1_COLOR);
+	drawToken(START_POS_PLAYER2.x, START_POS_PLAYER2.y, PLAYER2_COLOR);
 	
 	// Stampa muri iniziali
 	writeWallsStats(MAX_NUM_WALLS, MAX_NUM_WALLS);
@@ -363,17 +407,12 @@ static void initControls(){
 	disable_button(KEY2_PIN, EINT2_IRQn);
 }
 
-// Salvataggio mossa nel formato richiesto
-void saveMove(int playerId, int moveType, int wallOrientation, Coordinates *destPos){
-	int newMove = 0;
-	newMove |= (playerId << 24);
-	newMove |= (moveType << 20);
-	newMove |= (wallOrientation << 16);
-	newMove |= (destPos->y << 8);
-	newMove |= (destPos->x << 0);
-	
-	ms.lastMove = newMove;
-}
+
+/* FUNZIONI PRINCIPALI DEL GIOCO
+ * Sono invocate in altri file (handlers e main)
+ * Svolgono le principali funzioni richieste dal gioco
+*/
+
 
 // Inizializzazione gioco
 void initGame(){
@@ -399,13 +438,16 @@ void setPlayer(int playerValue){
 	// Cancellazione tempo iniziale
 	writeTimeRemaining(ms.timeRemaining, BGCOLOR);
 	
+	// Cancellazione messaggio
+	clearMessage();
+	
 	// In presenza di muri non confermati dal giocatore precedente
 	// si ridisegnano quelli presenti (necessario in caso di sovrapposizioni)
 	if(ms.pendingWall == 1){
 		redrawWalls();
 	}
 	
-	// Parametri iniziali
+	// Set parametri iniziali
 	ms.player = playerValue;
 	ms.timeRemaining = 20;
 	ms.pendingWall = 0;
@@ -416,9 +458,6 @@ void setPlayer(int playerValue){
 	
 	// Celle disponibili per spostamento
 	setColorMove(ms.currentPos[ms.player-1], VALID_MOVE_COLOR);
-	
-	// Eliminazione messaggio
-	clearMessage();
 	
 	// Scrittura tempo rimanente
 	writeTimeRemaining(ms.timeRemaining, TIME_COLOR);
@@ -432,9 +471,11 @@ void setColorMove(Coordinates pos, int color){
 	int i;
 	Coordinates tempPos, finalPos;
 	
+	// Iterazioni sulle adiacenze
 	for(i = 0; i < 4; i++){
-		tempPos.x = pos.x + moves[i][0];
-		tempPos.y = pos.y + moves[i][1];
+		
+		// Get nuova adiacenza
+		tempPos = changeCoord(pos, moves[i][0], moves[i][1]);
 		
 		// Get cella dietro all'avversario, se adiacente
 		jumpOverOpponent(&pos, &tempPos, ms.player, &finalPos);
@@ -444,20 +485,10 @@ void setColorMove(Coordinates pos, int color){
 			
 			// Check direzione non diagonale
 			if(finalPos.x == pos.x ^ finalPos.y == pos.y){
-				drawSquareArea(finalPos, color);
+				drawSquareArea(finalPos.x, finalPos.y, color);
 			}
 		}
 	}
-}
-
-// Check posizione uguale
-int equalCoordinates(Coordinates a, Coordinates b){
-	return a.x == b.x && a.y == b.y;
-}
-
-// Get nuova posizione pedina
-Coordinates getNextPos(){
-	return nextPos;
 }
 
 // Impostazione nuova posizione
@@ -468,7 +499,7 @@ void setNextPos(int h, int v){
 	clearMessage();
 	
 	// Get cella dietro all'avversario, se adiacente
-	destPos = getMovedPos(ms.currentPos[ms.player - 1], h, v);
+	destPos = changeCoord(ms.currentPos[ms.player - 1], h, v);
 	jumpOverOpponent(&(ms.currentPos[ms.player-1]), &destPos, ms.player, &finalPos);
 	
 	// Validazione posizione finale
@@ -486,7 +517,7 @@ void setNextPos(int h, int v){
 	}
 }
 
-// Movimento pedina
+// Conferma il movimento della pedina
 void move(){
 	
 	// Posizione finale valida
@@ -496,13 +527,13 @@ void move(){
 		reset_timer(0);
 		
 		// Cancellazione token
-		drawToken(ms.currentPos[ms.player-1], BGCOLOR);
+		drawToken(ms.currentPos[ms.player-1].x, ms.currentPos[ms.player-1].y, BGCOLOR);
 		
 		// Cancellazione celle evidenziate adiacenti
 		setColorMove(ms.currentPos[ms.player-1], BGCOLOR);
 		
 		// Disegno pedina in posizione finale
-		drawToken(nextPos, PLAYER_COLORS[ms.player-1]);
+		drawToken(nextPos.x, nextPos.y, PLAYER_COLORS[ms.player-1]);
 		
 		// Aggiornamento posizione finale
 		ms.currentPos[ms.player-1] = nextPos;
@@ -514,21 +545,13 @@ void move(){
 		// Impostazione messaggio vittoria
 		// Inizializzazione gioco
 		if(victory(ms.currentPos[ms.player-1], ms.player)){
-			char pchar = (char)(ms.player + '0');
-			char messageLoc[MESSAGE_LENGTH] = "Player ";
-			strcat(messageLoc, (const char *) &pchar);
-			strcat(messageLoc, " won! INT0 to restart");
-			strcpy(message, messageLoc);
+			setVictoryMessage();
 			initGame();
 		}
 		// Se nessuno ha vinto, cambio giocatore
 		else{
 			setPlayer(getOtherPlayer(ms.player));
 		}
-	}
-	// Posizione finale non valida: stampa messaggio
-	else{
-		writeMessage("Move not valid");
 	}
 }
 
@@ -548,7 +571,7 @@ void newWall(Coordinates centerPos, int direction){
 	setWall(centerPos, direction);
 	
 	// Disegno muro
-	drawWall(centerPos, direction, WALL_COLORS[ms.player-1]);
+	drawWall(centerPos.x, centerPos.y, direction, WALL_COLORS[ms.player-1]);
 }
 
 // Rotazione muro
@@ -556,28 +579,32 @@ void rotateWall(){
 	Coordinates pos;
 	int currDir, nextDir;
 	
+	// Cancellazione messaggio
+	clearMessage();
+	
 	// Cancellazione muro iniziale
 	pos = ms.walls[ms.player - 1].position[ms.walls[ms.player-1].used];
 	currDir = ms.walls[ms.player - 1].dir[ms.walls[ms.player-1].used];
-	drawWall(pos, currDir, BGCOLOR);
+	drawWall(pos.x, pos.y, currDir, BGCOLOR);
 	
 	// Ridisegno muri già presenti
 	redrawWalls();
 	
 	// Disegno muro ruotato e sua impostazione
 	nextDir = 1 - currDir;
-	drawWall(pos, nextDir, WALL_COLORS[ms.player-1]);
+	drawWall(pos.x, pos.y, nextDir, WALL_COLORS[ms.player-1]);
 	setWall(pos, nextDir);
 }
 
 // Conferma muro
 void confirmWall(){
-	int i, overlapped_wall_index, player_index;
+	int i;
+	
+	// Check validazione muro
+	i = ms.walls[ms.player-1].used;
+	ms.validMove = validWallPos(&(ms.walls[ms.player - 1].position[i]), ms.walls[ms.player-1].dir[i]);
 	
 	// Se muro valido, conferma
-	i = ms.walls[ms.player-1].used;
-	ms.validMove = validWallPos(&(ms.walls[ms.player - 1].position[i]), ms.walls[ms.player-1].dir[i],
-			&overlapped_wall_index, &player_index);
 	if(ms.validMove){
 		
 		// Stop timer
@@ -616,7 +643,7 @@ void undoWall(){
 	// Cancellazione muro
 	pos = ms.walls[ms.player-1].position[ms.walls[ms.player-1].used];
 	dir = ms.walls[ms.player-1].dir[ms.walls[ms.player-1].used];
-	drawWall(pos, dir, BGCOLOR);
+	drawWall(pos.x, pos.y, dir, BGCOLOR);
 	
 	// Ridisegno muri già presenti
 	redrawWalls();
@@ -633,10 +660,12 @@ void setNextWall(int h, int v){
 	// Cancellazione eventuale messaggio
 	clearMessage();
 	
+	// Get posizione spostata del muro
+	i = ms.walls[ms.player-1].used;
+	pos = changeCoord(ms.walls[ms.player-1].position[i], h, v);
+	
 	// Se il muro si può spostare senza uscire dalla scacchiera,
 	// lo si sposta, altrimenti si stampa un messaggio di errore
-	i = ms.walls[ms.player-1].used;
-	pos = getMovedPos(ms.walls[ms.player-1].position[i], h, v);
 	if(centerWallInPlatform(&pos)){
 		moveWall(h, v);
 	}
@@ -645,4 +674,15 @@ void setNextWall(int h, int v){
 	}
 }
 
-
+// Salvataggio mossa nel formato richiesto
+void saveMove(int playerId, int moveType, int wallOrientation, Coordinates *destPos){
+	int newMove; 
+	
+	newMove = 0	| (playerId << 24) 
+							| (moveType << 20)
+							| (wallOrientation << 16)
+							| (destPos->y << 8)
+							| (destPos->x << 0);
+	
+	ms.lastMove = newMove;
+}

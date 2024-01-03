@@ -10,20 +10,15 @@
 #include "lpc17xx.h"
 #include "RIT.h"
 #include "../joystick/joystick.h"
-#include "../timer/timer.h"
 #include "../button/button.h"
-#include "../quoridor/quoridor.h"
 
 extern void INT0_function(void);
 extern void KEY1_function(void);
 extern void KEY2_function(void);
 
-extern MatchType ms;
-
 int down_int0 = 0;
 int down_key1 = 0;
 int down_key2 = 0;
-char selected = 0;
 
 /******************************************************************************
 ** Function name:		RIT_IRQHandler
@@ -54,7 +49,7 @@ void RIT_IRQHandler (void)
 					default: break;
 				}
 			}
-		else {	/* button released */
+		else {
 			down_int0=0;
 			
 			// Viene riabilitato solo se non ha svolto 
@@ -74,7 +69,7 @@ void RIT_IRQHandler (void)
 					default: break;
 				}
 			}
-		else {	/* button released */
+		else {
 			down_key1=0;
 			enable_button(KEY1_PIN, EINT1_IRQn);
 		}
@@ -91,7 +86,7 @@ void RIT_IRQHandler (void)
 					default: break;
 				}
 			}
-		else {	/* button released */
+		else {
 			down_key2=0;
 			enable_button(KEY2_PIN, EINT2_IRQn);
 		}

@@ -3,6 +3,7 @@
 
 #include "lpc17xx.h"
 
+// Numeri di pin dei pulsanti alla porta GPIO 2
 #define INT0_PIN 10
 #define KEY1_PIN 11
 #define KEY2_PIN 12

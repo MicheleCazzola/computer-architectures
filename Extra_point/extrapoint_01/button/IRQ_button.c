@@ -1,17 +1,13 @@
 #include "button.h"
 #include "lpc17xx.h"
-
-#include <stdlib.h>
-#include "../led/led.h"
-#include "../timer/timer.h"
 #include "../RIT/RIT.h"	
 #include "../quoridor/quoridor.h"
+#include "../graphics/interface.h"
 
 // Control flags
 extern int down_int0;
 extern int down_key1;
 extern int down_key2;
-extern int selected;
 
 extern MatchType ms;
 extern Coordinates WALL_DEFAULT_POS;
@@ -25,9 +21,6 @@ void INT0_function(void){
 	setPlayer(PLAYER1);
 	
 	enable_button(KEY1_PIN, EINT1_IRQn);
-	
-	// Clear flag
-	selected &= ~INT0_MASK;
 }
 
 void KEY1_function(void){
@@ -55,9 +48,6 @@ void KEY1_function(void){
 		disable_button(KEY2_PIN, EINT2_IRQn);
 		undoWall();
 	}
-	
-	// Clear flag
-	selected &= ~KEY1_MASK;
 }
 
 void KEY2_function(void){
@@ -68,15 +58,11 @@ void KEY2_function(void){
 	rotateWall();
 	
 	enable_button(KEY1_PIN, EINT1_IRQn);
-	
-	// Clear flag
-	selected &= ~KEY2_MASK;
 }
 	
 void EINT0_IRQHandler (void)	  	/* INT0														 */
 {
 	down_int0 = 1;
-	selected |= INT0_MASK;
 	disable_button(INT0_PIN, EINT0_IRQn);
 	
 	LPC_SC->EXTINT &= (1 << 0);     /* clear pending interrupt         */
@@ -86,7 +72,6 @@ void EINT0_IRQHandler (void)	  	/* INT0														 */
 void EINT1_IRQHandler (void)	  	/* KEY1														 */
 {
 	down_key1 = 1;
-	selected |= KEY1_MASK;
 	disable_button(KEY1_PIN, EINT1_IRQn);
 	
 	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt */
@@ -95,7 +80,6 @@ void EINT1_IRQHandler (void)	  	/* KEY1														 */
 void EINT2_IRQHandler (void)	  	/* KEY2														 */
 {
 	down_key2 = 1;
-	selected |= KEY2_MASK;
 	disable_button(KEY2_PIN, EINT2_IRQn);
 	
   LPC_SC->EXTINT &= (1 << 2);     /* clear pending interrupt         */    

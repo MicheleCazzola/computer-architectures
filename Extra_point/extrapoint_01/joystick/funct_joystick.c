@@ -18,7 +18,7 @@
 extern MatchType ms;
 
 // Conta numero di input del joystick selezionati
-static int countPressed(int *pressed){
+static int countPressed(){
 	int i, r;
 	for(i = r = 0; i < 5; i++){
 		r += ((LPC_GPIO1->FIOPIN & (1 << (i + 25))) == 0);
@@ -46,7 +46,7 @@ void joystick_controller() {
 	int i;
 	
 	// Se più di un input è premuto, non si esegue nessuna azione
-	if(countPressed(pressed) > 1){
+	if(countPressed() > 1){
 		return;
 	}
 	
@@ -68,7 +68,7 @@ void joystick_controller() {
 						
 						// Se la posizione di arrivo è diversa da quella corrente -> Spostamento
 						// Si impedisce di confermare la non-mossa della pedina
-						if(!equalCoordinates(getNextPos(), ms.currentPos[ms.player-1])){
+						if(!equalCoord(getNextPos(), ms.currentPos[ms.player-1])){
 							move();
 						}
 					}

@@ -12,21 +12,12 @@
 
 #include <stdint.h>
 
-#define INT0_MASK 		(1 << 0)
-#define KEY1_MASK 		(1 << 1)
-#define KEY2_MASK 		(1 << 2)
-#define JOYSEL_MASK		(1 << 3)
-#define JOYDOWN_MASK 	(1 << 4)
-#define JOYLEFT_MASK 	(1 << 5)
-#define JOYRIGHT_MASK (1 << 6)
-#define JOYUP_MASK 		(1 << 7)
-
-
 /* init_RIT.c */
 extern uint32_t init_RIT( uint32_t RITInterval );
 extern void enable_RIT( void );
 extern void disable_RIT( void );
 extern void reset_RIT( void );
+
 /* IRQ_RIT.c */
 extern void RIT_IRQHandler (void);
 
