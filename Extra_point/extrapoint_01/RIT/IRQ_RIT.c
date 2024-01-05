@@ -31,8 +31,8 @@ void RIT_IRQHandler (void)
 {
 	// Stop RIT: periodo breve, si evita
 	// di farlo avanzare durante il suo handler
-	//disable_RIT();
-	//reset_RIT();
+	disable_RIT();
+	reset_RIT();
 	
 	// INT0: sempre in mutua esclusione rispetto a KEY1 e KEY2
 	// Il polling del joystick si basa sullo stato di INT0
@@ -97,7 +97,7 @@ void RIT_IRQHandler (void)
 	}
 	
 	// Riavvio RIT
-	//enable_RIT();
+	enable_RIT();
 	
 	// Clear interrupt flag
   LPC_RIT->RICTRL |= 0x1;	
