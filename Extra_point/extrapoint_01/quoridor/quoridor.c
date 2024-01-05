@@ -388,6 +388,9 @@ static void initPlayersData(){
 	// Nessun muro in fase di posizionamento
 	ms.pendingWall = 0;
 	
+	// Inizialmente, nessuna cella evidenziata
+	ms.numHighlited = 0;
+	
 	// Mantenimento scritta vincitore, se presente
 	if(strlen(message) > 0){
 		writeMessage(message);
