@@ -15,19 +15,26 @@ void BUTTON_init(void) {
   LPC_GPIO2->FIODIR      &= ~(1 << 12);    /* PORT2.12 defined as input          */
 
   LPC_SC->EXTMODE = 0x7;
-
-  NVIC_EnableIRQ(EINT2_IRQn);              /* enable irq in nvic                 */
-	NVIC_SetPriority(EINT2_IRQn, 3);				 /* priority, the lower the better     */
-  NVIC_EnableIRQ(EINT1_IRQn);              /* enable irq in nvic                 */
-	NVIC_SetPriority(EINT1_IRQn, 2);				 
-  NVIC_EnableIRQ(EINT0_IRQn);              /* enable irq in nvic                 */
-	NVIC_SetPriority(EINT0_IRQn, 1);				 /* decreasing priority	from EINT2->0	 */
+	
+	// Enable IRQs in NVIC                 
+  NVIC_EnableIRQ(EINT0_IRQn); 
+	NVIC_EnableIRQ(EINT1_IRQn);	
+	NVIC_EnableIRQ(EINT2_IRQn);
+	
+	// Priority, the lower the better
+	// INT0 > KEY1 > KEY2, where > means higher priority
+	NVIC_SetPriority(EINT0_IRQn, 1);
+	NVIC_SetPriority(EINT1_IRQn, 2);
+	NVIC_SetPriority(EINT2_IRQn, 3);
 }
 
+// Enable button and its interrupt: pin belongs to {10,11,12}
 void enable_button(int pin, IRQn_Type IRQn){
 	LPC_PINCON->PINSEL4 |= (1 << (2 * pin));
 	NVIC_EnableIRQ(IRQn);
 }
+
+// Disable button and its interrupt: pin belongs to {10,11,12}
 void disable_button(int pin, IRQn_Type IRQn){
 	LPC_PINCON->PINSEL4 &= ~(1 << (2 * pin));
 	NVIC_DisableIRQ(IRQn);

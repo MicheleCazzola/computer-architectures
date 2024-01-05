@@ -8,14 +8,19 @@
 #define KEY1_PIN 11
 #define KEY2_PIN 12
 
+// lib_button.c
 void BUTTON_init(void);
+void enable_button(int pin, IRQn_Type IRQn);
+void disable_button(int pin, IRQn_Type IRQn);
+int disabled_button(int pin);
 
+// IRQ_button.c
+void INT0_function(void);
+void KEY1_function(void);
+void KEY2_function(void);
 void EINT1_IRQHandler(void);
 void EINT2_IRQHandler(void);
 void EINT3_IRQHandler(void);
 
-void enable_button(int pin, IRQn_Type IRQn);
-void disable_button(int pin, IRQn_Type IRQn);
-int disabled_button(int pin);
 
 #endif

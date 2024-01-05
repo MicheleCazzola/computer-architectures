@@ -6,8 +6,8 @@
 // Valori di modalità e giocatore
 #define WAITING 0
 #define PLAYING 1
-#define PLAYER1 1
-#define PLAYER2 2
+#define PLAYER1 0
+#define PLAYER2 1
 
 // Numero massimo muri
 #define MAX_NUM_WALLS 8
@@ -37,6 +37,8 @@ typedef struct {
 	int pendingWall;						// flag per indicare presenza muro in attesa di conferma
 	int lastMove;								// intero a 32 bit per salvare l'ultima mossa effettuata
 	int validMove;							// flag per indicare se l'ultimo movimento effettuato è verso una posizione valida
+	int numHighlited;						// numero celle evidenziate
+	Coordinates highlited[4];		// posizione celle evidenziate
 	Coordinates currentPos[2];	// posizione corrente dei due giocatori
 	wallType walls[2];					// muri correnti dei due giocatori
 } MatchType;
@@ -44,16 +46,16 @@ typedef struct {
 void initGame(void);
 void setMode(int modeValue);
 void setPlayer(int playerValue);
-void setColorMove(Coordinates pos, int color);
-int equalCoordinates(Coordinates a, Coordinates b);
-Coordinates getNextPos(void);
+int getOtherPlayer(int player);
+void highliteAdj(Coordinates pos);
+void eraseHighlightedAdj(void);
 void setNextPos(int h, int v);
 void move(void);
-void saveMove(int playerId, int moveType, int wallOrientation, Coordinates *destPos);
 void newWall(Coordinates centerPos, int direction);
 void rotateWall(void);
 void confirmWall(void);
 void undoWall(void);
 void setNextWall(int h, int v);
+void saveMove(int playerId, int moveType, int wallOrientation, Coordinates *destPos);
 
 #endif

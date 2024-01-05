@@ -10,7 +10,7 @@ extern char message[];
 void drawChessPlatform(){
 	int i, j, x, y;
 	
-	// Scacchiera
+	// Stampa cacchiera
 	for(i = 0, y = MARGIN_WIDTH; i < NUM_SQUARES; i++, y += SQUARE_SIDE + SPACE_WIDTH){
 		for(j = 0, x = MARGIN_WIDTH; j < NUM_SQUARES; j++, x += SQUARE_SIDE + SPACE_WIDTH){
 			LCD_DrawLine(x, y, x + SQUARE_SIDE, y, GRID_COLOR);
@@ -20,7 +20,7 @@ void drawChessPlatform(){
 		}
 	}
 	
-	// Box con statistiche
+	// Stampa contorni dei box con statistiche e tempo rimanente
 	y = PADDING_TOP + BOX_SPACE_MARGIN_WIDTH;
 	for(i = 0, x = BOX_SPACE_MARGIN_WIDTH; i < NUM_BOXES; i++, x += BOX_WIDTH + BOX_SPACE_MARGIN_WIDTH){
 		LCD_DrawLine(x, y, x + BOX_WIDTH, y, GRID_COLOR);
@@ -50,8 +50,11 @@ void drawToken(int x, int y, int color){
 void writeWallsStats(int wall_p1, int wall_p2){
 	unsigned char s1, s2;
 	
+	// Numero di muri rimanenti per giocatore
 	s1 = (unsigned char) (wall_p1 + '0');
 	s2 = (unsigned char) (wall_p2 + '0');
+	
+	// Stampa intestazione e numero muri rimanenti per giocatore
 	GUI_Text(XPOS_TEXT1, YPOS_TEXTS, (unsigned char *) PLAYER1_MSG, TEXT_COLOR, BGCOLOR);
 	GUI_Text(XPOS_WALLS1, YPOS_WALLS, (unsigned char *) &(s1), TEXT_COLOR, BGCOLOR);
 	GUI_Text(XPOS_TEXT2, YPOS_TEXTS, (unsigned char *) PLAYER2_MSG, TEXT_COLOR, BGCOLOR);
@@ -80,7 +83,7 @@ void drawSquareArea(int x, int y, int color){
 	x1 = x0 + SQUARE_SIDE - 2;
 	y0 = MARGIN_WIDTH + y * (SPACE_WIDTH + SQUARE_SIDE) + 1;
 	
-	// Disegno per linee
+	// Disegno per linee orizzontali
 	for(cnt = 0; cnt < SQUARE_SIDE - 1; cnt++, y0++){
 		LCD_DrawLine(x0, y0, x1, y0, color);
 	}
@@ -95,15 +98,17 @@ void drawWall(int x, int y, int direction, int color){
 	yc = MARGIN_WIDTH + SQUARE_SIDE + y * (SQUARE_SIDE + SPACE_WIDTH) + 2;
 	
 	// Disegno dipendente dalla direzione
+	// Orizzontale
 	if(direction == HORIZONTAL_WALL){
 		x0 = xc - WALL_LENGTH/2;
 		x1 = xc + WALL_LENGTH/2;
-		y0 = yc - (SPACE_WIDTH-1)/2;;
+		y0 = yc - (SPACE_WIDTH-1)/2;
 		for(i = 0; i < SPACE_WIDTH-1; i++){
 			LCD_DrawLine(x0, y0+i, x1, y0+i, color);
 		}
 	}
-	if(direction == VERTICAL_WALL){
+	// Verticale
+	else{
 		x0 = xc - (SPACE_WIDTH-1)/2;
 		y0 = yc - WALL_LENGTH/2;
 		y1 = yc + WALL_LENGTH/2;
@@ -116,6 +121,7 @@ void drawWall(int x, int y, int direction, int color){
 // Cancellazione messaggio, se esistente
 void clearMessage(){
 	
+	// Check esistenza
 	if(strlen(message) == 0){
 		return;
 	}
@@ -124,14 +130,17 @@ void clearMessage(){
 	message[0] = '\0';
 }
 
-// Scrittura messaggio
+// Scrittura messaggio: si suppone che sia stampabile su una riga sola,
+// ovvero che abbia al massimo 30 caratteri (terminatore escluso)
 void writeMessage(char message_content[]){
 	strcpy(message, message_content);
 	
-	// Se il messaggio ha esattamente 30 caratteri, si stampa senza margine sinistro
+	// Se il messaggio ha meno di 30 caratteri ->
+	// Si stampa il messaggio con lo stesso margine sinistro degli oggetti
 	if(strlen(message) < MAX_X / 8){
 		GUI_Text(XPOS_MESSAGE, YPOS_MESSAGE, (unsigned char *) message, MESSAGE_COLOR, BGCOLOR);
 	} 
+	// Altrimenti -> Si stampa senza margine sinistro
 	else{
 		GUI_Text(0, YPOS_MESSAGE, (unsigned char *) message, MESSAGE_COLOR, BGCOLOR);
 	}

@@ -4,9 +4,9 @@
 #include "../GLCD/GLCD.h"
 
 // Colore oggeti
-#define BGCOLOR Blue
+#define BGCOLOR Blue2
 #define VALID_MOVE_COLOR Green
-#define GRID_COLOR White
+#define GRID_COLOR Black
 #define PLAYER1_COLOR White
 #define PLAYER2_COLOR Red
 #define TIME_COLOR White
@@ -56,8 +56,8 @@ void writeWallsStats(int wall_p1, int wall_p2);
 void writeTimeRemaining(int time, int color);
 void drawSquareArea(int x, int y, int color);
 void drawWall(int x, int y, int direction, int color);
-void writeMessage(char message_content[]);
 void clearMessage(void);
+void writeMessage(char message_content[]);
 
 #endif
 

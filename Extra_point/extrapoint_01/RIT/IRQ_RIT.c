@@ -12,32 +12,27 @@
 #include "../joystick/joystick.h"
 #include "../button/button.h"
 
-extern void INT0_function(void);
-extern void KEY1_function(void);
-extern void KEY2_function(void);
-
+// Variabili di controllo dei pulsanti
+// Incrementate ad ogni RIT handler, se avviene
+// immediatamente in seguito alla pressione del
+// pulsante corrispondente
 int down_int0 = 0;
 int down_key1 = 0;
 int down_key2 = 0;
 
-/******************************************************************************
-** Function name:		RIT_IRQHandler
-**
-** Descriptions:		REPETITIVE INTERRUPT TIMER handler
-**
-** parameters:			None
-** Returned value:		None
-**
-******************************************************************************/
-
-
+// RIT handler -> Implementa:
+// -	debouncing INT0, KEY1, KEY2
+// -	polling joystick
+// evitando di esaminare input multipli quando possibile
+// Priorità 0:
+// -	pari a TIMER0
+// -	superiore ai pulsanti
 void RIT_IRQHandler (void)
 {
-	
 	// Stop RIT: periodo breve, si evita
 	// di farlo avanzare durante il suo handler
-	disable_RIT();
-	reset_RIT();
+	//disable_RIT();
+	//reset_RIT();
 	
 	// INT0: sempre in mutua esclusione rispetto a KEY1 e KEY2
 	// Il polling del joystick si basa sullo stato di INT0
@@ -75,8 +70,8 @@ void RIT_IRQHandler (void)
 		}
 	}
 	
-	// KEY2: solo se non è in corso la gestione
-	// dell'interrupt di KEY1 (pressione + 1 RIT)
+	// KEY2: esaminato solo se non è in corso la gestione
+	// dell'interrupt di KEY1 (pressione + un ciclo di RIT)
 	// Abilitato in mutua esclusione a INT0
 	else if(down_key2 > 0){
 		down_key2++;
@@ -102,9 +97,10 @@ void RIT_IRQHandler (void)
 	}
 	
 	// Riavvio RIT
-	enable_RIT();
+	//enable_RIT();
 	
-  LPC_RIT->RICTRL |= 0x1;	/* clear interrupt flag */
+	// Clear interrupt flag
+  LPC_RIT->RICTRL |= 0x1;	
 	
   return;
 }

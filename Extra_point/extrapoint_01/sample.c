@@ -1,29 +1,5 @@
-/****************************************Copyright (c)****************************************************
-**                                      
-**                                 http://www.powermcu.com
-**
-**--------------File Info---------------------------------------------------------------------------------
-** File name:               main.c
-** Descriptions:            The GLCD application function
-**
-**--------------------------------------------------------------------------------------------------------
-** Created by:              AVRman
-** Created date:            2010-11-7
-** Version:                 v1.0
-** Descriptions:            The original version
-**
-**--------------------------------------------------------------------------------------------------------
-** Modified by:             Paolo Bernardi
-** Modified date:           03/01/2020
-** Version:                 v2.0
-** Descriptions:            basic program for LCD and Touch Panel teaching
-**
-*********************************************************************************************************/
-
-/* Includes ------------------------------------------------------------------*/
 #include "LPC17xx.h"
-#include "GLCD/GLCD.h" 
-#include "TouchPanel/TouchPanel.h"
+#include "GLCD/GLCD.h"
 #include "timer/timer.h"
 #include "quoridor/quoridor.h"
 #include "RIT/RIT.h"
@@ -39,26 +15,34 @@ extern uint8_t ScaleFlag; // <- ScaleFlag needs to visible in order for the emul
 
 int main(void)
 {
-  SystemInit();  												/* System Initialization (i.e., PLL)  */
+	// Inizializzazione sistema
+  SystemInit();  												
 	LCD_Initialization();
 	
 	//TP_Init();
 	//TouchPanel_Calibrate();
 	
 	// Timer 1 s con 25 MHz
-	init_timer(0, 0x017D7840);			
-	// RIT 50 ms con 100 MHz: priorità superiore ai pulsanti
+	init_timer(0, 0x017D7840);	
+	
+	// RIT 50 ms con 100 MHz
 	init_RIT(0x004C4B40);
 	
+	// Inizializzazione joystick: abilitazione pin e set a input
 	joystick_init();
 	
+	// Inizializzazione pulsanti: abilitazione pin, set a input
+	// e abilitazione interrupt, con set delle priorità
 	BUTTON_init();
 	
+	// Inizializzazione gioco
 	initGame();
 	
+	// Avvio RIT
 	enable_RIT();
 	
-	LPC_SC->PCON |= 0x1;									/* power-down	mode										*/
+	// Power-down	mode
+	LPC_SC->PCON |= 0x1;									
 	LPC_SC->PCON &= ~(0x2);						
 	
   while (1)	
