@@ -1,0 +1,11 @@
+Presentazione schermo e finestre di debug
+Mossa errata fuori range + fuori tempo (0)
+Mossa corretta (1)
+Posizionamento muro fuori range con rotazioni + correzione e conferma h (0)
+Selezione mossa corretta, passaggio a muro, poi a mossa per verificare non movimento, poi muro h(1)
+Mosse per verificare cambio adiacenze con muri davanti (0-1-0-1-0-1)
+Posizionamento muro sovrapposto + fuori tempo (0)
+Posizionamento muro corretto h (1)
+Posizionamento muri per non raggiungibilità, si conferma solo il primo, il secondo fuori tempo (0-1)
+Posizionamento fino a 8 muri + mosse fino a vittoria e reset
+
