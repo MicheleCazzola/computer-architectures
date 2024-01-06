@@ -51,7 +51,7 @@ void KEY1_function(void){
 		}
 		// Altrimenti -> Messaggio di errore
 		else{
-			writeMessage("No walls available, move the token");
+			writeMessage("No walls available, move token");
 		}
 	}
 	// Altrimenti -> 
