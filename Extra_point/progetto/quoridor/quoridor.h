@@ -38,7 +38,7 @@ typedef struct {
 	int lastMove;								// intero a 32 bit per salvare l'ultima mossa effettuata
 	int validMove;							// flag per indicare se l'ultimo movimento effettuato è verso una posizione valida
 	int numHighlited;						// numero celle evidenziate
-	Coordinates highlited[4];		// posizione celle evidenziate
+	Coordinates highlited[5];		// posizione celle evidenziate
 	Coordinates currentPos[2];	// posizione corrente dei due giocatori
 	WallType walls[2];					// muri correnti dei due giocatori
 } MatchType;

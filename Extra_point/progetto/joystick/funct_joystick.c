@@ -46,82 +46,97 @@ void joystick_controller() {
 	// Incrementato ogni volta che l'input corrispondente risulta premuto
 	static int pressed[5] = {0, 0, 0, 0, 0};
 	
-	int i;
+	int i, h, v, sel;
 	
-	// Se più di un input è premuto, non si esegue nessuna azione
-	if(countPressed() > 1){
+	// Direzioni diagonali non consentite per spostamento muri
+	if(countPressed() > 1 && ms.pendingWall == 1){
 		return;
 	}
 	
+	
+	
+	h = v = sel = 0;
 	for(i = 0; i <= 4; i++){
-		
 		// Joystick UP/DOWN/LEFT/RIGHT/SELECT premuto
 		if((LPC_GPIO1->FIOPIN & (1 << (i + 25))) == 0){
 			pressed[i]++;
 			
-			// Prima pressione
+			// Se prima pressione, calcolo incrementi h/v
 			if(pressed[i] == 1){
-				
-				// Disabilitazione KEY1 durante lo svolgimento
-				// delle funzioni del joystick
-				disable_button(KEY1_PIN, EINT1_IRQn);
-				
-				// Modalità movimento pedina
-				if(ms.pendingWall == 0){
-					
-					// Se SELECT -> Movimento pedina
-					// Altrimenti -> Impostazione nuova posizione
-					if(i == 0){
-						
-						// Se la posizione di arrivo è diversa da quella corrente -> Spostamento
-						// Si impedisce di confermare la non-mossa della pedina
-						if(!equalCoord(nextPos, ms.currentPos[ms.player])){
-							move();
-						}
-					}
-					else{
-						setNextPos(moves[i][0], moves[i][1]);
-					}
+				if(i == 0){
+					sel = 1;
 				}
-				// Modalità posizionamento muro
 				else{
-					
-					// Disabilitazione KEY1 durante lo svolgimento
-					// delle funzioni del joystick, solo se era
-					// precedentemente abilitato (modalità muro)
-					disable_button(KEY2_PIN, EINT2_IRQn);
-					
-					// Se SELECT -> Conferma muro
-					// Altrimenti -> Movimento muro (senza conferma)
-					if(i == 0){
-						confirmWall();
-						
-						// Riabilitazione KEY2 solo se ancora in movimento,
-						// a causa di conferma fallita (posizione non valida)
-						// Si usa come condizione essere ancora in modalità muro
-						if(ms.pendingWall == 1){
-							enable_button(KEY2_PIN, EINT2_IRQn);
-						}
-					}
-					else{
-						setNextWall(moves[i][0], moves[i][1]);
-						
-						// Riabilitazione KEY2 solo se ancora in movimento,
-						// a causa di input diverso da conferma del muro
-						enable_button(KEY2_PIN, EINT2_IRQn);
-					}
+					h += moves[i][0];
+					v += moves[i][1];
 				}
 				
-				// Se la partita non è terminata, si riabilita KEY1
-				if(ms.mode == PLAYING){
-					enable_button(KEY1_PIN, EINT1_IRQn);
-				}
 			}
 		}
-		
 		// Joystick UP/DOWN/LEFT/RIGHT/SELECT rilasciato
 		else{
 				pressed[i]=0;
 		}
 	}
+	
+	// Se almeno un comando è premuto, si svolgono le funzioni del joystick
+	if(countPressed() > 0){
+		
+		// Disabilitazione KEY1 durante lo svolgimento
+		// delle funzioni del joystick
+		disable_button(KEY1_PIN, EINT1_IRQn);
+		
+		// Modalità movimento pedina
+		if(ms.pendingWall == 0){
+			
+			// Se SELECT -> Movimento pedina
+			// Altrimenti -> Impostazione nuova posizione
+			if(sel){
+				
+				// Se la posizione di arrivo è diversa da quella corrente -> Spostamento
+				// Si impedisce di confermare la non-mossa della pedina
+				if(!equalCoord(nextPos, ms.currentPos[ms.player])){
+					move();
+				}
+			}
+			else{
+				setNextPos(h ,v);
+			}
+		}
+		// Modalità posizionamento muro
+		else{
+			
+			// Disabilitazione KEY1 durante lo svolgimento
+			// delle funzioni del joystick, solo se era
+			// precedentemente abilitato (modalità muro)
+			disable_button(KEY2_PIN, EINT2_IRQn);
+			
+			// Se SELECT -> Conferma muro
+			// Altrimenti -> Movimento muro (senza conferma)
+			if(sel){
+				confirmWall();
+				
+				// Riabilitazione KEY2 solo se ancora in movimento,
+				// a causa di conferma fallita (posizione non valida)
+				// Si usa come condizione essere ancora in modalità muro
+				if(ms.pendingWall == 1){
+					enable_button(KEY2_PIN, EINT2_IRQn);
+				}
+			}
+			else{
+				setNextWall(h, v);
+				
+				// Riabilitazione KEY2 solo se ancora in movimento,
+				// a causa di input diverso da conferma del muro
+				enable_button(KEY2_PIN, EINT2_IRQn);
+			}
+		}
+		
+		// Se la partita non è terminata, si riabilita KEY1
+		if(ms.mode == PLAYING){
+			enable_button(KEY1_PIN, EINT1_IRQn);
+		}
+	}
+	
+	
 }

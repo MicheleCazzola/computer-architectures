@@ -22,8 +22,8 @@ const int WALL_COLORS[2] = {White, Red};
 const int moves[4][2] = {
 	{-1, 0},		// LEFT
 	{0, -1},		// UP
-	{0, 1},			// DOWN
-	{1, 0}			// RIGHT
+	{1, 0},			// RIGHT
+	{0, 1}			// DOWN
 };
 
 // Variabile di stato del gioco
@@ -75,24 +75,7 @@ static int centerWallInPlatform(Coordinates pos){
 	return 0 <= pos.x && pos.x < NUM_SQUARES-1 && 0 <= pos.y && pos.y < NUM_SQUARES-1;
 }
 
-// Get posizione finale in presenza di avversario in posizione adiacente
-static void jumpOverOpponent(Coordinates *srcPos, Coordinates *destPos, int player, Coordinates *finalPos){
-	int stepX, stepY;
-	
-	// Calcolo step iniziali
-	stepX = coordDiffX(*destPos, *srcPos);
-	stepY = coordDiffY(*destPos, *srcPos);
-	
-	// In presenza di un avversario nella posizione destinazione,
-	// si incrementa di 1 il modulo dello step, nella direzione opportuna
-	if(equalCoord(ms.currentPos[getOtherPlayer(player)], *destPos)){
-		stepX = (equalCoordY(*srcPos, *destPos)) ? sign(stepX) * (abs(stepX) + 1) : 0;
-		stepY = (equalCoordX(*srcPos, *destPos)) ? sign(stepY) * (abs(stepY) + 1) : 0;
-	}
-				
-	// Assegnazione destinazione finale
-	*finalPos = changeCoord(*srcPos, stepX, stepY);
-}
+
 
 // Check presenza di un muro specifico tra due celle
 static int wallBetweenCells(Coordinates *srcPos, Coordinates *destPos, Coordinates *centerPos, int dir){
@@ -147,17 +130,89 @@ static int noWallBetween(Coordinates adjPos, Coordinates currentPos){
 	return 1;
 }
 
+
 // Check posizione valida per spostamento
-static int validPos(Coordinates pos, Coordinates currentPos){
-	int in_platform, connected;
+static int validPos(Coordinates destPos, Coordinates currentPos){
+	int inPlatform, connected;
 	
 	// Non out-of-range
-	in_platform = posInPlatform(pos);
+	inPlatform = posInPlatform(destPos);
 	
-	// Assenza di muri tra le celle interessate
-	connected = noWallBetween(pos, currentPos);
+	// Check su muri solo se posizione valida su scacchiera
+	if(inPlatform){
+		
+		// Assenza di muri tra le celle interessate
+		connected = noWallBetween(destPos, currentPos);
+		
+		return connected;
+	}
 	
-	return in_platform && connected;
+	return 0;
+}
+
+// Get posizione finale in presenza di avversario in posizione adiacente a quella corrente
+static int jumpOverOpponent(Coordinates *destPos, Coordinates *finalPos, int h, int v){
+	
+	// Assegnazione destinazione finale
+	*finalPos = changeCoord(*destPos, h, v);
+	
+	return validPos(*finalPos, *destPos);
+}
+
+// Selezione celle da evidenziare, tra quelle possibili
+static void selectAdj(Coordinates *pos, int player, Coordinates *selected, int *numSelected){
+	int i;
+	Coordinates adjPos, finalPos;
+	
+	// Iterazione sulle adiacenze
+	for(i = 0; i < 4; ++i){
+		adjPos = changeCoord(*pos, moves[i][0], moves[i][1]);
+		
+		// Se la posizione adiacente è valida, si procede
+		if(validPos(adjPos, *pos)){
+			
+			// Se nell'adiacente è presente l'altro giocatore ->
+			// Check su posizioni adiacenti ad esso
+			if(equalCoord(adjPos, ms.currentPos[getOtherPlayer(player)])){
+				
+				// Se la cella dietro all'avversario è valida, si seleziona solo quella
+				if(jumpOverOpponent(&adjPos, &finalPos, moves[i][0], moves[i][1])){
+					selected[(*numSelected)++] = finalPos;
+				}
+				
+				// Altrimenti, si effettua lo stesso check sulle posizioni laterali
+				// rispetto all'avversario, eventualmente selezionandole entrambe
+				else{
+					
+					// Senso orario rispetto alla posizione dietro all'avversario
+					if(jumpOverOpponent(&adjPos, &finalPos, moves[(i+1) % 4][0], moves[(i+1) % 4][1])){
+						selected[(*numSelected)++] = finalPos;
+					}
+					
+					// Senso antiorario rispetto alla posizione dietro all'avversario
+					if(jumpOverOpponent(&adjPos, &finalPos, moves[(i-1) % 4][0], moves[(i-1) % 4][1])){
+						selected[(*numSelected)++] = finalPos;
+					}
+				}
+			}
+			// Altrimenti -> Si seleziona l'adiacente corrente
+			else{
+				selected[(*numSelected)++] = adjPos;
+			}
+		}
+	}
+}
+
+// Verifica se la posizione è di una cella evidenziata
+static int isHighlitedAdj(Coordinates pos){
+	int i;
+	for(i = 0; i < ms.numHighlited; i++){
+		if(equalCoord(ms.highlited[i], pos)){
+			return 1;
+		}
+	}
+	
+	return 0;
 }
 
 // Check raggiungibilità, da parte di un giocatore, di almeno
@@ -179,7 +234,7 @@ static int checkReachability(int player){
 	unsigned long long enqueued;
 	
 	// Variabili di tipo (x,y) per agire sulle celle
-	Coordinates currElem, adjElem, finalPos;
+	Coordinates currElem, adjElem;
 	
 	// Azzeramento flag di visita
 	enqueued = 0;
@@ -200,7 +255,7 @@ static int checkReachability(int player){
 		if(victory(currElem, player)){
 			return 1;
 		}
-		
+		/*
 		// Iterazione sulle adiacenze
 		for(i = 0; i < 4; i++){
 			
@@ -219,6 +274,24 @@ static int checkReachability(int player){
 				if((enqueued & (1ULL << (finalPos.x * NUM_SQUARES + finalPos.y))) == 0){
 					enqueue(queue, finalPos);
 					enqueued |= (1ULL << (finalPos.x * NUM_SQUARES + finalPos.y));
+				}
+			}
+		}
+		*/
+		
+		// Check raggiungibilità destinazione, senza considerare
+		// la posizione corrente dell'avversario
+		// Iterazione sulle celle adiacenti
+		for(i = 0; i < 4; i++){
+			
+			// Set adiacenza corrente
+			adjElem = changeCoord(currElem, moves[i][0], moves[i][1]);
+			
+			if(validPos(adjElem, currElem)){
+				// Se la cella non è in coda, si inserisce e si marca il flag
+				if((enqueued & (1ULL << (adjElem.x * NUM_SQUARES + adjElem.y))) == 0){
+					enqueue(queue, adjElem);
+					enqueued |= (1ULL << (adjElem.x * NUM_SQUARES + adjElem.y));
 				}
 			}
 		}
@@ -482,6 +555,14 @@ int getOtherPlayer(int player){
 // Evidenziazione celle adiacenti per spostamento
 void highliteAdj(Coordinates pos){
 	int i;
+	
+	selectAdj(&pos, ms.player, ms.highlited, &ms.numHighlited);
+	
+	for(i = 0; i < ms.numHighlited; i++){
+		drawSquareArea(ms.highlited[i].x, ms.highlited[i].y, VALID_MOVE_COLOR);
+	}
+	
+	/*
 	Coordinates tempPos, finalPos;
 	
 	// Iterazioni sulle adiacenze
@@ -503,6 +584,7 @@ void highliteAdj(Coordinates pos){
 			ms.highlited[ms.numHighlited++] = finalPos;
 		}
 	}
+	*/
 }
 
 // Cancellazione celle evidenziate
@@ -522,21 +604,27 @@ void eraseHighlightedAdj(){
 
 // Impostazione nuova posizione
 void setNextPos(int h, int v){
-	Coordinates finalPos, destPos;
+	Coordinates destPos;
 	
 	// Eliminazione messaggio, se presente
 	clearMessage();
 	
+	/*
 	// Get cella dietro all'avversario, se adiacente
 	destPos = changeCoord(ms.currentPos[ms.player], h, v);
 	jumpOverOpponent(&(ms.currentPos[ms.player]), &destPos, ms.player, &finalPos);
 	
 	// Validazione posizione finale
 	ms.validMove = validPos(finalPos, ms.currentPos[ms.player]);
+	*/
+	
+	// Check se posizione è di una cella evidenziata (ovvero valida)
+	destPos = changeCoord(ms.currentPos[ms.player], h, v);
+	ms.validMove = isHighlitedAdj(destPos);
 	if(ms.validMove){
 		
 		// Caso positivo: impostazione posizione
-		nextPos = finalPos;
+		nextPos = destPos;
 	}
 	else{
 		
