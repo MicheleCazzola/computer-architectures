@@ -604,7 +604,7 @@ void eraseHighlightedAdj(){
 
 // Impostazione nuova posizione
 void setNextPos(int h, int v){
-	Coordinates destPos;
+	Coordinates destPos, finalPos;
 	
 	// Eliminazione messaggio, se presente
 	clearMessage();
@@ -620,11 +620,11 @@ void setNextPos(int h, int v){
 	
 	// Check se posizione è di una cella evidenziata (ovvero valida)
 	destPos = changeCoord(ms.currentPos[ms.player], h, v);
-	ms.validMove = isHighlitedAdj(destPos);
+	ms.validMove = jumpOverOpponent(&destPos, &finalPos, h, v);
 	if(ms.validMove){
 		
 		// Caso positivo: impostazione posizione
-		nextPos = destPos;
+		nextPos = finalPos;
 	}
 	else{
 		

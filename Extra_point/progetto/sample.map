@@ -54,6 +54,7 @@ Section Cross References
     funct_joystick.o(.text) refers to funct_joystick.o(.constdata) for .constdata
     funct_joystick.o(.text) refers to quoridor.o(.bss) for ms
     funct_joystick.o(.text) refers to funct_joystick.o(.bss) for pressed
+    funct_joystick.o(.text) refers to funct_joystick.o(.data) for cmdToExecute
     funct_joystick.o(.text) refers to quoridor.o(.data) for nextPos
     interface.o(.text) refers to glcd.o(.text) for LCD_DrawLine
     interface.o(.text) refers to strcat.o(.text) for strcat
@@ -238,57 +239,57 @@ Image Symbol Table
     RESET                                    0x00000000   Section      204  startup_lpc17xx.o(RESET)
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit2.o ABSOLUTE
-    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
+    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry4.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
     ../clib/angel/scatter.s                  0x00000000   Number         0  __scatter.o ABSOLUTE
     ../clib/angel/startup.s                  0x00000000   Number         0  __main.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_exit.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_wrch.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
-    ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
+    ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  no_argv.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxi.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
     ../clib/longlong.s                       0x00000000   Number         0  llshl.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy_w.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy_v6.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
     ../clib/signal.s                         0x00000000   Number         0  defsig.o ABSOLUTE
     ../clib/stdlib.c                         0x00000000   Number         0  exit.o ABSOLUTE
-    ../clib/string.c                         0x00000000   Number         0  strcat.o ABSOLUTE
     ../clib/string.c                         0x00000000   Number         0  strcpy.o ABSOLUTE
     ../clib/string.c                         0x00000000   Number         0  strlen.o ABSOLUTE
+    ../clib/string.c                         0x00000000   Number         0  strcat.o ABSOLUTE
     ../fplib/fpinit.s                        0x00000000   Number         0  fpinit.o ABSOLUTE
     GLCD\AsciiLib.c                          0x00000000   Number         0  asciilib.o ABSOLUTE
     GLCD\GLCD.c                              0x00000000   Number         0  glcd.o ABSOLUTE
@@ -394,52 +395,53 @@ Image Symbol Table
     __NVIC_SetPriority                       0x000049a7   Thumb Code    32  lib_button.o(.text)
     .text                                    0x00004acc   Section        0  funct_joystick.o(.text)
     countPressed                             0x00004acd   Thumb Code    42  funct_joystick.o(.text)
-    .text                                    0x00004c0c   Section        0  lib_joystick.o(.text)
-    .text                                    0x00004c90   Section        0  interface.o(.text)
-    .text                                    0x00005048   Section        0  quoridor.o(.text)
-    abs                                      0x00005049   Thumb Code    14  quoridor.o(.text)
-    sign                                     0x00005057   Thumb Code    22  quoridor.o(.text)
-    victory                                  0x0000506d   Thumb Code    22  quoridor.o(.text)
-    getAvailableWalls                        0x00005083   Thumb Code    24  quoridor.o(.text)
-    posInPlatform                            0x0000509b   Thumb Code    34  quoridor.o(.text)
-    centerWallInPlatform                     0x000050bd   Thumb Code    34  quoridor.o(.text)
-    wallBetweenCells                         0x000050df   Thumb Code   402  quoridor.o(.text)
-    noWallBetween                            0x00005271   Thumb Code   124  quoridor.o(.text)
-    validPos                                 0x000052ed   Thumb Code    34  quoridor.o(.text)
-    jumpOverOpponent                         0x0000530f   Thumb Code    46  quoridor.o(.text)
-    selectAdj                                0x00005345   Thumb Code   324  quoridor.o(.text)
-    isHighlitedAdj                           0x00005489   Thumb Code    46  quoridor.o(.text)
-    checkReachability                        0x000054b7   Thumb Code   256  quoridor.o(.text)
-    exists_overlapping_wall                  0x000055b7   Thumb Code   278  quoridor.o(.text)
-    checkNotOverlapping                      0x000056cd   Thumb Code    44  quoridor.o(.text)
-    validWallPos                             0x000056f9   Thumb Code    66  quoridor.o(.text)
-    setWall                                  0x0000573b   Thumb Code    88  quoridor.o(.text)
-    redrawWalls                              0x00005793   Thumb Code   120  quoridor.o(.text)
-    moveWall                                 0x0000580b   Thumb Code   202  quoridor.o(.text)
-    setVictoryMessage                        0x000058d5   Thumb Code    52  quoridor.o(.text)
-    initPlayers                              0x00005909   Thumb Code    58  quoridor.o(.text)
-    clearWalls                               0x00005943   Thumb Code    14  quoridor.o(.text)
-    initInterface                            0x00005951   Thumb Code    20  quoridor.o(.text)
-    initPlayersData                          0x00005977   Thumb Code    36  quoridor.o(.text)
-    initControls                             0x0000599b   Thumb Code    28  quoridor.o(.text)
-    .text                                    0x00005f10   Section        0  queue.o(.text)
-    .text                                    0x00005fd8   Section        0  coordinates.o(.text)
-    abs                                      0x00005fd9   Thumb Code    14  coordinates.o(.text)
-    .text                                    0x000060b4   Section       38  llshl.o(.text)
-    .text                                    0x000060da   Section        0  strcpy.o(.text)
-    .text                                    0x00006122   Section        0  strlen.o(.text)
-    .text                                    0x00006160   Section        0  strcat.o(.text)
-    .text                                    0x00006178   Section      138  rt_memcpy_v6.o(.text)
-    .text                                    0x00006202   Section      100  rt_memcpy_w.o(.text)
-    .text                                    0x00006266   Section       74  sys_stackheap_outer.o(.text)
-    .text                                    0x000062b0   Section        0  exit.o(.text)
-    .text                                    0x000062c4   Section        8  libspace.o(.text)
-    .text                                    0x000062cc   Section        0  sys_exit.o(.text)
-    .constdata                               0x000062d8   Section     1520  asciilib.o(.constdata)
-    .text                                    0x000062d8   Section        0  indicate_semi.o(.text)
-    AsciiLib                                 0x000062d8   Data        1520  asciilib.o(.constdata)
-    .constdata                               0x000068c8   Section       40  funct_joystick.o(.constdata)
-    .constdata                               0x000068f0   Section      103  quoridor.o(.constdata)
+    joystickUsed                             0x00004af7   Thumb Code    30  funct_joystick.o(.text)
+    .text                                    0x00004c38   Section        0  lib_joystick.o(.text)
+    .text                                    0x00004cbc   Section        0  interface.o(.text)
+    .text                                    0x00005074   Section        0  quoridor.o(.text)
+    abs                                      0x00005075   Thumb Code    14  quoridor.o(.text)
+    sign                                     0x00005083   Thumb Code    22  quoridor.o(.text)
+    victory                                  0x00005099   Thumb Code    22  quoridor.o(.text)
+    getAvailableWalls                        0x000050af   Thumb Code    24  quoridor.o(.text)
+    posInPlatform                            0x000050c7   Thumb Code    34  quoridor.o(.text)
+    centerWallInPlatform                     0x000050e9   Thumb Code    34  quoridor.o(.text)
+    wallBetweenCells                         0x0000510b   Thumb Code   402  quoridor.o(.text)
+    noWallBetween                            0x0000529d   Thumb Code   124  quoridor.o(.text)
+    validPos                                 0x00005319   Thumb Code    34  quoridor.o(.text)
+    jumpOverOpponent                         0x0000533b   Thumb Code    46  quoridor.o(.text)
+    selectAdj                                0x00005371   Thumb Code   324  quoridor.o(.text)
+    isHighlitedAdj                           0x000054b5   Thumb Code    46  quoridor.o(.text)
+    checkReachability                        0x000054e3   Thumb Code   256  quoridor.o(.text)
+    exists_overlapping_wall                  0x000055e3   Thumb Code   278  quoridor.o(.text)
+    checkNotOverlapping                      0x000056f9   Thumb Code    44  quoridor.o(.text)
+    validWallPos                             0x00005725   Thumb Code    66  quoridor.o(.text)
+    setWall                                  0x00005767   Thumb Code    88  quoridor.o(.text)
+    redrawWalls                              0x000057bf   Thumb Code   120  quoridor.o(.text)
+    moveWall                                 0x00005837   Thumb Code   202  quoridor.o(.text)
+    setVictoryMessage                        0x00005901   Thumb Code    52  quoridor.o(.text)
+    initPlayers                              0x00005935   Thumb Code    58  quoridor.o(.text)
+    clearWalls                               0x0000596f   Thumb Code    14  quoridor.o(.text)
+    initInterface                            0x0000597d   Thumb Code    20  quoridor.o(.text)
+    initPlayersData                          0x000059a3   Thumb Code    36  quoridor.o(.text)
+    initControls                             0x000059c7   Thumb Code    28  quoridor.o(.text)
+    .text                                    0x00005f40   Section        0  queue.o(.text)
+    .text                                    0x00006008   Section        0  coordinates.o(.text)
+    abs                                      0x00006009   Thumb Code    14  coordinates.o(.text)
+    .text                                    0x000060e4   Section       38  llshl.o(.text)
+    .text                                    0x0000610a   Section        0  strcpy.o(.text)
+    .text                                    0x00006152   Section        0  strlen.o(.text)
+    .text                                    0x00006190   Section        0  strcat.o(.text)
+    .text                                    0x000061a8   Section      138  rt_memcpy_v6.o(.text)
+    .text                                    0x00006232   Section      100  rt_memcpy_w.o(.text)
+    .text                                    0x00006296   Section       74  sys_stackheap_outer.o(.text)
+    .text                                    0x000062e0   Section        0  exit.o(.text)
+    .text                                    0x000062f4   Section        8  libspace.o(.text)
+    .text                                    0x000062fc   Section        0  sys_exit.o(.text)
+    .constdata                               0x00006308   Section     1520  asciilib.o(.constdata)
+    .text                                    0x00006308   Section        0  indicate_semi.o(.text)
+    AsciiLib                                 0x00006308   Data        1520  asciilib.o(.constdata)
+    .constdata                               0x000068f8   Section       40  funct_joystick.o(.constdata)
+    .constdata                               0x00006920   Section      103  quoridor.o(.constdata)
     STACK                                    0x10000000   Section     1024  startup_lpc17xx.o(STACK)
     Stack_Mem                                0x10000000   Data        1024  startup_lpc17xx.o(STACK)
     __initial_sp                             0x10000400   Data           0  startup_lpc17xx.o(STACK)
@@ -447,14 +449,16 @@ Image Symbol Table
     .data                                    0x2007c005   Section        1  glcd.o(.data)
     LCD_Code                                 0x2007c005   Data           1  glcd.o(.data)
     .data                                    0x2007c008   Section       12  irq_rit.o(.data)
-    .data                                    0x2007c014   Section        8  quoridor.o(.data)
-    .data                                    0x2007c01c   Section        8  queue.o(.data)
-    head                                     0x2007c01c   Data           4  queue.o(.data)
-    tail                                     0x2007c020   Data           4  queue.o(.data)
-    .bss                                     0x2007c024   Section       20  funct_joystick.o(.bss)
-    pressed                                  0x2007c024   Data          20  funct_joystick.o(.bss)
-    .bss                                     0x2007c038   Section      315  quoridor.o(.bss)
-    .bss                                     0x2007c174   Section       96  libspace.o(.bss)
+    .data                                    0x2007c014   Section        4  funct_joystick.o(.data)
+    cmdToExecute                             0x2007c014   Data           4  funct_joystick.o(.data)
+    .data                                    0x2007c018   Section        8  quoridor.o(.data)
+    .data                                    0x2007c020   Section        8  queue.o(.data)
+    head                                     0x2007c020   Data           4  queue.o(.data)
+    tail                                     0x2007c024   Data           4  queue.o(.data)
+    .bss                                     0x2007c028   Section       20  funct_joystick.o(.bss)
+    pressed                                  0x2007c028   Data          20  funct_joystick.o(.bss)
+    .bss                                     0x2007c03c   Section      315  quoridor.o(.bss)
+    .bss                                     0x2007c178   Section       96  libspace.o(.bss)
     HEAP                                     0x2007c1d8   Section        0  startup_lpc17xx.o(HEAP)
     Heap_Mem                                 0x2007c1d8   Data           0  startup_lpc17xx.o(HEAP)
 
@@ -619,82 +623,82 @@ Image Symbol Table
     enable_button                            0x00004a43   Thumb Code    30  lib_button.o(.text)
     disable_button                           0x00004a61   Thumb Code    54  lib_button.o(.text)
     disabled_button                          0x00004a97   Thumb Code    28  lib_button.o(.text)
-    joystick_controller                      0x00004af7   Thumb Code   256  funct_joystick.o(.text)
-    joystick_init                            0x00004c0d   Thumb Code   122  lib_joystick.o(.text)
-    drawChessPlatform                        0x00004c91   Thumb Code   264  interface.o(.text)
-    drawToken                                0x00004d99   Thumb Code    84  interface.o(.text)
-    writeWallsStats                          0x00004ded   Thumb Code   112  interface.o(.text)
-    writeTimeRemaining                       0x00004e5d   Thumb Code    74  interface.o(.text)
-    drawSquareArea                           0x00004ea7   Thumb Code    80  interface.o(.text)
-    drawWall                                 0x00004ef7   Thumb Code   168  interface.o(.text)
-    clearMessage                             0x00004f9f   Thumb Code    74  interface.o(.text)
-    writeMessage                             0x00004fe9   Thumb Code    70  interface.o(.text)
-    getOtherPlayer                           0x0000533d   Thumb Code     8  quoridor.o(.text)
-    setMode                                  0x00005965   Thumb Code    18  quoridor.o(.text)
-    initGame                                 0x000059b7   Thumb Code    16  quoridor.o(.text)
-    highliteAdj                              0x000059c7   Thumb Code    60  quoridor.o(.text)
-    setPlayer                                0x00005a03   Thumb Code   102  quoridor.o(.text)
-    eraseHighlightedAdj                      0x00005a69   Thumb Code    50  quoridor.o(.text)
-    setNextPos                               0x00005a9b   Thumb Code    98  quoridor.o(.text)
-    saveMove                                 0x00005afd   Thumb Code    34  quoridor.o(.text)
-    move                                     0x00005b1f   Thumb Code   170  quoridor.o(.text)
-    newWall                                  0x00005bc9   Thumb Code    62  quoridor.o(.text)
-    rotateWall                               0x00005c07   Thumb Code   234  quoridor.o(.text)
-    confirmWall                              0x00005cf1   Thumb Code   268  quoridor.o(.text)
-    undoWall                                 0x00005dfd   Thumb Code   144  quoridor.o(.text)
-    setNextWall                              0x00005e8d   Thumb Code   108  quoridor.o(.text)
-    isEmpty                                  0x00005f11   Thumb Code    34  queue.o(.text)
-    initQueue                                0x00005f33   Thumb Code    52  queue.o(.text)
-    enqueue                                  0x00005f67   Thumb Code    48  queue.o(.text)
-    dequeue                                  0x00005f97   Thumb Code    56  queue.o(.text)
-    newCoord                                 0x00005fe7   Thumb Code    16  coordinates.o(.text)
-    changeCoord                              0x00005ff7   Thumb Code    30  coordinates.o(.text)
-    equalCoordX                              0x00006015   Thumb Code    20  coordinates.o(.text)
-    equalCoordY                              0x00006029   Thumb Code    20  coordinates.o(.text)
-    equalCoord                               0x0000603d   Thumb Code    32  coordinates.o(.text)
-    coordCmpX                                0x0000605d   Thumb Code    12  coordinates.o(.text)
-    coordCmpY                                0x00006069   Thumb Code    12  coordinates.o(.text)
-    coordDiffX                               0x00006075   Thumb Code    12  coordinates.o(.text)
-    coordDiffY                               0x00006081   Thumb Code    12  coordinates.o(.text)
-    coordDistX                               0x0000608d   Thumb Code    20  coordinates.o(.text)
-    coordDistY                               0x000060a1   Thumb Code    20  coordinates.o(.text)
-    __aeabi_llsl                             0x000060b5   Thumb Code     0  llshl.o(.text)
-    _ll_shift_l                              0x000060b5   Thumb Code    38  llshl.o(.text)
-    strcpy                                   0x000060db   Thumb Code    72  strcpy.o(.text)
-    strlen                                   0x00006123   Thumb Code    62  strlen.o(.text)
-    strcat                                   0x00006161   Thumb Code    24  strcat.o(.text)
-    __aeabi_memcpy                           0x00006179   Thumb Code     0  rt_memcpy_v6.o(.text)
-    __rt_memcpy                              0x00006179   Thumb Code   138  rt_memcpy_v6.o(.text)
-    _memcpy_lastbytes                        0x000061df   Thumb Code     0  rt_memcpy_v6.o(.text)
-    __aeabi_memcpy4                          0x00006203   Thumb Code     0  rt_memcpy_w.o(.text)
-    __aeabi_memcpy8                          0x00006203   Thumb Code     0  rt_memcpy_w.o(.text)
-    __rt_memcpy_w                            0x00006203   Thumb Code   100  rt_memcpy_w.o(.text)
-    _memcpy_lastbytes_aligned                0x0000624b   Thumb Code     0  rt_memcpy_w.o(.text)
-    __user_setup_stackheap                   0x00006267   Thumb Code    74  sys_stackheap_outer.o(.text)
-    exit                                     0x000062b1   Thumb Code    18  exit.o(.text)
-    __user_libspace                          0x000062c5   Thumb Code     8  libspace.o(.text)
-    __user_perproc_libspace                  0x000062c5   Thumb Code     0  libspace.o(.text)
-    __user_perthread_libspace                0x000062c5   Thumb Code     0  libspace.o(.text)
-    _sys_exit                                0x000062cd   Thumb Code     8  sys_exit.o(.text)
-    __semihosting_library_function           0x000062d9   Thumb Code     0  indicate_semi.o(.text)
-    START_POS_PLAYER1                        0x000068f0   Data           8  quoridor.o(.constdata)
-    START_POS_PLAYER2                        0x000068f8   Data           8  quoridor.o(.constdata)
-    WALL_DEFAULT_POS                         0x00006900   Data           8  quoridor.o(.constdata)
-    PLAYER_COLORS                            0x00006908   Data           8  quoridor.o(.constdata)
-    WALL_COLORS                              0x00006910   Data           8  quoridor.o(.constdata)
-    moves                                    0x00006918   Data          32  quoridor.o(.constdata)
-    Region$$Table$$Base                      0x00006958   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00006988   Number         0  anon$$obj.o(Region$$Table)
+    joystick_controller                      0x00004b15   Thumb Code   266  funct_joystick.o(.text)
+    joystick_init                            0x00004c39   Thumb Code   122  lib_joystick.o(.text)
+    drawChessPlatform                        0x00004cbd   Thumb Code   264  interface.o(.text)
+    drawToken                                0x00004dc5   Thumb Code    84  interface.o(.text)
+    writeWallsStats                          0x00004e19   Thumb Code   112  interface.o(.text)
+    writeTimeRemaining                       0x00004e89   Thumb Code    74  interface.o(.text)
+    drawSquareArea                           0x00004ed3   Thumb Code    80  interface.o(.text)
+    drawWall                                 0x00004f23   Thumb Code   168  interface.o(.text)
+    clearMessage                             0x00004fcb   Thumb Code    74  interface.o(.text)
+    writeMessage                             0x00005015   Thumb Code    70  interface.o(.text)
+    getOtherPlayer                           0x00005369   Thumb Code     8  quoridor.o(.text)
+    setMode                                  0x00005991   Thumb Code    18  quoridor.o(.text)
+    initGame                                 0x000059e3   Thumb Code    16  quoridor.o(.text)
+    highliteAdj                              0x000059f3   Thumb Code    60  quoridor.o(.text)
+    setPlayer                                0x00005a2f   Thumb Code   102  quoridor.o(.text)
+    eraseHighlightedAdj                      0x00005a95   Thumb Code    50  quoridor.o(.text)
+    setNextPos                               0x00005ac7   Thumb Code   102  quoridor.o(.text)
+    saveMove                                 0x00005b2d   Thumb Code    34  quoridor.o(.text)
+    move                                     0x00005b4f   Thumb Code   170  quoridor.o(.text)
+    newWall                                  0x00005bf9   Thumb Code    62  quoridor.o(.text)
+    rotateWall                               0x00005c37   Thumb Code   234  quoridor.o(.text)
+    confirmWall                              0x00005d21   Thumb Code   268  quoridor.o(.text)
+    undoWall                                 0x00005e2d   Thumb Code   144  quoridor.o(.text)
+    setNextWall                              0x00005ebd   Thumb Code   108  quoridor.o(.text)
+    isEmpty                                  0x00005f41   Thumb Code    34  queue.o(.text)
+    initQueue                                0x00005f63   Thumb Code    52  queue.o(.text)
+    enqueue                                  0x00005f97   Thumb Code    48  queue.o(.text)
+    dequeue                                  0x00005fc7   Thumb Code    56  queue.o(.text)
+    newCoord                                 0x00006017   Thumb Code    16  coordinates.o(.text)
+    changeCoord                              0x00006027   Thumb Code    30  coordinates.o(.text)
+    equalCoordX                              0x00006045   Thumb Code    20  coordinates.o(.text)
+    equalCoordY                              0x00006059   Thumb Code    20  coordinates.o(.text)
+    equalCoord                               0x0000606d   Thumb Code    32  coordinates.o(.text)
+    coordCmpX                                0x0000608d   Thumb Code    12  coordinates.o(.text)
+    coordCmpY                                0x00006099   Thumb Code    12  coordinates.o(.text)
+    coordDiffX                               0x000060a5   Thumb Code    12  coordinates.o(.text)
+    coordDiffY                               0x000060b1   Thumb Code    12  coordinates.o(.text)
+    coordDistX                               0x000060bd   Thumb Code    20  coordinates.o(.text)
+    coordDistY                               0x000060d1   Thumb Code    20  coordinates.o(.text)
+    __aeabi_llsl                             0x000060e5   Thumb Code     0  llshl.o(.text)
+    _ll_shift_l                              0x000060e5   Thumb Code    38  llshl.o(.text)
+    strcpy                                   0x0000610b   Thumb Code    72  strcpy.o(.text)
+    strlen                                   0x00006153   Thumb Code    62  strlen.o(.text)
+    strcat                                   0x00006191   Thumb Code    24  strcat.o(.text)
+    __aeabi_memcpy                           0x000061a9   Thumb Code     0  rt_memcpy_v6.o(.text)
+    __rt_memcpy                              0x000061a9   Thumb Code   138  rt_memcpy_v6.o(.text)
+    _memcpy_lastbytes                        0x0000620f   Thumb Code     0  rt_memcpy_v6.o(.text)
+    __aeabi_memcpy4                          0x00006233   Thumb Code     0  rt_memcpy_w.o(.text)
+    __aeabi_memcpy8                          0x00006233   Thumb Code     0  rt_memcpy_w.o(.text)
+    __rt_memcpy_w                            0x00006233   Thumb Code   100  rt_memcpy_w.o(.text)
+    _memcpy_lastbytes_aligned                0x0000627b   Thumb Code     0  rt_memcpy_w.o(.text)
+    __user_setup_stackheap                   0x00006297   Thumb Code    74  sys_stackheap_outer.o(.text)
+    exit                                     0x000062e1   Thumb Code    18  exit.o(.text)
+    __user_libspace                          0x000062f5   Thumb Code     8  libspace.o(.text)
+    __user_perproc_libspace                  0x000062f5   Thumb Code     0  libspace.o(.text)
+    __user_perthread_libspace                0x000062f5   Thumb Code     0  libspace.o(.text)
+    _sys_exit                                0x000062fd   Thumb Code     8  sys_exit.o(.text)
+    __semihosting_library_function           0x00006309   Thumb Code     0  indicate_semi.o(.text)
+    START_POS_PLAYER1                        0x00006920   Data           8  quoridor.o(.constdata)
+    START_POS_PLAYER2                        0x00006928   Data           8  quoridor.o(.constdata)
+    WALL_DEFAULT_POS                         0x00006930   Data           8  quoridor.o(.constdata)
+    PLAYER_COLORS                            0x00006938   Data           8  quoridor.o(.constdata)
+    WALL_COLORS                              0x00006940   Data           8  quoridor.o(.constdata)
+    moves                                    0x00006948   Data          32  quoridor.o(.constdata)
+    Region$$Table$$Base                      0x00006988   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x000069b8   Number         0  anon$$obj.o(Region$$Table)
     SystemFrequency                          0x2007c000   Data           4  system_lpc17xx.o(.data)
     ScaleFlag                                0x2007c004   Data           1  system_lpc17xx.o(.data)
     down_int0                                0x2007c008   Data           4  irq_rit.o(.data)
     down_key1                                0x2007c00c   Data           4  irq_rit.o(.data)
     down_key2                                0x2007c010   Data           4  irq_rit.o(.data)
-    nextPos                                  0x2007c014   Data           8  quoridor.o(.data)
-    ms                                       0x2007c038   Data         284  quoridor.o(.bss)
-    message                                  0x2007c154   Data          31  quoridor.o(.bss)
-    __libspace_start                         0x2007c174   Data          96  libspace.o(.bss)
-    __temporary_stack_top$libspace           0x2007c1d4   Data           0  libspace.o(.bss)
+    nextPos                                  0x2007c018   Data           8  quoridor.o(.data)
+    ms                                       0x2007c03c   Data         284  quoridor.o(.bss)
+    message                                  0x2007c158   Data          31  quoridor.o(.bss)
+    __libspace_start                         0x2007c178   Data          96  libspace.o(.bss)
+    __temporary_stack_top$libspace           0x2007c1d8   Data           0  libspace.o(.bss)
 
 
 
@@ -704,67 +708,67 @@ Memory Map of the image
 
   Image Entry point : 0x000000cd
 
-  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x000069ac, Max: 0x00080000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x000069e0, Max: 0x00080000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00006988, Max: 0x00080000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x000069b8, Max: 0x00080000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x00000000   0x00000000   0x000000cc   Data   RO            3    RESET               startup_lpc17xx.o
-    0x000000cc   0x000000cc   0x00000008   Code   RO          594  * !!!main             c_w.l(__main.o)
-    0x000000d4   0x000000d4   0x00000034   Code   RO          753    !!!scatter          c_w.l(__scatter.o)
-    0x00000108   0x00000108   0x0000001a   Code   RO          755    !!handler_copy      c_w.l(__scatter_copy.o)
+    0x000000cc   0x000000cc   0x00000008   Code   RO          595  * !!!main             c_w.l(__main.o)
+    0x000000d4   0x000000d4   0x00000034   Code   RO          754    !!!scatter          c_w.l(__scatter.o)
+    0x00000108   0x00000108   0x0000001a   Code   RO          756    !!handler_copy      c_w.l(__scatter_copy.o)
     0x00000122   0x00000122   0x00000002   PAD
-    0x00000124   0x00000124   0x0000001c   Code   RO          757    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x00000140   0x00000140   0x00000002   Code   RO          621    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          628    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          630    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          633    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          635    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          637    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          640    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          642    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          644    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          646    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          648    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          650    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          652    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          654    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          656    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          658    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          660    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          664    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          666    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          668    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000000   Code   RO          670    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
-    0x00000142   0x00000142   0x00000002   Code   RO          671    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
-    0x00000144   0x00000144   0x00000002   Code   RO          691    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x00000146   0x00000146   0x00000000   Code   RO          704    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
-    0x00000146   0x00000146   0x00000000   Code   RO          706    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
-    0x00000146   0x00000146   0x00000000   Code   RO          708    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
-    0x00000146   0x00000146   0x00000000   Code   RO          711    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
-    0x00000146   0x00000146   0x00000000   Code   RO          714    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
-    0x00000146   0x00000146   0x00000000   Code   RO          716    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
-    0x00000146   0x00000146   0x00000000   Code   RO          719    .ARM.Collect$$libshutdown$$00000011  c_w.l(libshutdown2.o)
-    0x00000146   0x00000146   0x00000002   Code   RO          720    .ARM.Collect$$libshutdown$$00000012  c_w.l(libshutdown2.o)
-    0x00000148   0x00000148   0x00000000   Code   RO          596    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
-    0x00000148   0x00000148   0x00000000   Code   RO          598    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
-    0x00000148   0x00000148   0x00000006   Code   RO          610    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO          600    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
-    0x0000014e   0x0000014e   0x00000004   Code   RO          601    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
-    0x00000152   0x00000152   0x00000000   Code   RO          603    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
-    0x00000152   0x00000152   0x00000008   Code   RO          604    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
-    0x0000015a   0x0000015a   0x00000002   Code   RO          625    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x0000015c   0x0000015c   0x00000000   Code   RO          673    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x0000015c   0x0000015c   0x00000004   Code   RO          674    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x00000160   0x00000160   0x00000006   Code   RO          675    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x00000124   0x00000124   0x0000001c   Code   RO          758    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x00000140   0x00000140   0x00000002   Code   RO          622    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          629    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          631    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          634    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          636    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          638    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          641    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          643    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          645    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          647    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          649    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          651    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          653    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          655    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          657    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          659    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          661    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          665    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          667    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          669    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          671    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
+    0x00000142   0x00000142   0x00000002   Code   RO          672    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
+    0x00000144   0x00000144   0x00000002   Code   RO          692    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x00000146   0x00000146   0x00000000   Code   RO          705    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
+    0x00000146   0x00000146   0x00000000   Code   RO          707    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
+    0x00000146   0x00000146   0x00000000   Code   RO          709    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
+    0x00000146   0x00000146   0x00000000   Code   RO          712    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
+    0x00000146   0x00000146   0x00000000   Code   RO          715    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
+    0x00000146   0x00000146   0x00000000   Code   RO          717    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
+    0x00000146   0x00000146   0x00000000   Code   RO          720    .ARM.Collect$$libshutdown$$00000011  c_w.l(libshutdown2.o)
+    0x00000146   0x00000146   0x00000002   Code   RO          721    .ARM.Collect$$libshutdown$$00000012  c_w.l(libshutdown2.o)
+    0x00000148   0x00000148   0x00000000   Code   RO          597    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
+    0x00000148   0x00000148   0x00000000   Code   RO          599    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
+    0x00000148   0x00000148   0x00000006   Code   RO          611    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO          601    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
+    0x0000014e   0x0000014e   0x00000004   Code   RO          602    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
+    0x00000152   0x00000152   0x00000000   Code   RO          604    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
+    0x00000152   0x00000152   0x00000008   Code   RO          605    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
+    0x0000015a   0x0000015a   0x00000002   Code   RO          626    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x0000015c   0x0000015c   0x00000000   Code   RO          674    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x0000015c   0x0000015c   0x00000004   Code   RO          675    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x00000160   0x00000160   0x00000006   Code   RO          676    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x00000166   0x00000166   0x00000002   PAD
     0x00000168   0x00000168   0x00000034   Code   RO            5    .text               startup_lpc17xx.o
     0x0000019c   0x0000019c   0x00000058   Code   RO           16    .text               sample.o
     0x000001f4   0x000001f4   0x000000e0   Code   RO          123    .text               irq_timer.o
     0x000002d4   0x000002d4   0x00000020   Code   RO          201    .text               asciilib.o
-    0x000002f4   0x000002f4   0x00000006   Code   RO          592    .text               c_w.l(heapauxi.o)
-    0x000002fa   0x000002fa   0x00000002   Code   RO          694    .text               c_w.l(use_no_semi.o)
+    0x000002f4   0x000002f4   0x00000006   Code   RO          593    .text               c_w.l(heapauxi.o)
+    0x000002fa   0x000002fa   0x00000002   Code   RO          695    .text               c_w.l(use_no_semi.o)
     0x000002fc   0x000002fc   0x00000004   Code   RO            4    .ARM.__at_0x02FC    startup_lpc17xx.o
     0x00000300   0x00000300   0x0000024c   Code   RO           96    .text               system_lpc17xx.o
     0x0000054c   0x0000054c   0x000000a8   Code   RO          176    .text               lib_timer.o
@@ -773,53 +777,53 @@ Memory Map of the image
     0x000047d4   0x000047d4   0x00000094   Code   RO          300    .text               lib_rit.o
     0x00004868   0x00004868   0x0000011c   Code   RO          328    .text               irq_button.o
     0x00004984   0x00004984   0x00000148   Code   RO          371    .text               lib_button.o
-    0x00004acc   0x00004acc   0x00000140   Code   RO          399    .text               funct_joystick.o
-    0x00004c0c   0x00004c0c   0x00000084   Code   RO          435    .text               lib_joystick.o
-    0x00004c90   0x00004c90   0x000003b8   Code   RO          459    .text               interface.o
-    0x00005048   0x00005048   0x00000ec8   Code   RO          496    .text               quoridor.o
-    0x00005f10   0x00005f10   0x000000c8   Code   RO          543    .text               queue.o
-    0x00005fd8   0x00005fd8   0x000000dc   Code   RO          563    .text               coordinates.o
-    0x000060b4   0x000060b4   0x00000026   Code   RO          580    .text               c_w.l(llshl.o)
-    0x000060da   0x000060da   0x00000048   Code   RO          582    .text               c_w.l(strcpy.o)
-    0x00006122   0x00006122   0x0000003e   Code   RO          584    .text               c_w.l(strlen.o)
-    0x00006160   0x00006160   0x00000018   Code   RO          586    .text               c_w.l(strcat.o)
-    0x00006178   0x00006178   0x0000008a   Code   RO          588    .text               c_w.l(rt_memcpy_v6.o)
-    0x00006202   0x00006202   0x00000064   Code   RO          590    .text               c_w.l(rt_memcpy_w.o)
-    0x00006266   0x00006266   0x0000004a   Code   RO          612    .text               c_w.l(sys_stackheap_outer.o)
-    0x000062b0   0x000062b0   0x00000012   Code   RO          614    .text               c_w.l(exit.o)
-    0x000062c2   0x000062c2   0x00000002   PAD
-    0x000062c4   0x000062c4   0x00000008   Code   RO          622    .text               c_w.l(libspace.o)
-    0x000062cc   0x000062cc   0x0000000c   Code   RO          683    .text               c_w.l(sys_exit.o)
-    0x000062d8   0x000062d8   0x00000000   Code   RO          696    .text               c_w.l(indicate_semi.o)
-    0x000062d8   0x000062d8   0x000005f0   Data   RO          202    .constdata          asciilib.o
-    0x000068c8   0x000068c8   0x00000028   Data   RO          401    .constdata          funct_joystick.o
-    0x000068f0   0x000068f0   0x00000067   Data   RO          498    .constdata          quoridor.o
-    0x00006957   0x00006957   0x00000001   PAD
-    0x00006958   0x00006958   0x00000030   Data   RO          751    Region$$Table       anon$$obj.o
+    0x00004acc   0x00004acc   0x0000016c   Code   RO          399    .text               funct_joystick.o
+    0x00004c38   0x00004c38   0x00000084   Code   RO          436    .text               lib_joystick.o
+    0x00004cbc   0x00004cbc   0x000003b8   Code   RO          460    .text               interface.o
+    0x00005074   0x00005074   0x00000ecc   Code   RO          497    .text               quoridor.o
+    0x00005f40   0x00005f40   0x000000c8   Code   RO          544    .text               queue.o
+    0x00006008   0x00006008   0x000000dc   Code   RO          564    .text               coordinates.o
+    0x000060e4   0x000060e4   0x00000026   Code   RO          581    .text               c_w.l(llshl.o)
+    0x0000610a   0x0000610a   0x00000048   Code   RO          583    .text               c_w.l(strcpy.o)
+    0x00006152   0x00006152   0x0000003e   Code   RO          585    .text               c_w.l(strlen.o)
+    0x00006190   0x00006190   0x00000018   Code   RO          587    .text               c_w.l(strcat.o)
+    0x000061a8   0x000061a8   0x0000008a   Code   RO          589    .text               c_w.l(rt_memcpy_v6.o)
+    0x00006232   0x00006232   0x00000064   Code   RO          591    .text               c_w.l(rt_memcpy_w.o)
+    0x00006296   0x00006296   0x0000004a   Code   RO          613    .text               c_w.l(sys_stackheap_outer.o)
+    0x000062e0   0x000062e0   0x00000012   Code   RO          615    .text               c_w.l(exit.o)
+    0x000062f2   0x000062f2   0x00000002   PAD
+    0x000062f4   0x000062f4   0x00000008   Code   RO          623    .text               c_w.l(libspace.o)
+    0x000062fc   0x000062fc   0x0000000c   Code   RO          684    .text               c_w.l(sys_exit.o)
+    0x00006308   0x00006308   0x00000000   Code   RO          697    .text               c_w.l(indicate_semi.o)
+    0x00006308   0x00006308   0x000005f0   Data   RO          202    .constdata          asciilib.o
+    0x000068f8   0x000068f8   0x00000028   Data   RO          401    .constdata          funct_joystick.o
+    0x00006920   0x00006920   0x00000067   Data   RO          499    .constdata          quoridor.o
+    0x00006987   0x00006987   0x00000001   PAD
+    0x00006988   0x00006988   0x00000030   Data   RO          752    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x10000000, Load base: 0x00006988, Size: 0x00000400, Max: 0x00008000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x10000000, Load base: 0x000069b8, Size: 0x00000400, Max: 0x00008000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x10000000        -       0x00000400   Zero   RW            1    STACK               startup_lpc17xx.o
 
 
-    Execution Region RW_IRAM2 (Exec base: 0x2007c000, Load base: 0x00006988, Size: 0x000001d8, Max: 0x00008000, ABSOLUTE)
+    Execution Region RW_IRAM2 (Exec base: 0x2007c000, Load base: 0x000069b8, Size: 0x000001d8, Max: 0x00008000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x2007c000   0x00006988   0x00000005   Data   RW           97    .data               system_lpc17xx.o
-    0x2007c005   0x0000698d   0x00000001   Data   RW          222    .data               glcd.o
-    0x2007c006   0x0000698e   0x00000002   PAD
-    0x2007c008   0x00006990   0x0000000c   Data   RW          268    .data               irq_rit.o
-    0x2007c014   0x0000699c   0x00000008   Data   RW          499    .data               quoridor.o
-    0x2007c01c   0x000069a4   0x00000008   Data   RW          544    .data               queue.o
-    0x2007c024        -       0x00000014   Zero   RW          400    .bss                funct_joystick.o
-    0x2007c038        -       0x0000013b   Zero   RW          497    .bss                quoridor.o
-    0x2007c173   0x000069ac   0x00000001   PAD
-    0x2007c174        -       0x00000060   Zero   RW          623    .bss                c_w.l(libspace.o)
-    0x2007c1d4   0x000069ac   0x00000004   PAD
+    0x2007c000   0x000069b8   0x00000005   Data   RW           97    .data               system_lpc17xx.o
+    0x2007c005   0x000069bd   0x00000001   Data   RW          222    .data               glcd.o
+    0x2007c006   0x000069be   0x00000002   PAD
+    0x2007c008   0x000069c0   0x0000000c   Data   RW          268    .data               irq_rit.o
+    0x2007c014   0x000069cc   0x00000004   Data   RW          402    .data               funct_joystick.o
+    0x2007c018   0x000069d0   0x00000008   Data   RW          500    .data               quoridor.o
+    0x2007c020   0x000069d8   0x00000008   Data   RW          545    .data               queue.o
+    0x2007c028        -       0x00000014   Zero   RW          400    .bss                funct_joystick.o
+    0x2007c03c        -       0x0000013b   Zero   RW          498    .bss                quoridor.o
+    0x2007c177   0x000069e0   0x00000001   PAD
+    0x2007c178        -       0x00000060   Zero   RW          624    .bss                c_w.l(libspace.o)
     0x2007c1d8        -       0x00000000   Zero   RW            2    HEAP                startup_lpc17xx.o
 
 
@@ -832,7 +836,7 @@ Image component sizes
 
         32          6       1520          0          0       1199   asciilib.o
        220          0          0          0          0       3486   coordinates.o
-       320         22         40          0         20       1098   funct_joystick.o
+       364         26         40          4         20       1394   funct_joystick.o
      16612        104          0          1          0      40263   glcd.o
        952         26          0          0          0       2903   interface.o
        284         60          0          0          0       1187   irq_button.o
@@ -843,13 +847,13 @@ Image component sizes
        148         14          0          0          0      27511   lib_rit.o
        168          4          0          0          0       1452   lib_timer.o
        200         10          0          8          0       2144   queue.o
-      3784        118        103          8        315      11911   quoridor.o
+      3788        118        103          8        315      11927   quoridor.o
         88         14          0          0          0       5023   sample.o
         56         22        204          0       1024       1120   startup_lpc17xx.o
        588         36          0          5          0       1021   system_lpc17xx.o
 
     ----------------------------------------------------------------------
-     24388        500       1916         36       1360     147773   Object Totals
+     24436        504       1916         40       1360     148085   Object Totals
          0          0         48          0          0          0   (incl. Generated)
          0          0          1          2          1          0   (incl. Padding)
 
@@ -885,8 +889,8 @@ Image component sizes
          2          0          0          0          0         68   use_no_semi.o
 
     ----------------------------------------------------------------------
-       712         16          0          0        100       1024   Library Totals
-         6          0          0          0          4          0   (incl. Padding)
+       712         16          0          0         96       1024   Library Totals
+         6          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -895,7 +899,7 @@ Image component sizes
        706         16          0          0         96       1024   c_w.l
 
     ----------------------------------------------------------------------
-       712         16          0          0        100       1024   Library Totals
+       712         16          0          0         96       1024   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -904,15 +908,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     25100        516       1916         36       1460     147441   Grand Totals
-     25100        516       1916         36       1460     147441   ELF Image Totals
-     25100        516       1916         36          0          0   ROM Totals
+     25148        520       1916         40       1456     147753   Grand Totals
+     25148        520       1916         40       1456     147753   ELF Image Totals
+     25148        520       1916         40          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                27016 (  26.38kB)
+    Total RO  Size (Code + RO Data)                27064 (  26.43kB)
     Total RW  Size (RW Data + ZI Data)              1496 (   1.46kB)
-    Total ROM Size (Code + RO Data + RW Data)      27052 (  26.42kB)
+    Total ROM Size (Code + RO Data + RW Data)      27104 (  26.47kB)
 
 ==============================================================================
 

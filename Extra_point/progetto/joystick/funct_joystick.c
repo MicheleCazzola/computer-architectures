@@ -30,6 +30,19 @@ static int countPressed(){
 	return r;
 }
 
+// Verifica che almeno un input sia stato premuto
+static int joystickUsed(int *cmd, int n){
+	int i;
+	
+	for(i = 0; i < n; i++){
+		if(cmd[i] > 0){
+			return 1;
+		}
+	}
+	
+	return 0;
+}
+
 // Funzione di controllo del joystick
 void joystick_controller() {
 	
@@ -45,6 +58,7 @@ void joystick_controller() {
 	// Vettore di contatori per ogni possibile direzione di input
 	// Incrementato ogni volta che l'input corrispondente risulta premuto
 	static int pressed[5] = {0, 0, 0, 0, 0};
+	static int cmdToExecute = 0;
 	
 	int i, h, v, sel;
 	
@@ -52,8 +66,6 @@ void joystick_controller() {
 	if(countPressed() > 1 && ms.pendingWall == 1){
 		return;
 	}
-	
-	
 	
 	h = v = sel = 0;
 	for(i = 0; i <= 4; i++){
@@ -63,6 +75,7 @@ void joystick_controller() {
 			
 			// Se prima pressione, calcolo incrementi h/v
 			if(pressed[i] == 1){
+				cmdToExecute = 1;
 				if(i == 0){
 					sel = 1;
 				}
@@ -80,7 +93,10 @@ void joystick_controller() {
 	}
 	
 	// Se almeno un comando è premuto, si svolgono le funzioni del joystick
-	if(countPressed() > 0){
+	if(cmdToExecute){
+		
+		// Azzeramento flag comando da eseguire
+		cmdToExecute = 0;
 		
 		// Disabilitazione KEY1 durante lo svolgimento
 		// delle funzioni del joystick
