@@ -204,12 +204,33 @@ static void selectAdj(Coordinates *pos, int player, Coordinates *selected, int *
 }
 
 // Verifica se la posizione è di una cella evidenziata
-static int isHighlitedAdj(Coordinates pos){
+static int isHighlitedAdj(Coordinates *pos, Coordinates *finalPos, int h, int v){
 	int i;
+	Coordinates behindPos;
 	for(i = 0; i < ms.numHighlited; i++){
-		if(equalCoord(ms.highlited[i], pos)){
-			return 1;
+		
+		// Se non bisogna scavalcare l'avversario
+		if(!equalCoord(ms.highlited[i], ms.currentPos[getOtherPlayer(ms.player)])){
+			
+			// Se l'adiacenza è selezionata -> Si assegna come posizione finale
+			if(equalCoord(ms.highlited[i], *pos)){
+				*finalPos = *pos;
+				return 1;
+			}
 		}
+		
+		// Se bisogna scavalcare l'avversario
+		else{
+			// Se la posizione dietro l'avversario è valida
+			if(jumpOverOpponent(pos, &behindPos, h, v)){
+				if(equalCoord(ms.highlited[i], *finalPos)){
+					*finalPos = *pos;
+					return 1;
+				}
+			}
+		}
+		
+		
 	}
 	
 	return 0;
@@ -561,30 +582,6 @@ void highliteAdj(Coordinates pos){
 	for(i = 0; i < ms.numHighlited; i++){
 		drawSquareArea(ms.highlited[i].x, ms.highlited[i].y, VALID_MOVE_COLOR);
 	}
-	
-	/*
-	Coordinates tempPos, finalPos;
-	
-	// Iterazioni sulle adiacenze
-	for(i = 0; i < 4; i++){
-		
-		// Get nuova adiacenza
-		tempPos = changeCoord(pos, moves[i][0], moves[i][1]);
-		
-		// Get cella dietro all'avversario, se adiacente
-		jumpOverOpponent(&pos, &tempPos, ms.player, &finalPos);
-		
-		// Validazione posizione finale
-		if(validPos(finalPos, ms.currentPos[ms.player])){
-			
-			// Disegno area quadrato
-			drawSquareArea(finalPos.x, finalPos.y, VALID_MOVE_COLOR);
-			
-			// Aggiornamento cella evidenziata
-			ms.highlited[ms.numHighlited++] = finalPos;
-		}
-	}
-	*/
 }
 
 // Cancellazione celle evidenziate
@@ -620,7 +617,7 @@ void setNextPos(int h, int v){
 	
 	// Check se posizione è di una cella evidenziata (ovvero valida)
 	destPos = changeCoord(ms.currentPos[ms.player], h, v);
-	ms.validMove = jumpOverOpponent(&destPos, &finalPos, h, v);
+	ms.validMove = isHighlitedAdj(&destPos, &finalPos, h, v);
 	if(ms.validMove){
 		
 		// Caso positivo: impostazione posizione
