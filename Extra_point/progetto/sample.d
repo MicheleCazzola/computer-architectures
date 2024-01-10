@@ -9,6 +9,7 @@
 .\sample.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h
 .\sample.o: GLCD/GLCD.h
 .\sample.o: timer/timer.h
+.\sample.o: graphics/interface.h
 .\sample.o: quoridor/quoridor.h
 .\sample.o: quoridor/../coordinates/coordinates.h
 .\sample.o: RIT/RIT.h

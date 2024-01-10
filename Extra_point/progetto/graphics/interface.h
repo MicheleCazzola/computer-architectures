@@ -3,6 +3,15 @@
 
 #include "../GLCD/GLCD.h"
 
+// Menu
+#define BGCOLOR_MENU White
+#define TEXTCOLOR_MENU Black
+#define HORIZ_PADDING_MENU 10
+#define VERT_PADDING_MENU 3
+#define BOARD_COLOR Red
+#define SELECTED_BOARD_COLOR Green
+
+
 // Colore oggeti
 #define BGCOLOR Blue2
 #define VALID_MOVE_COLOR Green
@@ -50,6 +59,7 @@
 #define VERTICAL_WALL 0
 #define HORIZONTAL_WALL 1
 
+void drawMenu(void);
 void drawChessPlatform(void);
 void drawToken(int x, int y, int color);
 void writeWallsStats(int wall_p1, int wall_p2);

@@ -1,6 +1,7 @@
 #include "LPC17xx.h"
 #include "GLCD/GLCD.h"
 #include "timer/timer.h"
+#include "graphics/interface.h"
 #include "quoridor/quoridor.h"
 #include "RIT/RIT.h"
 #include "button/button.h"
@@ -35,8 +36,7 @@ int main(void)
 	// e abilitazione interrupt, con set delle priorità
 	BUTTON_init();
 	
-	// Inizializzazione gioco
-	initGame();
+	drawMenu();
 	
 	// Avvio RIT
 	enable_RIT();

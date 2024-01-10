@@ -6,6 +6,36 @@
 // Messaggio corrente da stampare
 extern char message[];
 
+// Disegno scritta generica
+static void drawText(char *text, int topY){
+	int n;
+	
+	n = 8 * strlen(text);
+	GUI_Text((MAX_X - n)/2, topY, text, TEXTCOLOR_MENU, BGCOLOR_MENU);
+}
+
+// Disegno opzione
+static void drawOption(char *text, int startX, int finalX, int topY, int boardColor){
+	int n, bottomY;
+	
+	n = 8 * strlen(text);
+	bottomY = topY + 16 + 2 * VERT_PADDING_MENU;
+	LCD_DrawLine(startX, topY, finalX, topY, boardColor);
+	LCD_DrawLine(startX, bottomY , finalX, bottomY, boardColor);
+	LCD_DrawLine(startX, topY, startX, bottomY, boardColor);
+	LCD_DrawLine(finalX, topY, finalX, bottomY, boardColor);
+	GUI_Text((MAX_X - n)/2, topY + VERT_PADDING_MENU, text, TEXTCOLOR_MENU, BGCOLOR_MENU); 
+}
+
+// Disegno menu
+void drawMenu(void){
+	LCD_Clear(White);
+	drawText("Select the", 60);
+	drawText("GAME MODE", 80);
+	drawOption("Single Board", 60, 180, 130, SELECTED_BOARD_COLOR);
+	drawOption("Two Boards", 60, 180, 200, BOARD_COLOR);
+}
+
 // Disegno schermo a stato iniziale
 void drawChessPlatform(){
 	int i, j, x, y;
