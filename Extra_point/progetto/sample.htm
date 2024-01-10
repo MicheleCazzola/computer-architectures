@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\sample.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\sample.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Jan 09 16:36:09 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Jan 10 11:38:28 2024
 <BR><P>
 <H3>Maximum Stack Usage =        536 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -398,7 +398,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[e]"></a>TIMER0_IRQHandler</STRONG> (Thumb, 216 bytes, Stack size 24 bytes, irq_timer.o(.text))
+<P><STRONG><a name="[e]"></a>TIMER0_IRQHandler</STRONG> (Thumb, 222 bytes, Stack size 24 bytes, irq_timer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 272<LI>Call Chain = TIMER0_IRQHandler &rArr; setPlayer &rArr; highliteAdj &rArr; selectAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeTimeRemaining
@@ -419,16 +419,6 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
 </UL>
-
-<P><STRONG><a name="[cf]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
-
-<P><STRONG><a name="[d0]"></a>__rt_heap_escrow$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
-
-<P><STRONG><a name="[d1]"></a>__rt_heap_expand$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
-
-<P><STRONG><a name="[d2]"></a>__I$use$semihosting</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
-
-<P><STRONG><a name="[d3]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
 
 <P><STRONG><a name="[41]"></a>SystemInit</STRONG> (Thumb, 552 bytes, Stack size 0 bytes, system_lpc17xx.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -489,7 +479,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
+<BR>[Called By]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
 </UL>
@@ -499,7 +489,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
 </UL>
-<BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
+<BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChessPlatform
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawWall
 </UL>
@@ -518,7 +508,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
 </UL>
-<BR>[Called By]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
+<BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeTimeRemaining
@@ -566,7 +556,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 </UL>
 
-<P><STRONG><a name="[63]"></a>KEY1_function</STRONG> (Thumb, 80 bytes, Stack size 8 bytes, irq_button.o(.text))
+<P><STRONG><a name="[63]"></a>KEY1_function</STRONG> (Thumb, 82 bytes, Stack size 8 bytes, irq_button.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = KEY1_function &rArr; undoWall &rArr; highliteAdj &rArr; selectAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
@@ -580,7 +570,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[64]"></a>KEY2_function</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, irq_button.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = KEY2_function &rArr; rotateWall &rArr; redrawWalls &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
+<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = KEY2_function &rArr; rotateWall &rArr; redrawWalls &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateWall
 <LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_button
@@ -678,16 +668,27 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
 </UL>
 
-<P><STRONG><a name="[76]"></a>drawToken</STRONG> (Thumb, 84 bytes, Stack size 32 bytes, interface.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = drawToken &rArr; LCD_SetPoint &rArr; LCD_SetCursor
+<P><STRONG><a name="[76]"></a>drawSquareArea</STRONG> (Thumb, 80 bytes, Stack size 40 bytes, interface.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = drawSquareArea &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
+<BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteAdj
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
+<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eraseHighlightedAdj
+</UL>
+
+<P><STRONG><a name="[77]"></a>drawToken</STRONG> (Thumb, 96 bytes, Stack size 32 bytes, interface.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = drawToken &rArr; drawSquareArea &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
+</UL>
+<BR>[Calls]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
 </UL>
 <BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayers
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
 </UL>
 
-<P><STRONG><a name="[77]"></a>writeWallsStats</STRONG> (Thumb, 112 bytes, Stack size 24 bytes, interface.o(.text))
+<P><STRONG><a name="[78]"></a>writeWallsStats</STRONG> (Thumb, 112 bytes, Stack size 24 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = writeWallsStats &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
@@ -699,20 +700,11 @@ Global Symbols
 <P><STRONG><a name="[49]"></a>writeTimeRemaining</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = writeTimeRemaining &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
+<BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
-</UL>
-
-<P><STRONG><a name="[79]"></a>drawSquareArea</STRONG> (Thumb, 80 bytes, Stack size 40 bytes, interface.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = drawSquareArea &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
-</UL>
-<BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
-</UL>
-<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteAdj
-<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eraseHighlightedAdj
 </UL>
 
 <P><STRONG><a name="[4d]"></a>drawWall</STRONG> (Thumb, 168 bytes, Stack size 64 bytes, interface.o(.text))
@@ -763,7 +755,7 @@ Global Symbols
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[66]"></a>setMode</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, quoridor.o(.text))
+<P><STRONG><a name="[66]"></a>setMode</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, quoridor.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayersData
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT0_function
 </UL>
@@ -779,17 +771,17 @@ Global Symbols
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[9e]"></a>highliteAdj</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, quoridor.o(.text))
+<P><STRONG><a name="[9e]"></a>highliteAdj</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 240<LI>Call Chain = highliteAdj &rArr; selectAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
-<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;undoWall
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 </UL>
 
-<P><STRONG><a name="[4f]"></a>setPlayer</STRONG> (Thumb, 114 bytes, Stack size 8 bytes, quoridor.o(.text))
+<P><STRONG><a name="[4f]"></a>setPlayer</STRONG> (Thumb, 102 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = setPlayer &rArr; highliteAdj &rArr; selectAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteAdj
@@ -804,17 +796,17 @@ Global Symbols
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[4c]"></a>eraseHighlightedAdj</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, quoridor.o(.text))
+<P><STRONG><a name="[4c]"></a>eraseHighlightedAdj</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = eraseHighlightedAdj &rArr; drawSquareArea &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
+<BR>[Calls]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
 </UL>
 <BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newWall
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[72]"></a>setNextPos</STRONG> (Thumb, 108 bytes, Stack size 48 bytes, quoridor.o(.text))
+<P><STRONG><a name="[72]"></a>setNextPos</STRONG> (Thumb, 102 bytes, Stack size 48 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = setNextPos &rArr; isHighlitedAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
@@ -825,7 +817,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller
 </UL>
 
-<P><STRONG><a name="[4b]"></a>saveMove</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, quoridor.o(.text))
+<P><STRONG><a name="[4b]"></a>saveMove</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = saveMove
 </UL>
 <BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
@@ -833,12 +825,12 @@ Global Symbols
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[71]"></a>move</STRONG> (Thumb, 186 bytes, Stack size 8 bytes, quoridor.o(.text))
+<P><STRONG><a name="[71]"></a>move</STRONG> (Thumb, 172 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = move &rArr; setPlayer &rArr; highliteAdj &rArr; selectAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;victory
-<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_timer
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disable_timer
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_timer
@@ -851,7 +843,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller
 </UL>
 
-<P><STRONG><a name="[68]"></a>newWall</STRONG> (Thumb, 140 bytes, Stack size 24 bytes, quoridor.o(.text))
+<P><STRONG><a name="[68]"></a>newWall</STRONG> (Thumb, 62 bytes, Stack size 24 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = newWall &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
@@ -861,8 +853,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
 </UL>
 
-<P><STRONG><a name="[6b]"></a>rotateWall</STRONG> (Thumb, 160 bytes, Stack size 24 bytes, quoridor.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = rotateWall &rArr; redrawWalls &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
+<P><STRONG><a name="[6b]"></a>rotateWall</STRONG> (Thumb, 242 bytes, Stack size 32 bytes, quoridor.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = rotateWall &rArr; redrawWalls &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;redrawWalls
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
@@ -872,12 +864,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY2_function
 </UL>
 
-<P><STRONG><a name="[73]"></a>confirmWall</STRONG> (Thumb, 268 bytes, Stack size 16 bytes, quoridor.o(.text))
+<P><STRONG><a name="[73]"></a>confirmWall</STRONG> (Thumb, 280 bytes, Stack size 16 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 464<LI>Call Chain = confirmWall &rArr; validWallPos &rArr; checkReachability &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validWallPos
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAvailableWalls
-<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
+<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_timer
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disable_timer
@@ -889,7 +881,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller
 </UL>
 
-<P><STRONG><a name="[6a]"></a>undoWall</STRONG> (Thumb, 144 bytes, Stack size 16 bytes, quoridor.o(.text))
+<P><STRONG><a name="[6a]"></a>undoWall</STRONG> (Thumb, 146 bytes, Stack size 16 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = undoWall &rArr; highliteAdj &rArr; selectAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteAdj
@@ -899,7 +891,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
 </UL>
 
-<P><STRONG><a name="[74]"></a>setNextWall</STRONG> (Thumb, 108 bytes, Stack size 40 bytes, quoridor.o(.text))
+<P><STRONG><a name="[74]"></a>setNextWall</STRONG> (Thumb, 110 bytes, Stack size 40 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = setNextWall &rArr; moveWall &rArr; redrawWalls &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
@@ -1027,7 +1019,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
 </UL>
 
-<P><STRONG><a name="[d4]"></a>_ll_shift_l</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, llshl.o(.text), UNUSED)
+<P><STRONG><a name="[cf]"></a>_ll_shift_l</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, llshl.o(.text), UNUSED)
 
 <P><STRONG><a name="[7b]"></a>strcpy</STRONG> (Thumb, 72 bytes, Stack size 12 bytes, strcpy.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = strcpy
@@ -1044,7 +1036,7 @@ Global Symbols
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
 </UL>
 
-<P><STRONG><a name="[78]"></a>strcat</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, strcat.o(.text))
+<P><STRONG><a name="[79]"></a>strcat</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, strcat.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeTimeRemaining
 </UL>
@@ -1057,7 +1049,7 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 
-<P><STRONG><a name="[d5]"></a>_memcpy_lastbytes</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_v6.o(.text), UNUSED)
+<P><STRONG><a name="[d0]"></a>_memcpy_lastbytes</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_v6.o(.text), UNUSED)
 
 <P><STRONG><a name="[6e]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_memcpy4
@@ -1067,11 +1059,17 @@ Global Symbols
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller
 </UL>
 
-<P><STRONG><a name="[d6]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
+<P><STRONG><a name="[d1]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[d7]"></a>__rt_memcpy_w</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
+<P><STRONG><a name="[d2]"></a>__rt_memcpy_w</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[d8]"></a>_memcpy_lastbytes_aligned</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_w.o(.text), UNUSED)
+<P><STRONG><a name="[d3]"></a>_memcpy_lastbytes_aligned</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_w.o(.text), UNUSED)
+
+<P><STRONG><a name="[d4]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+<P><STRONG><a name="[d5]"></a>__rt_heap_escrow$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+<P><STRONG><a name="[d6]"></a>__rt_heap_expand$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
 
 <P><STRONG><a name="[37]"></a>__user_setup_stackheap</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, sys_stackheap_outer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
@@ -1092,17 +1090,21 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[d9]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+<P><STRONG><a name="[d7]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
 
 <P><STRONG><a name="[a8]"></a>__user_perproc_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
 </UL>
 
-<P><STRONG><a name="[da]"></a>__user_perthread_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+<P><STRONG><a name="[d8]"></a>__user_perthread_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
 
 <P><STRONG><a name="[40]"></a>_sys_exit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sys_exit.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
 </UL>
+
+<P><STRONG><a name="[d9]"></a>__I$use$semihosting</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+
+<P><STRONG><a name="[da]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
 
 <P><STRONG><a name="[db]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, indicate_semi.o(.text), UNUSED)
 <P>
@@ -1167,7 +1169,7 @@ Local Symbols
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
 </UL>
 
-<P><STRONG><a name="[a2]"></a>getAvailableWalls</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, quoridor.o(.text))
+<P><STRONG><a name="[a2]"></a>getAvailableWalls</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, quoridor.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
 </UL>
 
@@ -1225,7 +1227,7 @@ Local Symbols
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
 </UL>
 
-<P><STRONG><a name="[86]"></a>selectAdj</STRONG> (Thumb, 324 bytes, Stack size 64 bytes, quoridor.o(.text))
+<P><STRONG><a name="[86]"></a>selectAdj</STRONG> (Thumb, 326 bytes, Stack size 64 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = selectAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
@@ -1237,7 +1239,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteAdj
 </UL>
 
-<P><STRONG><a name="[87]"></a>isHighlitedAdj</STRONG> (Thumb, 152 bytes, Stack size 40 bytes, quoridor.o(.text))
+<P><STRONG><a name="[87]"></a>isHighlitedAdj</STRONG> (Thumb, 144 bytes, Stack size 40 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = isHighlitedAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jumpOverOpponent
@@ -1262,7 +1264,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validWallPos
 </UL>
 
-<P><STRONG><a name="[8f]"></a>exists_overlapping_wall</STRONG> (Thumb, 278 bytes, Stack size 40 bytes, quoridor.o(.text))
+<P><STRONG><a name="[8f]"></a>exists_overlapping_wall</STRONG> (Thumb, 276 bytes, Stack size 40 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = exists_overlapping_wall &rArr; coordDistY &rArr; coordDiffY
 </UL>
 <BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoordY
@@ -1311,7 +1313,7 @@ Local Symbols
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 </UL>
 
-<P><STRONG><a name="[96]"></a>moveWall</STRONG> (Thumb, 196 bytes, Stack size 40 bytes, quoridor.o(.text))
+<P><STRONG><a name="[96]"></a>moveWall</STRONG> (Thumb, 202 bytes, Stack size 40 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = moveWall &rArr; redrawWalls &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
@@ -1322,26 +1324,26 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextWall
 </UL>
 
-<P><STRONG><a name="[98]"></a>setVictoryMessage</STRONG> (Thumb, 54 bytes, Stack size 40 bytes, quoridor.o(.text))
+<P><STRONG><a name="[98]"></a>setVictoryMessage</STRONG> (Thumb, 52 bytes, Stack size 40 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = setVictoryMessage &rArr; strcpy
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
+<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
 </UL>
 
-<P><STRONG><a name="[99]"></a>initPlayers</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, quoridor.o(.text))
+<P><STRONG><a name="[99]"></a>initPlayers</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = initPlayers &rArr; writeWallsStats &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
-<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
+<BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayersData
 </UL>
 
-<P><STRONG><a name="[9b]"></a>clearWalls</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, quoridor.o(.text))
+<P><STRONG><a name="[9b]"></a>clearWalls</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, quoridor.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
 </UL>
 
@@ -1355,7 +1357,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initGame
 </UL>
 
-<P><STRONG><a name="[9c]"></a>initPlayersData</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, quoridor.o(.text))
+<P><STRONG><a name="[9c]"></a>initPlayersData</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = initPlayersData &rArr; initPlayers &rArr; writeWallsStats &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen

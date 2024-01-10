@@ -25,33 +25,33 @@
 // Muro
 typedef struct{
 	Coordinates position[MAX_NUM_WALLS];	// posizione del centro dei muri
-	int dir[MAX_NUM_WALLS];								// direzione dei muri
-	int used;															// numero di muri utilizzati, in [0, MAX_NUM_WALLS]
+	char dir[MAX_NUM_WALLS];								// direzione dei muri
+	char used;															// numero di muri utilizzati, in [0, MAX_NUM_WALLS]
 } WallType;
 
 // Variabile di stato
 typedef struct {
-	int mode;										// modalità di gioco {0: attesa, 1: gioco}
-	int timeRemaining;					// tempo rimanente, in [0, 20] s
-	int player;									// indice del giocatore, pari a playerId-1
-	int pendingWall;						// flag per indicare presenza muro in attesa di conferma
+	char mode;										// modalità di gioco {0: attesa, 1: gioco}
+	char timeRemaining;					// tempo rimanente, in [0, 20] s
+	char player;									// indice del giocatore, pari a playerId-1
+	char pendingWall;						// flag per indicare presenza muro in attesa di conferma
 	int lastMove;								// intero a 32 bit per salvare l'ultima mossa effettuata
-	int validMove;							// flag per indicare se l'ultimo movimento effettuato è verso una posizione valida
-	int numHighlited;						// numero celle evidenziate
+	char validMove;							// flag per indicare se l'ultimo movimento effettuato è verso una posizione valida
+	char numHighlited;						// numero celle evidenziate
 	Coordinates highlited[5];		// posizione celle evidenziate
 	Coordinates currentPos[2];	// posizione corrente dei due giocatori
 	WallType walls[2];					// muri correnti dei due giocatori
 } MatchType;
 
 void initGame(void);
-void setMode(int modeValue);
-void setPlayer(int playerValue);
-int getOtherPlayer(int player);
+void setMode(char modeValue);
+void setPlayer(char playerValue);
+int getOtherPlayer(char player);
 void highliteAdj(Coordinates pos);
 void eraseHighlightedAdj(void);
 void setNextPos(int h, int v);
 void move(void);
-void newWall(Coordinates centerPos, int direction);
+void newWall(Coordinates centerPos, char direction);
 void rotateWall(void);
 void confirmWall(void);
 void undoWall(void);

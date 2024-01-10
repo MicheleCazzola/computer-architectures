@@ -55,7 +55,7 @@ void drawToken(int x, int y, int color);
 void writeWallsStats(int wall_p1, int wall_p2);
 void writeTimeRemaining(int time, int color);
 void drawSquareArea(int x, int y, int color);
-void drawWall(int x, int y, int direction, int color);
+void drawWall(int x, int y, char direction, int color);
 void clearMessage(void);
 void writeMessage(char message_content[]);
 

@@ -30,19 +30,6 @@ static int countPressed(){
 	return r;
 }
 
-// Verifica che almeno un input sia stato premuto
-static int joystickUsed(int *cmd, int n){
-	int i;
-	
-	for(i = 0; i < n; i++){
-		if(cmd[i] > 0){
-			return 1;
-		}
-	}
-	
-	return 0;
-}
-
 // Funzione di controllo del joystick
 void joystick_controller() {
 	

@@ -32,7 +32,7 @@ void drawChessPlatform(){
 
 // Disegno pedina (quadrato centrato nella casella)
 void drawToken(int x, int y, int color){
-	int xp, yp, i, j;
+	int xp, yp, i, j, tokenBgColor;
 	
 	// Calcolo centro pedine
 	xp = MARGIN_WIDTH + x * (SPACE_WIDTH + SQUARE_SIDE) + (SQUARE_SIDE)/2;
@@ -90,7 +90,7 @@ void drawSquareArea(int x, int y, int color){
 }
 
 // Disegno muro
-void drawWall(int x, int y, int direction, int color){
+void drawWall(int x, int y, char direction, int color){
 	int i, x0, x1, y0, y1, xc, yc;
 	
 	// Calcolo centro dei muri

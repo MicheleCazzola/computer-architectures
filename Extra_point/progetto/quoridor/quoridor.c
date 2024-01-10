@@ -43,25 +43,13 @@ char message[MESSAGE_LENGTH] = "\0\0";
  */
 
 
-// Funzioni matematiche
-static int abs(int x){
-	return x > 0 ? x : -x;
-}
-
-static int sign(int x){
-	if(x != 0){
-		return x > 0 ? 1 : -1;
-	}
-	return x;
-}
-
 // Check vittoria
-static int victory(Coordinates pos, int player){
+static int victory(Coordinates pos, char player){
 	return pos.y == 6 * player;
 }
 
 // Get numero muri liberi
-static int getAvailableWalls(int player){
+static int getAvailableWalls(char player){
 	return MAX_NUM_WALLS - ms.walls[player].used;
 }
 
@@ -75,10 +63,8 @@ static int centerWallInPlatform(Coordinates pos){
 	return 0 <= pos.x && pos.x < NUM_SQUARES-1 && 0 <= pos.y && pos.y < NUM_SQUARES-1;
 }
 
-
-
 // Check presenza di un muro specifico tra due celle
-static int wallBetweenCells(Coordinates *srcPos, Coordinates *destPos, Coordinates *centerPos, int dir){
+static int wallBetweenCells(Coordinates *srcPos, Coordinates *destPos, Coordinates *centerPos, char dir){
 	
 	// Muro orizzontale
 	if(dir == HORIZONTAL_WALL){
@@ -160,12 +146,12 @@ static int jumpOverOpponent(Coordinates *destPos, Coordinates *finalPos, int h, 
 }
 
 // Selezione celle da evidenziare, tra quelle possibili
-static void selectAdj(Coordinates *pos, int player, Coordinates *selected, int *numSelected){
+static void selectAdj(Coordinates *pos, char player, Coordinates *selected, char *numSelected){
 	int i;
 	Coordinates adjPos, finalPos;
 	
 	// Iterazione sulle adiacenze
-	for(i = 0; i < 4; ++i){
+	for(i = 0; i < 5; ++i){
 		adjPos = changeCoord(*pos, moves[i][0], moves[i][1]);
 		
 		// Se la posizione adiacente è valida, si procede
@@ -190,7 +176,7 @@ static void selectAdj(Coordinates *pos, int player, Coordinates *selected, int *
 					}
 					
 					// Senso antiorario rispetto alla posizione dietro all'avversario
-					if(jumpOverOpponent(&adjPos, &finalPos, moves[(i-1) % 4][0], moves[(i-1) % 4][1])){
+					if(jumpOverOpponent(&adjPos, &finalPos, moves[(i + 4 -1) % 4][0], moves[(i + 4 - 1) % 4][1])){
 						selected[(*numSelected)++] = finalPos;
 					}
 				}
@@ -210,7 +196,7 @@ static int isHighlitedAdj(Coordinates *pos, Coordinates *finalPos, int h, int v)
 	for(i = 0; i < ms.numHighlited; i++){
 		
 		// Se non bisogna scavalcare l'avversario
-		if(!equalCoord(ms.highlited[i], ms.currentPos[getOtherPlayer(ms.player)])){
+		if(!equalCoord(*pos, ms.currentPos[getOtherPlayer(ms.player)])){
 			
 			// Se l'adiacenza è selezionata -> Si assegna come posizione finale
 			if(equalCoord(ms.highlited[i], *pos)){
@@ -223,14 +209,12 @@ static int isHighlitedAdj(Coordinates *pos, Coordinates *finalPos, int h, int v)
 		else{
 			// Se la posizione dietro l'avversario è valida
 			if(jumpOverOpponent(pos, &behindPos, h, v)){
-				if(equalCoord(ms.highlited[i], *finalPos)){
-					*finalPos = *pos;
+				if(equalCoord(ms.highlited[i], behindPos)){
+					*finalPos = behindPos;
 					return 1;
 				}
 			}
 		}
-		
-		
 	}
 	
 	return 0;
@@ -241,7 +225,7 @@ static int isHighlitedAdj(Coordinates *pos, Coordinates *finalPos, int h, int v)
 // Si usa ricerca in ampiezza (BFS) di almeno un percorso esistente
 // Le celle visitate sono inserite in una coda FIFO e marcate con un
 // flag al momento dell'inserimento, per risparmiare spazio allocato
-static int checkReachability(int player){
+static int checkReachability(char player){
 	
 	int i;
 	
@@ -276,29 +260,6 @@ static int checkReachability(int player){
 		if(victory(currElem, player)){
 			return 1;
 		}
-		/*
-		// Iterazione sulle adiacenze
-		for(i = 0; i < 4; i++){
-			
-			// Set adiacenza corrente
-			adjElem = changeCoord(currElem, moves[i][0], moves[i][1]);
-			
-			// Eventuale correzione in presenza avversario
-			// Considera l'avversario come un ostacolo
-			// Determinante se esso è chiuso solo posteriormente da un muro
-			jumpOverOpponent(&currElem, &adjElem, player, &finalPos);
-			
-			// Validazione posizione
-			if(validPos(finalPos, currElem)){
-				
-				// Se la cella non è in coda, si inserisce e si marca il flag
-				if((enqueued & (1ULL << (finalPos.x * NUM_SQUARES + finalPos.y))) == 0){
-					enqueue(queue, finalPos);
-					enqueued |= (1ULL << (finalPos.x * NUM_SQUARES + finalPos.y));
-				}
-			}
-		}
-		*/
 		
 		// Check raggiungibilità destinazione, senza considerare
 		// la posizione corrente dell'avversario
@@ -324,7 +285,7 @@ static int checkReachability(int player){
 // Check esistenza di un muro di un giocatore specifico sovrapposto a quello corrente
 // Si salva l'indice del muro a cui il corrente si sovrappone
 // Ritorna un flag boolano, che indica sovrapposizione
-static int exists_overlapping_wall(int playerWalls, Coordinates centerPos, int dir){
+static int exists_overlapping_wall(char playerWalls, Coordinates centerPos, char dir){
 	int i, numWalls, overlap;
 	
 	// Numero muri del giocatore da verificare
@@ -356,7 +317,7 @@ static int exists_overlapping_wall(int playerWalls, Coordinates centerPos, int d
 // Si salvano l'indice del muro a cui il corrente si sovrappone e
 // l'id del giocatore {1,2} a cui appartiene il muro
 // Ritorna un flag booleano di non sovrapposizione
-static int checkNotOverlapping(Coordinates centerPos, int dir){
+static int checkNotOverlapping(Coordinates centerPos, char dir){
 	int overlap1, overlap2;
 	
 	// Check sovrapposizione su entrambi i giocatori
@@ -367,7 +328,7 @@ static int checkNotOverlapping(Coordinates centerPos, int dir){
 }
 
 // Check validazione muro
-static int validWallPos(Coordinates centerPos, int dir){
+static int validWallPos(Coordinates centerPos, char dir){
 	int r1, r2, not_overlap, valid_position;
 	
 	// Non out-of-range
@@ -384,7 +345,7 @@ static int validWallPos(Coordinates centerPos, int dir){
 }
 
 // Inserimento del nuovo muro nel vettore di muri del giocatore corrente
-static void setWall(Coordinates centerPos, int direction){
+static void setWall(Coordinates centerPos, char direction){
 	int i;
 	
 	i = ms.walls[ms.player].used;
@@ -522,7 +483,7 @@ void initGame(){
 }
 
 // Impostazione modalità di gioco
-void setMode(int modeValue){
+void setMode(char modeValue){
 	
 	ms.mode = modeValue;
 	
@@ -533,7 +494,7 @@ void setMode(int modeValue){
 }
 
 // Impostazione giocatore
-void setPlayer(int playerValue){
+void setPlayer(char playerValue){
 	
 	// Cancellazione tempo iniziale
 	writeTimeRemaining(ms.timeRemaining, BGCOLOR);
@@ -569,7 +530,7 @@ void setPlayer(int playerValue){
 }
 
 // Get avversario
-int getOtherPlayer(int player){
+int getOtherPlayer(char player){
 	return 1 - player;
 }
 
@@ -679,7 +640,7 @@ void move(){
 }
 
 // Creazione nuovo muro
-void newWall(Coordinates centerPos, int direction){
+void newWall(Coordinates centerPos, char direction){
 	
 	// Muro in attesa di azione
 	ms.pendingWall = 1;

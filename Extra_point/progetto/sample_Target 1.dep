@@ -12,8 +12,8 @@ I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_ar
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
 I (GLCD/GLCD.h)(0x659AB830)
 I (timer/timer.h)(0x659AB830)
-I (quoridor/quoridor.h)(0x659AB9A5)
-I (quoridor/../coordinates/coordinates.h)(0x659AB830)
+I (quoridor/quoridor.h)(0x659E6DDF)
+I (quoridor/../coordinates/coordinates.h)(0x659E6CCF)
 I (RIT/RIT.h)(0x659AB830)
 I (button/button.h)(0x659AB830)
 I (joystick/joystick.h)(0x659AB830)
@@ -40,9 +40,9 @@ I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_
 I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armcc.h)(0x626FAD4E)
 I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h)(0x626FAD4E)
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
-I (timer\../quoridor/quoridor.h)(0x659AB9A5)
-I (timer\../quoridor/../coordinates/coordinates.h)(0x659AB830)
-I (timer\../graphics/interface.h)(0x659AB830)
+I (timer\../quoridor/quoridor.h)(0x659E6DDF)
+I (timer\../quoridor/../coordinates/coordinates.h)(0x659E6CCF)
+I (timer\../graphics/interface.h)(0x659E6D70)
 I (timer\../graphics/../GLCD/GLCD.h)(0x659AB830)
 F (.\timer\lib_timer.c)(0x659AB830)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\lib_timer.o --omf_browse .\lib_timer.crf --depend .\lib_timer.d)
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h)(0x5E1DC4B4)
@@ -76,7 +76,7 @@ F (.\GLCD\HzLib.c)(0x659AB830)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwo
 I (GLCD\HzLib.h)(0x659AB830)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\string.h)(0x5E8E9F32)
 F (.\GLCD\HzLib.h)(0x659AB830)()
-F (.\RIT\IRQ_RIT.c)(0x659AB830)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\irq_rit.o --omf_browse .\irq_rit.crf --depend .\irq_rit.d)
+F (.\RIT\IRQ_RIT.c)(0x659E6EC7)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\irq_rit.o --omf_browse .\irq_rit.crf --depend .\irq_rit.d)
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h)(0x5E1DC4B4)
 I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h)(0x626FAD4E)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\stdint.h)(0x5E8E9F32)
@@ -99,7 +99,7 @@ I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_ar
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
 I (RIT\RIT.h)(0x659AB830)
 F (.\RIT\RIT.h)(0x659AB830)()
-F (.\button\IRQ_button.c)(0x659AB830)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\irq_button.o --omf_browse .\irq_button.crf --depend .\irq_button.d)
+F (.\button\IRQ_button.c)(0x659E6EB9)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\irq_button.o --omf_browse .\irq_button.crf --depend .\irq_button.d)
 I (button\button.h)(0x659AB830)
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h)(0x5E1DC4B4)
 I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h)(0x626FAD4E)
@@ -110,9 +110,9 @@ I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_
 I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h)(0x626FAD4E)
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
 I (button\../RIT/RIT.h)(0x659AB830)
-I (button\../quoridor/quoridor.h)(0x659AB9A5)
-I (button\../quoridor/../coordinates/coordinates.h)(0x659AB830)
-I (button\../graphics/interface.h)(0x659AB830)
+I (button\../quoridor/quoridor.h)(0x659E6DDF)
+I (button\../quoridor/../coordinates/coordinates.h)(0x659E6CCF)
+I (button\../graphics/interface.h)(0x659E6D70)
 I (button\../graphics/../GLCD/GLCD.h)(0x659AB830)
 F (.\button\lib_button.c)(0x659AB830)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\lib_button.o --omf_browse .\lib_button.crf --depend .\lib_button.d)
 I (button\button.h)(0x659AB830)
@@ -125,7 +125,7 @@ I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_
 I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h)(0x626FAD4E)
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
 F (.\button\button.h)(0x659AB830)()
-F (.\joystick\funct_joystick.c)(0x659BFA49)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\funct_joystick.o --omf_browse .\funct_joystick.crf --depend .\funct_joystick.d)
+F (.\joystick\funct_joystick.c)(0x659E6A01)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\funct_joystick.o --omf_browse .\funct_joystick.crf --depend .\funct_joystick.d)
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h)(0x5E1DC4B4)
 I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h)(0x626FAD4E)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\stdint.h)(0x5E8E9F32)
@@ -136,8 +136,8 @@ I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_ar
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
 I (joystick\joystick.h)(0x659AB830)
 I (joystick\../button/button.h)(0x659AB830)
-I (joystick\../quoridor/quoridor.h)(0x659AB9A5)
-I (joystick\../quoridor/../coordinates/coordinates.h)(0x659AB830)
+I (joystick\../quoridor/quoridor.h)(0x659E6DDF)
+I (joystick\../quoridor/../coordinates/coordinates.h)(0x659E6CCF)
 F (.\joystick\lib_joystick.c)(0x659AB830)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\lib_joystick.o --omf_browse .\lib_joystick.crf --depend .\lib_joystick.d)
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h)(0x5E1DC4B4)
 I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h)(0x626FAD4E)
@@ -149,10 +149,10 @@ I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_ar
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
 I (joystick\joystick.h)(0x659AB830)
 F (.\joystick\joystick.h)(0x659AB830)()
-F (.\graphics\interface.c)(0x659AB830)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\interface.o --omf_browse .\interface.crf --depend .\interface.d)
+F (.\graphics\interface.c)(0x659E739F)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\interface.o --omf_browse .\interface.crf --depend .\interface.d)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\stdlib.h)(0x5E8E9F32)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\string.h)(0x5E8E9F32)
-I (graphics\interface.h)(0x659AB830)
+I (graphics\interface.h)(0x659E6D70)
 I (graphics\../GLCD/GLCD.h)(0x659AB830)
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\LPC17xx.h)(0x5E1DC4B4)
 I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h)(0x626FAD4E)
@@ -162,11 +162,11 @@ I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_
 I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armcc.h)(0x626FAD4E)
 I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h)(0x626FAD4E)
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
-F (.\graphics\interface.h)(0x659AB830)()
-F (.\quoridor\quoridor.c)(0x659D67E5)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\quoridor.o --omf_browse .\quoridor.crf --depend .\quoridor.d)
+F (.\graphics\interface.h)(0x659E6D70)()
+F (.\quoridor\quoridor.c)(0x659E714B)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\quoridor.o --omf_browse .\quoridor.crf --depend .\quoridor.d)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\string.h)(0x5E8E9F32)
-I (quoridor\quoridor.h)(0x659AB9A5)
-I (quoridor\../coordinates/coordinates.h)(0x659AB830)
+I (quoridor\quoridor.h)(0x659E6DDF)
+I (quoridor\../coordinates/coordinates.h)(0x659E6CCF)
 I (quoridor\../button/button.h)(0x659AB830)
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h)(0x5E1DC4B4)
 I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h)(0x626FAD4E)
@@ -178,13 +178,13 @@ I (C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_ar
 I (C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
 I (quoridor\../timer/timer.h)(0x659AB830)
 I (quoridor\../queue/queue.h)(0x659AB830)
-I (quoridor\../graphics/interface.h)(0x659AB830)
+I (quoridor\../graphics/interface.h)(0x659E6D70)
 I (quoridor\../graphics/../GLCD/GLCD.h)(0x659AB830)
-F (.\quoridor\quoridor.h)(0x659AB9A5)()
+F (.\quoridor\quoridor.h)(0x659E6DDF)()
 F (.\queue\queue.c)(0x659AB830)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\queue.o --omf_browse .\queue.crf --depend .\queue.d)
 I (queue\../queue/queue.h)(0x659AB830)
-I (queue\../queue/../coordinates/coordinates.h)(0x659AB830)
+I (queue\../queue/../coordinates/coordinates.h)(0x659E6CCF)
 F (.\queue\queue.h)(0x659AB830)()
-F (.\coordinates\coordinates.c)(0x659AB830)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\coordinates.o --omf_browse .\coordinates.crf --depend .\coordinates.d)
-I (coordinates\coordinates.h)(0x659AB830)
-F (.\coordinates\coordinates.h)(0x659AB830)()
+F (.\coordinates\coordinates.c)(0x659E6CE0)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\coordinates.o --omf_browse .\coordinates.crf --depend .\coordinates.d)
+I (coordinates\coordinates.h)(0x659E6CCF)
+F (.\coordinates\coordinates.h)(0x659E6CCF)()
