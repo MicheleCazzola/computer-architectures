@@ -19,7 +19,15 @@ extern Coordinates WALL_DEFAULT_POS;
 // Eseguita una volta per ogni clic del pulsante
 // al primo passaggio nel RIT handler
 void INT0_function(void){
+	
+	// Entra in modalità scelta
+	setMode(CHOOSING);
+	
+	// Disegna menu iniziale
+	drawMenu(MENU1_Q1, MENU1_Q2, MENU1_OPT1, MENU1_OPT2);
 		
+	/*
+	SEZIONE ESEGUITA DOPO LA CONFERMA COL JOYSTICK
 	// Cambio modalità a gioco
 	setMode(PLAYING);
 	
@@ -28,6 +36,7 @@ void INT0_function(void){
 	
 	// Abilitazione KEY1: modalità mossa
 	enable_button(KEY1_PIN, EINT1_IRQn);
+	*/
 }
 
 // Funzionalità di KEY1

@@ -12,4 +12,5 @@
 void joystick_init(void);
 
 /* funct_joystick */
-void joystick_controller(void);
+void joystick_controller_move(void);
+void joystick_controller_chooseMode(void);

@@ -15,6 +15,8 @@
 #include "../coordinates/coordinates.h"
 
 #define NO_MOVE -1
+#define UP 0
+#define DOWN 1
 
 // Variabile di stato esportata
 extern MatchType ms;
@@ -30,8 +32,50 @@ static int countPressed(){
 	return r;
 }
 
-// Funzione di controllo del joystick
-void joystick_controller() {
+// Funzione di controllo del joystick per scelta
+void joystick_controller_chooseMode(){
+	
+	int i, dir;
+	
+	// Vettore di contatori per ogni possibile direzione di input
+	// Incrementato ogni volta che l'input corrispondente risulta premuto
+	static int pressed[5] = {0, 0, 0, 0, 0};
+	
+	// Vettore di pin
+	const int pins[3] = {
+		25, 	// SELECT
+		26, 	// DOWN
+		29		// UP
+	};
+	
+	// Solo un input alla volta
+	if(countPressed() > 1){
+		return;
+	}
+	
+	for(i = 0; i < 3; i++){
+		// Joystick UP/DOWN/SELECT premuto
+		if((LPC_GPIO1->FIOPIN & (1 << pins[i])) == 0){
+			pressed[i]++;
+			if(pressed[i] == 1){
+				if(i > 0){
+					dir = (i == 1) ? DOWN : UP;
+					setNextChoice(dir);
+				}
+				else{
+					confirmChoice();
+				}
+			}
+		}
+		// Joystick UP/DOWN/SELECT rilasciato
+		else{
+			pressed[i] = 0;
+		}
+	}
+}
+
+// Funzione di controllo del joystick per spostamenti
+void joystick_controller_move() {
 	
 	// Mosse possibili
 	const int moves[5][2] = {

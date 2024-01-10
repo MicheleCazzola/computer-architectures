@@ -6,8 +6,15 @@
 // Valori di modalità e giocatore
 #define WAITING 0
 #define PLAYING 1
+#define CHOOSING 2
 #define PLAYER1 0
 #define PLAYER2 1
+#define HUMAN 0
+#define NPC 1
+#define BOARD1_ID 0
+#define BOARD2_ID 1
+#define DEFAULT_CHOICE 0
+#define NO_PLAYER -1
 
 // Numero massimo muri
 #define MAX_NUM_WALLS 8
@@ -21,6 +28,13 @@
 #define OUT_OF_TIME_MOVE 1
 #define VERTICAL_WALL 0
 #define HORIZONTAL_WALL 1
+
+// Modalità di gioco
+typedef struct {
+	int numBoards;
+	int boardsId[2];
+	int players[2];
+} ModeType;
 
 // Muro
 typedef struct{
@@ -57,5 +71,7 @@ void confirmWall(void);
 void undoWall(void);
 void setNextWall(int h, int v);
 void saveMove(int playerId, int moveType, int wallOrientation, Coordinates *destPos);
+void setNextChoice(int step);
+void confirmChoice(void);
 
 #endif

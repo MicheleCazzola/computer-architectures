@@ -10,3 +10,5 @@
 .\irq_rit.o: RIT\RIT.h
 .\irq_rit.o: RIT\../joystick/joystick.h
 .\irq_rit.o: RIT\../button/button.h
+.\irq_rit.o: RIT\../quoridor/quoridor.h
+.\irq_rit.o: RIT\../quoridor/../coordinates/coordinates.h

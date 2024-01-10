@@ -7,33 +7,48 @@
 extern char message[];
 
 // Disegno scritta generica
-static void drawText(char *text, int topY){
+static void drawText(const char *text, const int topY){
 	int n;
 	
 	n = 8 * strlen(text);
-	GUI_Text((MAX_X - n)/2, topY, text, TEXTCOLOR_MENU, BGCOLOR_MENU);
+	GUI_Text((MAX_X - n)/2, topY, (unsigned char *) text, TEXTCOLOR_MENU, BGCOLOR_MENU);
+}
+
+// Disegno riquadro
+void drawOptionBorder(int startX, int finalX, int topY, int color){
+	int bottomY;
+	
+	bottomY = topY + 16 + 2 * VERT_PADDING_MENU;
+	LCD_DrawLine(startX, topY, finalX, topY, color);
+	LCD_DrawLine(startX, bottomY , finalX, bottomY, color);
+	LCD_DrawLine(startX, topY, startX, bottomY, color);
+	LCD_DrawLine(finalX, topY, finalX, bottomY, color);
 }
 
 // Disegno opzione
-static void drawOption(char *text, int startX, int finalX, int topY, int boardColor){
-	int n, bottomY;
+static void drawOption(const char *text, const int startX, const int finalX, const int topY, int boardColor){
+	int n;
 	
 	n = 8 * strlen(text);
-	bottomY = topY + 16 + 2 * VERT_PADDING_MENU;
-	LCD_DrawLine(startX, topY, finalX, topY, boardColor);
-	LCD_DrawLine(startX, bottomY , finalX, bottomY, boardColor);
-	LCD_DrawLine(startX, topY, startX, bottomY, boardColor);
-	LCD_DrawLine(finalX, topY, finalX, bottomY, boardColor);
-	GUI_Text((MAX_X - n)/2, topY + VERT_PADDING_MENU, text, TEXTCOLOR_MENU, BGCOLOR_MENU); 
+	drawOptionBorder(startX, finalX, topY, boardColor);
+	GUI_Text((MAX_X - n)/2, topY + VERT_PADDING_MENU, (unsigned char *) text, TEXTCOLOR_MENU, BGCOLOR_MENU); 
 }
 
 // Disegno menu
-void drawMenu(void){
+void drawMenu(const char *questionFirstLine, const char *questionSecondLine, const char *option1, const char *option2){
 	LCD_Clear(White);
-	drawText("Select the", 60);
-	drawText("GAME MODE", 80);
-	drawOption("Single Board", 60, 180, 130, SELECTED_BOARD_COLOR);
-	drawOption("Two Boards", 60, 180, 200, BOARD_COLOR);
+	drawText(questionFirstLine, YPOS_Q1);
+	drawText(questionSecondLine, YPOS_Q2);
+	drawOption(option1, XPOS_START_OPTION, XPOS_END_OPTION, YPOS_OPT1, SELECTED_BOARD_COLOR);
+	drawOption(option2, XPOS_START_OPTION, XPOS_END_OPTION, YPOS_OPT2, BOARD_COLOR);
+}
+
+// Evidenziazione bordo opzione menu
+void highliteChoice(int choice){
+	const int y1 = (choice == 0) ? YPOS_OPT1 : YPOS_OPT2;
+	const int y2 = (choice == 0) ? YPOS_OPT2 : YPOS_OPT1;
+	drawOptionBorder(XPOS_START_OPTION, XPOS_END_OPTION, y1, SELECTED_BOARD_COLOR);
+	drawOptionBorder(XPOS_START_OPTION, XPOS_END_OPTION, y2, BOARD_COLOR);
 }
 
 // Disegno schermo a stato iniziale

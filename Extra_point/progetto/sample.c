@@ -36,7 +36,8 @@ int main(void)
 	// e abilitazione interrupt, con set delle priorità
 	BUTTON_init();
 	
-	drawMenu();
+	// Disegno iniziale scacchiera e setup parametri iniziali
+	initGame();
 	
 	// Avvio RIT
 	enable_RIT();

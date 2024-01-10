@@ -10,6 +10,22 @@
 #define VERT_PADDING_MENU 3
 #define BOARD_COLOR Red
 #define SELECTED_BOARD_COLOR Green
+#define XPOS_START_OPTION 60
+#define XPOS_END_OPTION 180
+#define YPOS_Q1 60
+#define YPOS_Q2 80
+#define YPOS_OPT1 130
+#define YPOS_OPT2 200
+#define MENU1_Q1 "Select the"
+#define MENU1_Q2 "GAME MODE"
+#define MENU1_OPT1 "Single Board"
+#define MENU1_OPT2 "Two Boards"
+#define MENU2_1_Q1 "Single Board: select"
+#define MENU2_1_Q2 "the opposite player"
+#define MENU2_2_Q1 "Two boards: select"
+#define MENU2_2_Q2 "your player"
+#define MENU2_OPT1 "Human"
+#define MENU2_OPT2 "NPC"
 
 
 // Colore oggeti
@@ -59,7 +75,9 @@
 #define VERTICAL_WALL 0
 #define HORIZONTAL_WALL 1
 
-void drawMenu(void);
+void drawOptionBorder(int startX, int finalX, int topY, int color);
+void drawMenu(const char *questionFirstLine, const char *questionSecondLine, const char *option1, const char *option2);
+void highliteChoice(int choice);
 void drawChessPlatform(void);
 void drawToken(int x, int y, int color);
 void writeWallsStats(int wall_p1, int wall_p2);

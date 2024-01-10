@@ -5,6 +5,12 @@
 #include "../queue/queue.h"
 #include "../graphics/interface.h"
 
+// Messaggi per menu
+const char MENU_MESSAGES[2][4][30] = {
+	{MENU2_1_Q1, MENU2_1_Q2, MENU2_OPT1, MENU2_OPT2},
+	{MENU2_2_Q1, MENU2_2_Q2, MENU2_OPT1, MENU2_OPT2}
+};
+
 // Posizioni (x,y) iniziali dei giocatori
 const Coordinates START_POS_PLAYER1 = {3,6};
 const Coordinates START_POS_PLAYER2 = {3,0};
@@ -26,8 +32,14 @@ const int moves[4][2] = {
 	{0, 1}			// DOWN
 };
 
+// Variabile per modalità di gioco
+ModeType gm;
+
 // Variabile di stato del gioco
 MatchType ms;
+
+// Scelta futura nel menu
+int provChoice;
 
 // Posizione futura della pedina
 Coordinates nextPos;
@@ -462,6 +474,16 @@ static void initControls(){
 	disable_button(KEY2_PIN, EINT2_IRQn);
 }
 
+// Inizializzazione dati scelta
+static void initChoiceData(){
+	gm.numBoards = 0;
+	
+	gm.boardsId[0] = BOARD1_ID;
+	gm.boardsId[1] = BOARD2_ID;
+	
+	gm.players[0] = gm.players[1] = NO_PLAYER;
+}
+
 
 /* FUNZIONI PRINCIPALI DEL GIOCO
  * Sono invocate in altri file (handlers e main)
@@ -480,6 +502,9 @@ void initGame(){
 	
 	// Inizializzazione dati di gioco
 	initPlayersData();
+	
+	// Inizializzazione dati scelta
+	initChoiceData();
 }
 
 // Impostazione modalità di gioco
@@ -490,6 +515,10 @@ void setMode(char modeValue){
 	// Tempo iniziale
 	if(ms.mode == PLAYING){
 		ms.timeRemaining = 20;
+	}
+	// Scelta iniziale
+	else if(ms.mode == WAITING){
+		provChoice = DEFAULT_CHOICE;
 	}
 }
 
@@ -773,4 +802,48 @@ void saveMove(int playerId, int moveType, int wallOrientation, Coordinates *dest
 							| (destPos->x << 0);
 	
 	ms.lastMove = newMove;
+}
+
+// Set nuova scelta
+void setNextChoice(int step){
+	if(step == provChoice){
+		return;
+	}
+	provChoice = 1 - provChoice;
+	
+	highliteChoice(provChoice);
+}
+
+// Conferma nuova scelta
+void confirmChoice(){
+	
+	// Scelta iniziale
+	if(gm.numBoards == 0){
+		gm.numBoards = provChoice + 1;
+		
+		drawMenu(MENU_MESSAGES[provChoice][0], MENU_MESSAGES[provChoice][1],
+			MENU_MESSAGES[provChoice][2], MENU_MESSAGES[provChoice][3]);
+	}
+	else{
+		if(gm.numBoards == 1){
+			gm.boardsId[0] = HUMAN;
+			gm.boardsId[1] = provChoice;
+			
+			// Inizializzazione modalità gioco: comune a entrambi i casi
+			// Servono controlli nelle conferme e al timer expire:
+			// se altro è NPC, si chiama una funzione che gioca "artificialmente"
+			initInterface();
+			initPlayers();
+			setPlayer(PLAYER1);
+			enable_button(KEY1_PIN, EINT1_IRQn);
+		}
+		else{	// if gm.numBoards == 2
+			gm.boardsId[0] = provChoice;
+			gm.boardsId[1] = HUMAN; // FORSE? CHIEDERE IN LAB
+			
+			// Qualcosa con comunicazione CAN
+		}
+	}
+	
+	
 }
