@@ -3,6 +3,7 @@
 #include "../RIT/RIT.h"	
 #include "../quoridor/quoridor.h"
 #include "../graphics/interface.h"
+#include "../CAN/CAN.h"
 
 // Variabili di controllo dei pulsanti
 // Inizialmente a 0
@@ -14,11 +15,19 @@ extern int down_key2;
 // Variabili globali esportate
 extern MatchType ms;
 extern Coordinates WALL_DEFAULT_POS;
+extern CAN_msg CAN_TxMsg;
 
 // Funzionalità di INT0
 // Eseguita una volta per ogni clic del pulsante
 // al primo passaggio nel RIT handler
 void INT0_function(void){
+	
+	CAN_TxMsg.id = 0xFF;
+	CAN_TxMsg.data[0] = 0xFF;
+	
+	CAN_wrMsg(2, &CAN_TxMsg);
+	
+	// Timer 1 per attesa ACK
 	
 	// Entra in modalità scelta
 	setMode(CHOOSING);

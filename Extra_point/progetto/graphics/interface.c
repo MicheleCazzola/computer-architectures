@@ -77,7 +77,7 @@ void drawChessPlatform(){
 
 // Disegno pedina (quadrato centrato nella casella)
 void drawToken(int x, int y, int color){
-	int xp, yp, i, j, tokenBgColor;
+	int xp, yp, i, j;
 	
 	// Calcolo centro pedine
 	xp = MARGIN_WIDTH + x * (SPACE_WIDTH + SQUARE_SIDE) + (SQUARE_SIDE)/2;

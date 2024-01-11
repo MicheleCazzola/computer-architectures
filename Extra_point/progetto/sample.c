@@ -6,6 +6,7 @@
 #include "RIT/RIT.h"
 #include "button/button.h"
 #include "joystick/joystick.h"
+#include "CAN/CAN.h"
 
 #define SIMULATOR 1
 
@@ -19,6 +20,9 @@ int main(void)
 	// Inizializzazione sistema
   SystemInit();  												
 	LCD_Initialization();
+	
+	// Inizializzazione CAN bus
+	CAN_Init();
 	
 	//TP_Init();
 	//TouchPanel_Calibrate();

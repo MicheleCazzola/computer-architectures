@@ -4,6 +4,7 @@
 #include "../timer/timer.h"
 #include "../queue/queue.h"
 #include "../graphics/interface.h"
+#include "../CAN/CAN.h"
 
 // Messaggi per menu
 const char MENU_MESSAGES[2][4][30] = {
@@ -482,6 +483,8 @@ static void initChoiceData(){
 	gm.boardsId[1] = BOARD2_ID;
 	
 	gm.players[0] = gm.players[1] = NO_PLAYER;
+	
+	provChoice = 0;
 }
 
 
@@ -547,6 +550,16 @@ void setPlayer(char playerValue){
 	// Modificata solo in seguito a movimento lungo
 	// una direzione (non diagonale)
 	nextPos = ms.currentPos[ms.player];
+	
+	// Cancellazione evidenziazione cella e ridisegno pedina giocatore precedente
+	drawSquareArea(ms.currentPos[getOtherPlayer(ms.player)].x, ms.currentPos[getOtherPlayer(ms.player)].y, BGCOLOR);
+	drawToken(ms.currentPos[getOtherPlayer(ms.player)].x, ms.currentPos[getOtherPlayer(ms.player)].y, PLAYER_COLORS[getOtherPlayer(ms.player)]);
+	
+	// Evidenziazione cella del giocatore
+	drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, TOKEN_BGCOLOR);
+	
+	// Ridisegno pedina
+	drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, PLAYER_COLORS[ms.player]);
 	
 	// Celle disponibili per spostamento
 	highliteAdj(ms.currentPos[ms.player]);
@@ -634,7 +647,7 @@ void move(){
 		reset_timer(0);
 		
 		// Cancellazione token
-		drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, BGCOLOR);
+		drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, BGCOLOR);
 		
 		// Cancellazione posizioni evidenziate
 		eraseHighlightedAdj();
@@ -804,6 +817,13 @@ void saveMove(int playerId, int moveType, int wallOrientation, Coordinates *dest
 	ms.lastMove = newMove;
 }
 
+// Invio selezione scelta
+void sendChoice(char data){
+	CAN_msg msg;
+	
+	msg.data[0] = data;
+}
+
 // Set nuova scelta
 void setNextChoice(int step){
 	if(step == provChoice){
@@ -821,8 +841,13 @@ void confirmChoice(){
 	if(gm.numBoards == 0){
 		gm.numBoards = provChoice + 1;
 		
+		// Invio scelta
+		sendChoice(gm.numBoards);
+		
 		drawMenu(MENU_MESSAGES[provChoice][0], MENU_MESSAGES[provChoice][1],
 			MENU_MESSAGES[provChoice][2], MENU_MESSAGES[provChoice][3]);
+		
+		provChoice = 0;
 	}
 	else{
 		if(gm.numBoards == 1){
@@ -834,6 +859,7 @@ void confirmChoice(){
 			// se altro è NPC, si chiama una funzione che gioca "artificialmente"
 			initInterface();
 			initPlayers();
+			setMode(PLAYING);
 			setPlayer(PLAYER1);
 			enable_button(KEY1_PIN, EINT1_IRQn);
 		}
@@ -844,6 +870,6 @@ void confirmChoice(){
 			// Qualcosa con comunicazione CAN
 		}
 	}
-	
-	
 }
+
+

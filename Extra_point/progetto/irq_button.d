@@ -13,3 +13,5 @@
 .\irq_button.o: button\../quoridor/../coordinates/coordinates.h
 .\irq_button.o: button\../graphics/interface.h
 .\irq_button.o: button\../graphics/../GLCD/GLCD.h
+.\irq_button.o: button\../CAN/CAN.h
+.\irq_button.o: button\../CAN/../TouchPanel/TouchPanel.h

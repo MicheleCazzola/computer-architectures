@@ -31,6 +31,7 @@
 // Colore oggeti
 #define BGCOLOR Blue2
 #define VALID_MOVE_COLOR Green
+#define TOKEN_BGCOLOR Yellow
 #define GRID_COLOR Black
 #define PLAYER1_COLOR White
 #define PLAYER2_COLOR Red
