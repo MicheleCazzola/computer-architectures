@@ -159,7 +159,7 @@ static int jumpOverOpponent(Coordinates *destPos, Coordinates *finalPos, int h, 
 }
 
 // Selezione celle da evidenziare, tra quelle possibili
-static void selectAdj(Coordinates *pos, char player, Coordinates *selected, char *numSelected){
+void selectAdj(Coordinates *pos, char player, Coordinates *selected, char *numSelected){
 	int i;
 	Coordinates adjPos, finalPos;
 	
@@ -203,7 +203,7 @@ static void selectAdj(Coordinates *pos, char player, Coordinates *selected, char
 }
 
 // Verifica se la posizione è di una cella evidenziata
-static int isHighlitedAdj(Coordinates *pos, Coordinates *finalPos, int h, int v){
+int isHighlitedAdj(Coordinates *pos, Coordinates *finalPos, int h, int v){
 	int i;
 	Coordinates behindPos;
 	for(i = 0; i < ms.numHighlited; i++){
@@ -552,23 +552,34 @@ void setPlayer(char playerValue){
 	nextPos = ms.currentPos[ms.player];
 	
 	// Cancellazione evidenziazione cella e ridisegno pedina giocatore precedente
-	drawSquareArea(ms.currentPos[getOtherPlayer(ms.player)].x, ms.currentPos[getOtherPlayer(ms.player)].y, BGCOLOR);
-	drawToken(ms.currentPos[getOtherPlayer(ms.player)].x, ms.currentPos[getOtherPlayer(ms.player)].y, PLAYER_COLORS[getOtherPlayer(ms.player)]);
+		drawSquareArea(ms.currentPos[getOtherPlayer(ms.player)].x, ms.currentPos[getOtherPlayer(ms.player)].y, BGCOLOR);
+		drawToken(ms.currentPos[getOtherPlayer(ms.player)].x, ms.currentPos[getOtherPlayer(ms.player)].y, PLAYER_COLORS[getOtherPlayer(ms.player)]);
 	
-	// Evidenziazione cella del giocatore
-	drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, TOKEN_BGCOLOR);
+	// Giocatore umano
+	if(gm.players[ms.player] == HUMAN){
+		
+		// Evidenziazione cella del giocatore
+		drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, TOKEN_BGCOLOR);
+		
+		// Ridisegno pedina
+		drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, PLAYER_COLORS[ms.player]);
+		
+		// Celle disponibili per spostamento
+		highliteAdj(ms.currentPos[ms.player]);
+		
+		// Scrittura tempo rimanente
+		writeTimeRemaining(ms.timeRemaining, TIME_COLOR);
+		
+		// Avvio timer (1 s)
+		enable_timer(0);
+	}
+	// Giocatore NPC: si suppone che impieghi meno di 20 secondi a giocare
+	else{
+		// Chiamata a funzione che effettua la mossa "migliore"
+		NPC_playTurn(&ms, &gm, &nextPos);
+	}
 	
-	// Ridisegno pedina
-	drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, PLAYER_COLORS[ms.player]);
 	
-	// Celle disponibili per spostamento
-	highliteAdj(ms.currentPos[ms.player]);
-	
-	// Scrittura tempo rimanente
-	writeTimeRemaining(ms.timeRemaining, TIME_COLOR);
-	
-	// Avvio timer (1 s)
-	enable_timer(0);
 }
 
 // Get avversario
@@ -851,8 +862,11 @@ void confirmChoice(){
 	}
 	else{
 		if(gm.numBoards == 1){
-			gm.boardsId[0] = HUMAN;
-			gm.boardsId[1] = provChoice;
+			
+			gm.boardsId[0] = BOARD1_ID;
+			
+			gm.players[0] = HUMAN;
+			gm.players[1] = provChoice;
 			
 			// Inizializzazione modalità gioco: comune a entrambi i casi
 			// Servono controlli nelle conferme e al timer expire:
@@ -864,8 +878,12 @@ void confirmChoice(){
 			enable_button(KEY1_PIN, EINT1_IRQn);
 		}
 		else{	// if gm.numBoards == 2
-			gm.boardsId[0] = provChoice;
-			gm.boardsId[1] = HUMAN; // FORSE? CHIEDERE IN LAB
+			
+			gm.boardsId[0] = BOARD1_ID;
+			gm.boardsId[1] = BOARD2_ID;
+			
+			gm.players[0] = provChoice;
+			gm.players[1] = HUMAN; // ENTRAMBI FANNO LA LORO SCELTA
 			
 			// Qualcosa con comunicazione CAN
 		}

@@ -59,6 +59,15 @@ int coordDiffY(Coordinates a, Coordinates b){
 	return a.y - b.y;
 }
 
+// Differenza su (x,y)
+Coordinates coordDiff(Coordinates a, Coordinates b){
+	Coordinates result;
+	result.x = coordDiffX(a, b);
+	result.y = coordDiffY(a, b);
+	
+	return result;
+}
+
 // Distanza su X
 int coordDistX(Coordinates a, Coordinates b){
 	return abs(coordDiffX(a, b));

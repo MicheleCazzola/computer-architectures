@@ -16,6 +16,7 @@
 ".\lib_joystick.o"
 ".\interface.o"
 ".\quoridor.o"
+".\npc.o"
 ".\queue.o"
 ".\coordinates.o"
 ".\irq_can.o"

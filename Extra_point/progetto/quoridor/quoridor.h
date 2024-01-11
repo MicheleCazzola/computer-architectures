@@ -57,10 +57,13 @@ typedef struct {
 	WallType walls[2];					// muri correnti dei due giocatori
 } MatchType;
 
+// quoridor.c
 void initGame(void);
 void setMode(char modeValue);
 void setPlayer(char playerValue);
 int getOtherPlayer(char player);
+void selectAdj(Coordinates *pos, char player, Coordinates *selected, char *numSelected);
+int isHighlitedAdj(Coordinates *pos, Coordinates *finalPos, int h, int v);
 void highliteAdj(Coordinates pos);
 void eraseHighlightedAdj(void);
 void setNextPos(int h, int v);
@@ -73,5 +76,8 @@ void setNextWall(int h, int v);
 void saveMove(int playerId, int moveType, int wallOrientation, Coordinates *destPos);
 void setNextChoice(int step);
 void confirmChoice(void);
+
+// NPC.c
+void NPC_playTurn(MatchType *status, ModeType *mode, Coordinates *nextPos);
 
 #endif

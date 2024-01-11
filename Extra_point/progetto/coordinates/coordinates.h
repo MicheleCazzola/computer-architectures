@@ -17,6 +17,7 @@ int coordCmpX(Coordinates a, Coordinates b);
 int coordCmpY(Coordinates a, Coordinates b);
 int coordDiffX(Coordinates a, Coordinates b);
 int coordDiffY(Coordinates a, Coordinates b);
+Coordinates coordDiff(Coordinates a, Coordinates b);
 int coordDistX(Coordinates a, Coordinates b);
 int coordDistY(Coordinates a, Coordinates b);
 #endif
