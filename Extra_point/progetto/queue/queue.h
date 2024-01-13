@@ -3,8 +3,8 @@
 
 #include "../coordinates/coordinates.h"
 
-// Dimensione coda: contiene al massimo 25 elementi (metà del totale)
-#define QUEUE_DIM 26
+// Dimensione coda: contiene al massimo metà degli elementi totali
+#define QUEUE_DIM (NUM_SQUARES * NUM_SQUARES/2 + 1)
 
 int isEmpty(Coordinates *queue);
 void initQueue(Coordinates *queue);

@@ -13,8 +13,8 @@ const char MENU_MESSAGES[2][4][30] = {
 };
 
 // Posizioni (x,y) iniziali dei giocatori
-const Coordinates START_POS_PLAYER1 = {3,6};
-const Coordinates START_POS_PLAYER2 = {3,0};
+const Coordinates START_POS_PLAYER1 = {NUM_SQUARES/2,NUM_SQUARES-1};
+const Coordinates START_POS_PLAYER2 = {NUM_SQUARES/2,0};
 
 // Posizione iniziale muro generico
 const Coordinates WALL_DEFAULT_POS = {3,2};
@@ -57,12 +57,12 @@ char message[MESSAGE_LENGTH] = "\0\0";
 
 
 // Check vittoria
-static int victory(Coordinates pos, char player){
-	return pos.y == 6 * player;
+int victory(Coordinates pos, char player){
+	return pos.y == (NUM_SQUARES-1) * player;
 }
 
 // Get numero muri liberi
-static int getAvailableWalls(char player){
+int getAvailableWalls(char player){
 	return MAX_NUM_WALLS - ms.walls[player].used;
 }
 
@@ -131,7 +131,7 @@ static int noWallBetween(Coordinates adjPos, Coordinates currentPos){
 
 
 // Check posizione valida per spostamento
-static int validPos(Coordinates destPos, Coordinates currentPos){
+int validPos(Coordinates destPos, Coordinates currentPos){
 	int inPlatform, connected;
 	
 	// Non out-of-range
@@ -330,7 +330,7 @@ static int exists_overlapping_wall(char playerWalls, Coordinates centerPos, char
 // Si salvano l'indice del muro a cui il corrente si sovrappone e
 // l'id del giocatore {1,2} a cui appartiene il muro
 // Ritorna un flag booleano di non sovrapposizione
-static int checkNotOverlapping(Coordinates centerPos, char dir){
+int checkNotOverlapping(Coordinates centerPos, char dir){
 	int overlap1, overlap2;
 	
 	// Check sovrapposizione su entrambi i giocatori
@@ -358,7 +358,7 @@ static int validWallPos(Coordinates centerPos, char dir){
 }
 
 // Inserimento del nuovo muro nel vettore di muri del giocatore corrente
-static void setWall(Coordinates centerPos, char direction){
+void setWall(Coordinates centerPos, char direction){
 	int i;
 	
 	i = ms.walls[ms.player].used;
@@ -401,7 +401,7 @@ static void moveWall(int h, int v){
 }
 
 // Set messaggio vittoria
-static void setVictoryMessage(){
+void setVictoryMessage(){
 	char pchar = (char)(ms.player + 1 + '0');
 	char messageLoc[MESSAGE_LENGTH] = "Player ";
 	
@@ -423,6 +423,9 @@ static void initPlayers(){
 	
 	// Stampa muri iniziali
 	writeWallsStats(MAX_NUM_WALLS, MAX_NUM_WALLS);
+	
+	// Inizializzazione flag NPC
+	ms.finishedNPCMove = 0;
 }
 
 // Eliminazione muri
@@ -545,6 +548,7 @@ void setPlayer(char playerValue){
 	ms.timeRemaining = 20;
 	ms.pendingWall = 0;
 	ms.validMove = 0;
+	ms.finishedNPCMove = 0;
 	
 	// Set posizione successiva uguale a corrente
 	// Modificata solo in seguito a movimento lungo
@@ -575,11 +579,13 @@ void setPlayer(char playerValue){
 	}
 	// Giocatore NPC: si suppone che impieghi meno di 20 secondi a giocare
 	else{
+		
+		// Azzeramento flag mossa NPC conclusa
+		ms.finishedNPCMove = 0;
+		
 		// Chiamata a funzione che effettua la mossa "migliore"
 		NPC_playTurn(&ms, &gm, &nextPos);
 	}
-	
-	
 }
 
 // Get avversario
@@ -871,9 +877,9 @@ void confirmChoice(){
 			// Inizializzazione modalità gioco: comune a entrambi i casi
 			// Servono controlli nelle conferme e al timer expire:
 			// se altro è NPC, si chiama una funzione che gioca "artificialmente"
+			setMode(PLAYING);
 			initInterface();
 			initPlayers();
-			setMode(PLAYING);
 			setPlayer(PLAYER1);
 			enable_button(KEY1_PIN, EINT1_IRQn);
 		}

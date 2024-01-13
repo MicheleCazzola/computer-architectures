@@ -1,4 +1,5 @@
 #include "../queue/queue.h"
+#include "../graphics/interface.h"
 
 #define DEFAULT_COORD -1
 

@@ -43,6 +43,20 @@ void RIT_IRQHandler (void)
 		joystick_controller_chooseMode();
 	}
 	
+	// Polling mossa NPC completata
+	if(ms.finishedNPCMove > 0){
+		
+		// Partita non terminata, cambio giocatore
+		if(ms.finishedNPCMove == 1){
+			setPlayer(getOtherPlayer(ms.player));
+		}
+		// Partita terminata, reset
+		else{
+			setVictoryMessage();
+			initGame();
+		}
+	}
+	
 	// INT0: sempre in mutua esclusione rispetto a KEY1 e KEY2
 	// Solo se in modalità di attesa
 	if(ms.mode == WAITING){
