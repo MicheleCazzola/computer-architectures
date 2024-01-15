@@ -13,12 +13,14 @@
 #include "../button/button.h"
 #include "../quoridor/quoridor.h"
 #include "../coordinates/coordinates.h"
+#include "../timer/timer.h"
 
 #define NO_MOVE -1
 #define UP 0
 #define DOWN 1
 
-// Variabile di stato esportata
+// Variabili di stato esportate
+extern ModeType gm;
 extern MatchType ms;
 extern Coordinates nextPos;
 
@@ -59,10 +61,19 @@ void joystick_controller_chooseMode(){
 			pressed[i]++;
 			if(pressed[i] == 1){
 				if(i > 0){
-					dir = (i == 1) ? DOWN : UP;
-					setNextChoice(dir);
+					// Modifica scelta, solo se handshake terminato
+					if(gm.handshake == HANDSHAKE_DONE){
+						dir = (i == 1) ? DOWN : UP;
+						setNextChoice(dir);
+					}
 				}
 				else{
+					
+					// Conferma scelta
+					// Allo stato di default (single board), no attesa handshake
+					// Stop procedura di handshake
+					gm.handshake = HANDSHAKE_DONE;
+					disable_timer(1);
 					confirmChoice();
 				}
 			}

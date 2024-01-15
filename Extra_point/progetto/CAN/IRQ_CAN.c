@@ -18,6 +18,7 @@
 #include "../GLCD/GLCD.h"
 #include "../quoridor/quoridor.h"
 #include "../graphics/interface.h"
+#include "../timer/timer.h"
 
 extern ModeType gm;
 extern MatchType ms;
@@ -26,55 +27,41 @@ extern uint32_t result;
 extern CAN_msg       CAN_TxMsg;    /* CAN message for sending */
 extern CAN_msg       CAN_RxMsg;    /* CAN message for receiving */                                
 
-static int puntiRicevuti1 = 0;
-static int puntiInviati1 = 0;
-
-static int puntiRicevuti2 = 0;
-static int puntiInviati2 = 0;
-
-uint16_t val_RxCoordX = 0;            /* Locals used for display */
-uint16_t val_RxCoordY = 0;
-
 /*----------------------------------------------------------------------------
   CAN interrupt handler
  *----------------------------------------------------------------------------*/
 void CAN_IRQHandler (void)  {
-	
-	unsigned char idSender, menuChoice;
 
   /* check CAN controller 1 */
 	icr = 0;
   icr = (LPC_CAN1->ICR | icr) & 0xFF;               /* clear interrupts */
 	
-  if (icr & (1 << 0)) {                          		/* CAN Controller #1 meassage is received */
-		CAN_rdMsg (1, &CAN_RxMsg);	                		/* Read the message */
-    LPC_CAN1->CMR = (1 << 2);                    		/* Release receive buffer */
+	/* CAN Controller #1 meassage is received */
+  if (icr & (1 << 0)) {    
 		
-		// Ricezione messaggio iniziale ->  Invio ACK
-		if(CAN_RxMsg.data[0] == 0xFF){
-			gm.handshake = CAN_RxMsg.data[1];
-			writeMessage("Message arrived");
-		}
-  }
-	if (icr & (1 << 1)) {                         /* CAN Controller #1 meassage is transmitted */
-		
-	}
-		
-	/* check CAN controller 2 */
-	icr = 0;
-	icr = (LPC_CAN2->ICR | icr) & 0xFF;             /* clear interrupts */
+		/* Read the message */
+		CAN_rdMsg (1, &CAN_RxMsg);	  
 
-	if (icr & (1 << 0)) {                          	/* CAN Controller #2 meassage is received */
-		CAN_rdMsg (2, &CAN_RxMsg);	                		/* Read the message */
-    LPC_CAN2->CMR = (1 << 2);                    		/* Release receive buffer */
+		/* Release receive buffer */
+    LPC_CAN1->CMR = (1 << 2);                    		
 		
-		// Ricezione messaggio iniziale ->  Invio ACK
+		// Ricezione messaggio di handshake
 		if(CAN_RxMsg.data[0] == 0xFF){
 			gm.handshake = CAN_RxMsg.data[1];
+			
+			// Stop timer
+			if(gm.handshake == HANDSHAKE_DONE){
+				disable_timer(1);
+			}
+			
+			// TEST
 			writeMessage("Message arrived");
 		}
-	}
-	if (icr & (1 << 1)) {                         /* CAN Controller #2 meassage is transmitted */
-	
-	}
+		// Ricezione mossa avversario -> Salva e gioca
+		else{
+			// Aggiornamento stato gioco
+			// Chiamata a setPlayer(boardPlayer)
+		}
+		
+  }
 }

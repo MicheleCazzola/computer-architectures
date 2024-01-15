@@ -32,24 +32,6 @@ const Coordinates POSSIBLE_MOVES[8] = {
 // Colore dei giocatori
 extern const int PLAYER_COLORS[2];
 
-// Check se mossa specifica è tra le selezinate
-static int moveSelected(Coordinates *selected, char numSel, Coordinates *currentPos, char direction){
-	int i;
-	
-	// Coordinate (x,y) dello spostamento
-	Coordinates move = POSSIBLE_MOVES[direction];
-	
-	for(i = 0; i < numSel; i++){
-		
-		// Se la destinazione scelta è tra le selezionate, si termina la ricerva
-		if(equalCoord(selected[i], changeCoord(*currentPos, move.x, move.y))){
-			return 1;
-		} 
-	}
-	
-	return 0;
-}
-
 // Misura distanza tra posizione del giocatore e destinazione
 // Non considera presenza giocatore avversario (versione successiva dovrebbe farlo)
 // Parametri:

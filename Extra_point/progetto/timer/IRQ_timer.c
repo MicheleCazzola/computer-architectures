@@ -31,7 +31,7 @@ void TIMER0_IRQHandler (void) {
 		// Modalità movimento pedina
 		if(ms.pendingWall == 0){
 			
-			// Cancellazione posizioni evidenziate
+			// Cancellazione posizioni evidenziate ed eventuale mossa
 			eraseHighlightedAdj();
 		}
 		// Modalità posizionamento muro
@@ -57,7 +57,7 @@ void TIMER0_IRQHandler (void) {
 }
 
 void TIMER1_IRQHandler (void) {
-	writeMessage("No remote board");
+	writeMessage("Single board only");
 	disable_timer(1);
 }
 

@@ -25,26 +25,25 @@ extern CAN_msg CAN_TxMsg;
 void INT0_function(void){
 	
 	if(gm.handshake == HANDSHAKE_OFF){
-		CAN_TxMsg.id = 0x01;
 		gm.boardPlayer = PLAYER1;
 		gm.handshake = HANDSHAKE_ON;
 		enable_timer(1);
 	}
 	else if(gm.handshake == HANDSHAKE_ON){
-		CAN_TxMsg.id = 0x02;
 		gm.boardPlayer = PLAYER2;
 		gm.handshake = HANDSHAKE_DONE;
 	}
 	
+	CAN_TxMsg.id = 1;
 	CAN_TxMsg.len = 2;
 	CAN_TxMsg.data[0] = 0xFF;
 	CAN_TxMsg.data[1] = gm.handshake;
 	CAN_TxMsg.format = STANDARD_FORMAT;
 	CAN_TxMsg.type = DATA_FRAME;
 	
-	CAN_wrMsg(CAN_TxMsg.id, &CAN_TxMsg);
+	CAN_wrMsg(1, &CAN_TxMsg);
 	
-	// Timer 1 per attesa ACK
+	
 	
 	// Entra in modalità scelta
 	setMode(CHOOSING);

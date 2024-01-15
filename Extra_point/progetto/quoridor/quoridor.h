@@ -14,7 +14,7 @@
 #define BOARD1_ID 0
 #define BOARD2_ID 1
 #define DEFAULT_CHOICE 0
-#define NO_PLAYER -1
+#define NO_PLAYER 0xFF
 #define HANDSHAKE_OFF 0
 #define HANDSHAKE_ON 1
 #define HANDSHAKE_DONE 2
@@ -35,10 +35,9 @@
 // Modalità di gioco
 typedef struct {
 	unsigned char handshake;
-	int numBoards;
-	int boardsId[2];
-	int players[2];
+	unsigned char numBoards;
 	unsigned char boardPlayer;
+	unsigned char playersType[2];
 } ModeType;
 
 // Muro
@@ -84,6 +83,7 @@ void rotateWall(void);
 void confirmWall(void);
 void undoWall(void);
 void setNextWall(int h, int v);
+void sendMove(void);
 void saveMove(int playerId, int moveType, int wallOrientation, Coordinates *destPos);
 void setVictoryMessage(void);
 void setNextChoice(int step);

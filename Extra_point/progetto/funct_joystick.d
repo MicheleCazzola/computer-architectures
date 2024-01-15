@@ -11,3 +11,4 @@
 .\funct_joystick.o: joystick\../button/button.h
 .\funct_joystick.o: joystick\../quoridor/quoridor.h
 .\funct_joystick.o: joystick\../quoridor/../coordinates/coordinates.h
+.\funct_joystick.o: joystick\../timer/timer.h

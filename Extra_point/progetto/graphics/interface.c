@@ -75,17 +75,36 @@ void drawChessPlatform(){
 	}
 }
 
+// Disegno bordo pedina
+void drawTokenBorder(int x, int y, int color){
+	int x0, x1, y0, y1;
+	
+	// Calcolo coordinate utili
+	x0 = MARGIN_WIDTH + (SQUARE_SIDE - TOKEN_SIDE)/2 + x * (SPACE_WIDTH + SQUARE_SIDE) + 1;
+	x1 = x0 + TOKEN_SIDE - 2;
+	y0 = MARGIN_WIDTH + (SQUARE_SIDE - TOKEN_SIDE)/2 + y * (SPACE_WIDTH + SQUARE_SIDE) + 1;
+	y1 = y0 + TOKEN_SIDE - 2;
+	
+	LCD_DrawLine(x0, y0, x1, y0, color);
+	LCD_DrawLine(x0, y0, x0, y1, color);
+	LCD_DrawLine(x1, y0, x1, y1, color);
+	LCD_DrawLine(x0, y1, x1, y1, color);
+}
+
 // Disegno pedina (quadrato centrato nella casella)
 void drawToken(int x, int y, int color){
 	int xp, yp, i, j;
+	
+	// Disegno bordo
+	drawTokenBorder(x, y, TOKEN_BORDER_COLOR);
 	
 	// Calcolo centro pedine
 	xp = MARGIN_WIDTH + x * (SPACE_WIDTH + SQUARE_SIDE) + (SQUARE_SIDE)/2;
 	yp = MARGIN_WIDTH + y * (SPACE_WIDTH + SQUARE_SIDE) + (SQUARE_SIDE)/2;
 	
 	// Scrittura per linee, centrata in (xp, yp)
-	for(i = -TOKEN_SIDE/2; i < TOKEN_SIDE/2; i++){
-		for(j = -TOKEN_SIDE/2; j < TOKEN_SIDE/2; j++){
+	for(i = -TOKEN_SIDE/2 + 1; i < TOKEN_SIDE/2 - 1; i++){
+		for(j = -TOKEN_SIDE/2 + 1; j < TOKEN_SIDE/2 - 1; j++){
 			LCD_SetPoint(xp+i, yp+j, color);
 		}
 	}

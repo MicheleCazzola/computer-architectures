@@ -32,6 +32,7 @@
 #define BGCOLOR Blue2
 #define VALID_MOVE_COLOR Green
 #define TOKEN_BGCOLOR Yellow
+#define TOKEN_BORDER_COLOR Black
 #define GRID_COLOR Black
 #define PLAYER1_COLOR White
 #define PLAYER2_COLOR Red
@@ -80,6 +81,7 @@ void drawOptionBorder(int startX, int finalX, int topY, int color);
 void drawMenu(const char *questionFirstLine, const char *questionSecondLine, const char *option1, const char *option2);
 void highliteChoice(int choice);
 void drawChessPlatform(void);
+void drawTokenBorder(int x, int y, int color);
 void drawToken(int x, int y, int color);
 void writeWallsStats(int wall_p1, int wall_p2);
 void writeTimeRemaining(int time, int color);

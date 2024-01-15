@@ -22,6 +22,7 @@ int down_key1 = 0;
 int down_key2 = 0;
 
 extern MatchType ms;
+extern ModeType gm;
 
 // RIT handler -> Implementa:
 // -	debouncing INT0, KEY1, KEY2
@@ -48,13 +49,31 @@ void RIT_IRQHandler (void)
 		
 		// Partita non terminata, cambio giocatore
 		if(ms.finishedNPCMove == 1){
-			setPlayer(getOtherPlayer(ms.player));
+			
+			// In single-board, gioca l'avversario
+			if(gm.numBoards == 1){
+				setPlayer(getOtherPlayer(ms.player));
+			}
+			// In double-board, si invia la mossa e si attende l'esito
+			else{
+				sendMove();
+			}
+			
 		}
 		// Partita terminata, reset
 		else{
 			setVictoryMessage();
 			initGame();
 		}
+	}
+	
+	// Polling invio mossa
+	// Solo in multi-board, con ultima mossa valida e confermata
+	if(gm.numBoards == 2 && ms.validMove && ms.lastMove != 0xFFFFFFFF){
+		sendMove();
+		
+		// Set mossa a valore default
+		ms.lastMove = 0xFFFFFFFF;
 	}
 	
 	// INT0: sempre in mutua esclusione rispetto a KEY1 e KEY2

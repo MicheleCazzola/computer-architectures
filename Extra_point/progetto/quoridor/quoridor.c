@@ -485,10 +485,7 @@ static void initChoiceData(){
 	
 	gm.numBoards = 0;
 	
-	gm.boardsId[0] = BOARD1_ID;
-	gm.boardsId[1] = BOARD2_ID;
-	
-	gm.players[0] = gm.players[1] = NO_PLAYER;
+	gm.playersType[0] = gm.playersType[1] = NO_PLAYER;
 	
 	provChoice = 0;
 }
@@ -552,6 +549,7 @@ void setPlayer(char playerValue){
 	ms.pendingWall = 0;
 	ms.validMove = 0;
 	ms.finishedNPCMove = 0;
+	ms.lastMove = 0xFFFFFFFF;
 	
 	// Set posizione successiva uguale a corrente
 	// Modificata solo in seguito a movimento lungo
@@ -563,7 +561,7 @@ void setPlayer(char playerValue){
 		drawToken(ms.currentPos[getOtherPlayer(ms.player)].x, ms.currentPos[getOtherPlayer(ms.player)].y, PLAYER_COLORS[getOtherPlayer(ms.player)]);
 	
 	// Giocatore umano
-	if(gm.players[ms.player] == HUMAN){
+	if(gm.playersType[ms.player] == HUMAN){
 		
 		// Evidenziazione cella del giocatore
 		drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, TOKEN_BGCOLOR);
@@ -629,14 +627,10 @@ void setNextPos(int h, int v){
 	// Eliminazione messaggio, se presente
 	clearMessage();
 	
-	/*
-	// Get cella dietro all'avversario, se adiacente
-	destPos = changeCoord(ms.currentPos[ms.player], h, v);
-	jumpOverOpponent(&(ms.currentPos[ms.player]), &destPos, ms.player, &finalPos);
-	
-	// Validazione posizione finale
-	ms.validMove = validPos(finalPos, ms.currentPos[ms.player]);
-	*/
+	// Se mossa precedente esistente, la si cancella
+	if(!equalCoord(ms.currentPos[ms.player], nextPos)){
+		drawTokenBorder(nextPos.x, nextPos.y, VALID_MOVE_COLOR);
+	}
 	
 	// Check se posizione è di una cella evidenziata (ovvero valida)
 	destPos = changeCoord(ms.currentPos[ms.player], h, v);
@@ -645,6 +639,9 @@ void setNextPos(int h, int v){
 		
 		// Caso positivo: impostazione posizione
 		nextPos = finalPos;
+		
+		// Disegno bordo token
+		drawTokenBorder(nextPos.x, nextPos.y, TOKEN_BORDER_COLOR);
 	}
 	else{
 		
@@ -678,7 +675,7 @@ void move(){
 		// Aggiornamento posizione finale
 		ms.currentPos[ms.player] = nextPos;
 		
-		// Salvataggio mossa
+		// Salvataggio ed invio mossa
 		saveMove(ms.player, PLAYER_MOVE, PLAYER_MOVE, &(ms.currentPos[ms.player]));
 		
 		// Vittoria giocatore corrente
@@ -837,11 +834,20 @@ void saveMove(int playerId, int moveType, int wallOrientation, Coordinates *dest
 	ms.lastMove = newMove;
 }
 
-// Invio selezione scelta
-void sendChoice(char data){
-	CAN_msg msg;
+// Invio mossa
+void sendMove(){
 	
-	msg.data[0] = data;
+	int i;
+	
+	CAN_TxMsg.id = 1;
+	CAN_TxMsg.len = 4;
+	// data[0] contiene X
+	for(i = 0; i < CAN_TxMsg.len; i++){
+		CAN_TxMsg.data[i] = (ms.lastMove & (0xFF << (i << 3))) >> (i >> 3);
+	}
+	
+	CAN_TxMsg.format = STANDARD_FORMAT;
+	CAN_TxMsg.type = DATA_FRAME;
 }
 
 // Set nuova scelta
@@ -859,10 +865,8 @@ void confirmChoice(){
 	
 	// Scelta iniziale
 	if(gm.numBoards == 0){
-		gm.numBoards = provChoice + 1;
 		
-		// Invio scelta
-		sendChoice(gm.numBoards);
+		gm.numBoards = provChoice + 1;
 		
 		drawMenu(MENU_MESSAGES[provChoice][0], MENU_MESSAGES[provChoice][1],
 			MENU_MESSAGES[provChoice][2], MENU_MESSAGES[provChoice][3]);
@@ -872,14 +876,11 @@ void confirmChoice(){
 	else{
 		if(gm.numBoards == 1){
 			
-			gm.boardsId[0] = BOARD1_ID;
+			// Noto il tipo di entrambi i giocatori
+			gm.playersType[0] = HUMAN;
+			gm.playersType[1] = provChoice;
 			
-			gm.players[0] = HUMAN;
-			gm.players[1] = provChoice;
-			
-			// Inizializzazione modalità gioco: comune a entrambi i casi
-			// Servono controlli nelle conferme e al timer expire:
-			// se altro è NPC, si chiama una funzione che gioca "artificialmente"
+			// Inizializzazione modalità gioco -> Inizia l'umano (PLAYER1)
 			setMode(PLAYING);
 			initInterface();
 			initPlayers();
@@ -888,13 +889,20 @@ void confirmChoice(){
 		}
 		else{	// if gm.numBoards == 2
 			
-			gm.boardsId[0] = BOARD1_ID;
-			gm.boardsId[1] = BOARD2_ID;
+			// Noto solo il tipo del proprio giocatore
+			gm.playersType[0] = provChoice;
 			
-			gm.players[0] = provChoice;
-			gm.players[1] = HUMAN; // ENTRAMBI FANNO LA LORO SCELTA
+			// Inizializzazione modalità gioco -> Inizia l'umano (PLAYER1)
+			setMode(PLAYING);
+			initInterface();
+			initPlayers();
 			
-			// Qualcosa con comunicazione CAN
+			// Se inizia il giocatore corrente -> Gioca
+			if(gm.boardPlayer == PLAYER1){
+				setPlayer(PLAYER1);
+				enable_button(KEY1_PIN, EINT1_IRQn);
+			}
+			// Altrimenti -> Attende il CAN1
 		}
 	}
 }
