@@ -15,6 +15,9 @@
 #define BOARD2_ID 1
 #define DEFAULT_CHOICE 0
 #define NO_PLAYER -1
+#define HANDSHAKE_OFF 0
+#define HANDSHAKE_ON 1
+#define HANDSHAKE_DONE 2
 
 // Numero massimo muri
 #define MAX_NUM_WALLS 8
@@ -31,9 +34,11 @@
 
 // Modalità di gioco
 typedef struct {
+	unsigned char handshake;
 	int numBoards;
 	int boardsId[2];
 	int players[2];
+	unsigned char boardPlayer;
 } ModeType;
 
 // Muro

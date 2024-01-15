@@ -4,6 +4,7 @@
 #include "../quoridor/quoridor.h"
 #include "../graphics/interface.h"
 #include "../CAN/CAN.h"
+#include "../timer/timer.h"
 
 // Variabili di controllo dei pulsanti
 // Inizialmente a 0
@@ -13,6 +14,7 @@ extern int down_key1;
 extern int down_key2;
 
 // Variabili globali esportate
+extern ModeType gm;
 extern MatchType ms;
 extern Coordinates WALL_DEFAULT_POS;
 extern CAN_msg CAN_TxMsg;
@@ -22,10 +24,25 @@ extern CAN_msg CAN_TxMsg;
 // al primo passaggio nel RIT handler
 void INT0_function(void){
 	
-	CAN_TxMsg.id = 0xFF;
-	CAN_TxMsg.data[0] = 0xFF;
+	if(gm.handshake == HANDSHAKE_OFF){
+		CAN_TxMsg.id = 0x01;
+		gm.boardPlayer = PLAYER1;
+		gm.handshake = HANDSHAKE_ON;
+		enable_timer(1);
+	}
+	else if(gm.handshake == HANDSHAKE_ON){
+		CAN_TxMsg.id = 0x02;
+		gm.boardPlayer = PLAYER2;
+		gm.handshake = HANDSHAKE_DONE;
+	}
 	
-	CAN_wrMsg(2, &CAN_TxMsg);
+	CAN_TxMsg.len = 2;
+	CAN_TxMsg.data[0] = 0xFF;
+	CAN_TxMsg.data[1] = gm.handshake;
+	CAN_TxMsg.format = STANDARD_FORMAT;
+	CAN_TxMsg.type = DATA_FRAME;
+	
+	CAN_wrMsg(CAN_TxMsg.id, &CAN_TxMsg);
 	
 	// Timer 1 per attesa ACK
 	

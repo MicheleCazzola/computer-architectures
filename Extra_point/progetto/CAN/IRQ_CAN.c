@@ -17,7 +17,10 @@
 #include "CAN.h"                      /* LPC17xx CAN adaption layer */
 #include "../GLCD/GLCD.h"
 #include "../quoridor/quoridor.h"
+#include "../graphics/interface.h"
 
+extern ModeType gm;
+extern MatchType ms;
 extern uint8_t icr ; 										//icr and result must be global in order to work with both real and simulated landtiger.
 extern uint32_t result;
 extern CAN_msg       CAN_TxMsg;    /* CAN message for sending */
@@ -47,27 +50,14 @@ void CAN_IRQHandler (void)  {
 		CAN_rdMsg (1, &CAN_RxMsg);	                		/* Read the message */
     LPC_CAN1->CMR = (1 << 2);                    		/* Release receive buffer */
 		
-		idSender = CAN_RxMsg.id;
-		menuChoice = CAN_RxMsg.data[0];
-		
-		// Controllo CAN per scelta
-		if(menuChoice == 0xFF){
-			CAN_TxMsg.id = BOARD2_ID;
-			CAN_TxMsg.data[0] = BOARD1_ID;
-			CAN_wrMsg(2, &CAN_TxMsg);
+		// Ricezione messaggio iniziale ->  Invio ACK
+		if(CAN_RxMsg.data[0] == 0xFF){
+			gm.handshake = CAN_RxMsg.data[1];
+			writeMessage("Message arrived");
 		}
-		
-		val_RxCoordX = (CAN_RxMsg.data[0] << 8);
-		val_RxCoordX = val_RxCoordX | CAN_RxMsg.data[1];
-		
-		val_RxCoordY = (CAN_RxMsg.data[2] << 8);
-		val_RxCoordY = val_RxCoordY | CAN_RxMsg.data[3];
-		
-		puntiRicevuti1++;
   }
 	if (icr & (1 << 1)) {                         /* CAN Controller #1 meassage is transmitted */
-		// do nothing in this example
-		puntiInviati1++;
+		
 	}
 		
 	/* check CAN controller 2 */
@@ -78,16 +68,13 @@ void CAN_IRQHandler (void)  {
 		CAN_rdMsg (2, &CAN_RxMsg);	                		/* Read the message */
     LPC_CAN2->CMR = (1 << 2);                    		/* Release receive buffer */
 		
-		val_RxCoordX = (CAN_RxMsg.data[0] << 8)  ;
-		val_RxCoordX = val_RxCoordX | CAN_RxMsg.data[1];
-		
-		val_RxCoordY = (CAN_RxMsg.data[2] << 8);
-		val_RxCoordY = val_RxCoordY | CAN_RxMsg.data[3];
-		
-		puntiRicevuti2++;
+		// Ricezione messaggio iniziale ->  Invio ACK
+		if(CAN_RxMsg.data[0] == 0xFF){
+			gm.handshake = CAN_RxMsg.data[1];
+			writeMessage("Message arrived");
+		}
 	}
 	if (icr & (1 << 1)) {                         /* CAN Controller #2 meassage is transmitted */
-		// do nothing in this example
-		puntiInviati2++;
+	
 	}
 }

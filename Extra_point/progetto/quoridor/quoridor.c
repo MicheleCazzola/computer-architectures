@@ -480,6 +480,9 @@ static void initControls(){
 
 // Inizializzazione dati scelta
 static void initChoiceData(){
+	
+	gm.handshake = HANDSHAKE_OFF;
+	
 	gm.numBoards = 0;
 	
 	gm.boardsId[0] = BOARD1_ID;

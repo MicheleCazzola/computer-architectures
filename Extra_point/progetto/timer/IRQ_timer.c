@@ -56,6 +56,11 @@ void TIMER0_IRQHandler (void) {
   return;
 }
 
+void TIMER1_IRQHandler (void) {
+	writeMessage("No remote board");
+	disable_timer(1);
+}
+
 /******************************************************************************
 **                            End Of File
 ******************************************************************************/

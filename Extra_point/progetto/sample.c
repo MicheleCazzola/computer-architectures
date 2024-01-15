@@ -24,11 +24,11 @@ int main(void)
 	// Inizializzazione CAN bus
 	CAN_Init();
 	
-	//TP_Init();
-	//TouchPanel_Calibrate();
-	
 	// Timer 1 s con 25 MHz
 	init_timer(0, 0x017D7840);	
+	
+	// Timer 3 s con 25 MHz
+	//init_timer(1, 0x047868C0);
 	
 	// RIT 50 ms con 100 MHz
 	init_RIT(0x004C4B40);

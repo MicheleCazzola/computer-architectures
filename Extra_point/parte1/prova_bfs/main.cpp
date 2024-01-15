@@ -25,7 +25,7 @@ typedef struct{
 } Player;
 
 void random_comb(int *posizioni, int *muri, int n, int k, map<int,int> &occ, vector<int> &sol, int *globalMax, int *c, Player *start);
-int comb(int pos, int *val, int *sol, int n, int k, int start, int cnt, int *globalMax, int *c, Player *st);
+int comb(int pos, int *val, int *sol, int n, int k, int start, int cnt, int *globalMax, int *globalSol, int *globalSolLen, int *c, Player *st);
 bool checkVal(int *muri, int n);
 bool overlap(Muro a, Muro b);
 bool checkRagg(int *muri, int n, vector<vector<bool>> ragg, int *maxQueueDim, Player *sol);
@@ -36,18 +36,25 @@ bool validPos(Player a, Player b, vector<Muro> muri);
 int main() {
 
     Player st;
-    int maxQueueDim, cnt;
+    int maxQueueDim, cnt, lenSol;
     int posizioni[CENTRI];
     int muri[MURI];
+    int muriFinali[MURI];
     vector<int> sol;
 
     for(int i = 0; i < CENTRI; i++){
         posizioni[i] = i;
     }
-    maxQueueDim = cnt = 0;
+    maxQueueDim = cnt = lenSol = 0;
     map<int, int> occ;
-    //comb(0, posizioni, muri, CENTRI, MURI, 0, 0, &maxQueueDim, &cnt);
-    random_comb(posizioni, muri, CENTRI, MURI, occ, sol, &maxQueueDim, &cnt, &st);
+    comb(0, posizioni, muri, CENTRI, MURI, 0, 0, &maxQueueDim, muriFinali, &lenSol, &cnt, &st);
+
+    printf("Len: %d\n", lenSol);
+    for(int i = 0; i < lenSol; i++){
+        printf("%d ", muriFinali[i]);
+    }
+
+    //random_comb(posizioni, muri, CENTRI, MURI, occ, sol, &maxQueueDim, &cnt, &st);
 
     printf("%d:\t", maxQueueDim);
     for(int m : sol){
@@ -117,7 +124,7 @@ void random_comb(int *posizioni, int *muri, int n, int k, map<int,int> &occ, vec
     }
 }
 
-int comb(int pos, int *val, int *sol, int n, int k, int start, int cnt, int *globalMax, int *c, Player *st) {
+int comb(int pos, int *val, int *sol, int n, int k, int start, int cnt, int *globalMax, int *globalSol, int *globalSolLen, int *c, Player *st) {
     int i, localMax;
 
 
@@ -135,20 +142,27 @@ int comb(int pos, int *val, int *sol, int n, int k, int start, int cnt, int *glo
     localMax = 0;
     checkRagg(sol, pos, ragg, &localMax, st);
     *globalMax = max(*globalMax, localMax);
-    /*if(cnt % 1000000 == 0)*/ printf("%d: %d %d\n", *c, localMax, *globalMax);
 
-    if (pos >= k/2) {
-        /*
-        for (i=0; i<k; i++)
+    if(*globalMax == localMax){
+        for(i = 0; i < pos; i++){
+            globalSol[i] = sol[i];
+        }
+        *globalSolLen = pos;
+    }
+
+
+    if (pos >= k/4) {
+        printf("%d: ", *c);
+        for (i=0; i<k/4; i++)
             printf("%d ", sol[i]);
         printf("\t%d\t%d", localMax, *globalMax);
-        printf("\n");*/
+        printf("\n");
 
         return cnt+1;
     }
     for (i=start; i<n; i++) {
         sol[pos] = val[i];
-        cnt = comb(pos+1, val, sol, n, k, i+1, cnt, globalMax, c, st);
+        cnt = comb(pos+1, val, sol, n, k, i+1, cnt, globalMax, globalSol, globalSolLen, c, st);
     }
     return cnt;
 }

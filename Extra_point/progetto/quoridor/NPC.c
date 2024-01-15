@@ -12,6 +12,9 @@
 #define RIGHT 6
 #define RIGHT_DOWN 7
 
+#define MOVE_TOKEN 0
+#define PLACE_WALL 1
+
 #define MAX_DIST (NUM_SQUARES * NUM_SQUARES)
 
 // Possibili mosse
@@ -116,12 +119,24 @@ static int measureDistance(Coordinates startPlayerPos, char player, int *dist){
 	return 0;
 }
 
+// Funzione euristica di valutazione della mossa
+// Parametri: differenza per mossa e muro
+static int evaluateMove(int moveDiffVal, int wallDiffVal, int distCurrent){
+	
+	// Una mossa alla vittoria -> Muovi
+	if(distCurrent == 1){
+		return MOVE_TOKEN;
+	}
+	
+	return (moveDiffVal <= wallDiffVal);
+}
+
 // Scelta mossa da effettuare con criterio di ottimizzazione locale
 // Metrica: max(dist(otherPlayer, destination) - dist(currentPlayer, destination))
 // Risultato: 0 se conviene (o si è obbligati a) muovere, 1 altrimenti
 static int chooseMove(MatchType *ms, Coordinates *nextPosM, Coordinates *nextPosW, char *nextWDir){
 	
-	int i, j, dir, maxDiffMove, maxDiffWall, localDistCurrent, localDistOther;
+	int i, j, dir, maxDiffMove, maxDiffWall, localDistCurrent, localDistOther, globalDistCurrent;
 	char currentPlayer, otherPlayer, numSel, nextDirWall, ragg;
 	Coordinates currentPos, otherPos, wallPos, nextPosMove, nextPosWall;
 	Coordinates selected[5];
@@ -157,6 +172,7 @@ static int chooseMove(MatchType *ms, Coordinates *nextPosM, Coordinates *nextPos
 		// Check metrica migliorata
 		if(localDistOther - localDistCurrent > maxDiffMove){
 			maxDiffMove = localDistOther - localDistCurrent;
+			globalDistCurrent = localDistCurrent;
 			nextPosMove = selected[i];
 		}
 	}
@@ -212,7 +228,7 @@ static int chooseMove(MatchType *ms, Coordinates *nextPosM, Coordinates *nextPos
 		*nextWDir = nextDirWall;
 	}
 	
-	return (maxDiffMove <= maxDiffWall);
+	return evaluateMove(maxDiffMove, maxDiffWall, globalDistCurrent);
 }
 
 // Conferma mossa senza cambio giocatore e senza cancellazione adiacenze
@@ -269,7 +285,7 @@ void NPC_playTurn(MatchType *status, ModeType *mode, Coordinates *nextPos){
 	choiceResult = chooseMove(status, &nextPosMove, &nextPosWall, &nextPosDir);
 	
 	// Mossa pedina
-	if(choiceResult == 0){
+	if(choiceResult == MOVE_TOKEN){
 		*nextPos = nextPosMove;
 		victory = moveNPC(status, nextPos);
 	}
