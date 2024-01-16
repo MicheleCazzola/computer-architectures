@@ -24,6 +24,12 @@ extern CAN_msg CAN_TxMsg;
 // al primo passaggio nel RIT handler
 void INT0_function(void){
 	
+	// Entra in modalità scelta
+	setMode(CHOOSING);
+	
+	// Disegna menu iniziale
+	drawMenu(MENU1_Q1, MENU1_Q2, MENU1_OPT1, MENU1_OPT2);
+	
 	if(gm.handshake == HANDSHAKE_OFF){
 		gm.boardPlayer = PLAYER1;
 		gm.handshake = HANDSHAKE_ON;
@@ -42,14 +48,6 @@ void INT0_function(void){
 	CAN_TxMsg.type = DATA_FRAME;
 	
 	CAN_wrMsg(1, &CAN_TxMsg);
-	
-	
-	
-	// Entra in modalità scelta
-	setMode(CHOOSING);
-	
-	// Disegna menu iniziale
-	drawMenu(MENU1_Q1, MENU1_Q2, MENU1_OPT1, MENU1_OPT2);
 		
 	/*
 	SEZIONE ESEGUITA DOPO LA CONFERMA COL JOYSTICK

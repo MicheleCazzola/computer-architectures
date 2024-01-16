@@ -59,6 +59,8 @@ void TIMER0_IRQHandler (void) {
 void TIMER1_IRQHandler (void) {
 	writeMessage("Single board only");
 	disable_timer(1);
+	
+	LPC_TIM1->IR = 1;			/* clear interrupt flag */
 }
 
 /******************************************************************************
