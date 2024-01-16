@@ -71,8 +71,6 @@ void joystick_controller_chooseMode(){
 					
 					// Conferma scelta
 					// Allo stato di default (single board), no attesa handshake
-					// Stop procedura di handshake
-					gm.handshake = HANDSHAKE_DONE;
 					disable_timer(1);
 					confirmChoice();
 				}

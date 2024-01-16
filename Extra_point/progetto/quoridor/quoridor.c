@@ -685,9 +685,12 @@ void move(){
 			setVictoryMessage();
 			initGame();
 		}
-		// Se nessuno ha vinto, cambio giocatore
+		// Se nessuno ha vinto, cambio giocatore in single board
+		// In multiboard, attesa per CAN
 		else{
-			setPlayer(getOtherPlayer(ms.player));
+			if(gm.numBoards == 1){
+				setPlayer(getOtherPlayer(ms.player));
+			}
 		}
 	}
 	else{
@@ -848,6 +851,8 @@ void sendMove(){
 	
 	CAN_TxMsg.format = STANDARD_FORMAT;
 	CAN_TxMsg.type = DATA_FRAME;
+	
+	CAN_wrMsg(1, &CAN_TxMsg);
 }
 
 // Set nuova scelta
@@ -866,6 +871,10 @@ void confirmChoice(){
 	// Scelta iniziale
 	if(gm.numBoards == 0){
 		
+		// Termine handshake iniziale
+		gm.handshake = HANDSHAKE_DONE;
+		
+		// Selezione numero boards
 		gm.numBoards = provChoice + 1;
 		
 		drawMenu(MENU_MESSAGES[provChoice][0], MENU_MESSAGES[provChoice][1],
@@ -892,19 +901,38 @@ void confirmChoice(){
 			// Noto solo il tipo del proprio giocatore
 			gm.playersType[0] = provChoice;
 			
-			// Inizializzazione modalità gioco -> Inizia l'umano (PLAYER1)
-			setMode(PLAYING);
+			// Invio messaggio di ready (si suppone che entrambi scelgano two boards)
+			CAN_TxMsg.id = 1;
+			CAN_TxMsg.len = 2;
+			CAN_TxMsg.data[0] = 0xFF;
+			CAN_TxMsg.data[1] = HANDSHAKE_READY;
+			CAN_TxMsg.format = STANDARD_FORMAT;
+			CAN_TxMsg.type = DATA_FRAME;
+			CAN_wrMsg(1, &CAN_TxMsg);
+			
+			// Inizializzazione modalità gioco
+			setMode(READY);
 			initInterface();
 			initPlayers();
 			
-			// Se inizia il giocatore corrente -> Gioca
-			if(gm.boardPlayer == PLAYER1){
-				setPlayer(PLAYER1);
-				enable_button(KEY1_PIN, EINT1_IRQn);
-			}
-			// Altrimenti -> Attende il CAN1
+			// Attesa per avversario pronto o attesa per mossa avversario
 		}
 	}
 }
 
-
+// Aggiornamento stato gioco
+void updateOpponentData(unsigned char playerId, unsigned char moveType, unsigned char wallDir, int y, int x){
+	
+	if(moveType == PLAYER_MOVE){
+		if(wallDir != OUT_OF_TIME_MOVE){
+			drawSquareArea(ms.currentPos[playerId].x, ms.currentPos[playerId].y, BGCOLOR);
+			ms.currentPos[playerId] = newCoord(x, y);
+			drawToken(ms.currentPos[playerId].x, ms.currentPos[playerId].y, PLAYER_COLORS[playerId]);
+		}
+	}
+	else{
+		setWall(newCoord(x, y), wallDir);
+		ms.walls[playerId].used++;
+		drawWall(x, y, wallDir, WALL_COLORS[playerId]);
+	}
+}

@@ -31,6 +31,9 @@ extern CAN_msg       CAN_RxMsg;    /* CAN message for receiving */
   CAN interrupt handler
  *----------------------------------------------------------------------------*/
 void CAN_IRQHandler (void)  {
+	
+	unsigned char moveType, wallDir;
+	int x, y;
 
   /* check CAN controller 1 */
 	icr = 0;
@@ -49,7 +52,7 @@ void CAN_IRQHandler (void)  {
 		if(CAN_RxMsg.data[0] == 0xFF){
 			gm.handshake = CAN_RxMsg.data[1];
 			
-			// Stop timer
+			// Stop timer se handshake iniziale effettuato
 			if(gm.handshake == HANDSHAKE_DONE){
 				disable_timer(1);
 			}
@@ -60,7 +63,15 @@ void CAN_IRQHandler (void)  {
 		// Ricezione mossa avversario -> Salva e gioca
 		else{
 			// Aggiornamento stato gioco
-			// Chiamata a setPlayer(boardPlayer)
+			moveType = (CAN_RxMsg.data[2] & (0xF << 20)) >> 20;
+			wallDir = (CAN_RxMsg.data[2] & (0xF << 16)) >> 16;
+			y = (int)CAN_RxMsg.data[1];
+			x = (int)CAN_RxMsg.data[0];
+			
+			updateOpponentData(CAN_RxMsg.data[3], moveType, wallDir, y, x);
+			
+			// Set nuovo giocatore
+			setPlayer(gm.boardPlayer);
 		}
 		
   }

@@ -7,6 +7,7 @@
 #define WAITING 0
 #define PLAYING 1
 #define CHOOSING 2
+#define READY 3
 #define PLAYER1 0
 #define PLAYER2 1
 #define HUMAN 0
@@ -18,6 +19,7 @@
 #define HANDSHAKE_OFF 0
 #define HANDSHAKE_ON 1
 #define HANDSHAKE_DONE 2
+#define HANDSHAKE_READY 3
 
 // Numero massimo muri
 #define MAX_NUM_WALLS 8
@@ -88,6 +90,7 @@ void saveMove(int playerId, int moveType, int wallOrientation, Coordinates *dest
 void setVictoryMessage(void);
 void setNextChoice(int step);
 void confirmChoice(void);
+void updateOpponentData(unsigned char playerId, unsigned char moveType, unsigned char wallDir, int y, int x);
 
 // NPC.c
 void NPC_playTurn(MatchType *status, ModeType *mode, Coordinates *nextPos);

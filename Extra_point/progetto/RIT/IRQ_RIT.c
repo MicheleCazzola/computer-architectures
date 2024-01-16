@@ -58,7 +58,6 @@ void RIT_IRQHandler (void)
 			else{
 				sendMove();
 			}
-			
 		}
 		// Partita terminata, reset
 		else{
@@ -74,6 +73,13 @@ void RIT_IRQHandler (void)
 		
 		// Set mossa a valore default
 		ms.lastMove = 0xFFFFFFFF;
+	}
+	
+	// Polling inizio partita
+	if(gm.numBoards == 2 && gm.boardPlayer == PLAYER1 && gm.handshake == HANDSHAKE_READY && ms.mode == READY){
+		setMode(PLAYING);
+		setPlayer(PLAYER1);
+		enable_button(KEY1_PIN, EINT1_IRQn);
 	}
 	
 	// INT0: sempre in mutua esclusione rispetto a KEY1 e KEY2
