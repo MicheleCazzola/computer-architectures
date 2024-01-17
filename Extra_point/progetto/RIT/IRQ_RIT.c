@@ -58,9 +58,16 @@ void RIT_IRQHandler (void)
 			else{
 				sendMove();
 			}
+			ms.finishedNPCMove = 0;
 		}
 		// Partita terminata, reset
 		else{
+			
+			// Invio mossa in multiplayer
+			if(gm.numBoards == 2){
+				sendMove();
+			}
+			
 			setVictoryMessage();
 			initGame();
 		}
@@ -68,12 +75,14 @@ void RIT_IRQHandler (void)
 	
 	// Polling invio mossa
 	// Solo in multi-board, con ultima mossa valida e confermata
+	/*
 	if(gm.numBoards == 2 && ms.validMove && ms.lastMove != 0xFFFFFFFF){
 		sendMove();
 		
 		// Set mossa a valore default
 		ms.lastMove = 0xFFFFFFFF;
 	}
+	*/
 	
 	// Polling inizio partita
 	if(gm.numBoards == 2 && gm.boardPlayer == PLAYER1 && gm.handshake == HANDSHAKE_READY && ms.mode == READY){

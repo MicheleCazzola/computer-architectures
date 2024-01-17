@@ -17,6 +17,7 @@ extern int down_key2;
 extern ModeType gm;
 extern MatchType ms;
 extern Coordinates WALL_DEFAULT_POS;
+extern const int PLAYER_COLORS[2];
 extern CAN_msg CAN_TxMsg;
 
 // Funzionalità di INT0

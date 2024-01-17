@@ -62,7 +62,7 @@ void joystick_controller_chooseMode(){
 			if(pressed[i] == 1){
 				if(i > 0){
 					// Modifica scelta, solo se handshake terminato
-					if(gm.handshake == HANDSHAKE_DONE){
+					if(gm.handshake == HANDSHAKE_DONE || gm.handshake == HANDSHAKE_READY){
 						dir = (i == 1) ? DOWN : UP;
 						setNextChoice(dir);
 					}

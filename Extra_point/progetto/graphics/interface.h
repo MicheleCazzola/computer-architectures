@@ -48,6 +48,7 @@
 #define BOX_HEIGHT 50
 #define TOKEN_SIDE 11
 #define WALL_LENGTH (2 * SQUARE_SIDE + SPACE_WIDTH)
+#define NUM_PLAYER_LINES 5
 
 // Spaziature oggetti
 #define MARGIN_WIDTH 3
@@ -63,6 +64,7 @@
 #define XPOS_MESSAGE (MARGIN_WIDTH)
 
 // Coordinate verticali testi
+#define YPOS_PLAYER_COLOR (MARGIN_WIDTH + 6*SPACE_WIDTH + NUM_SQUARES*SQUARE_SIDE + 5)
 #define PADDING_TOP (10 + MARGIN_WIDTH + 6*SPACE_WIDTH + NUM_SQUARES*SQUARE_SIDE)
 #define YPOS_TIME (PADDING_TOP + 20)
 #define YPOS_TEXTS (PADDING_TOP + 10)
@@ -89,6 +91,7 @@ void drawSquareArea(int x, int y, int color);
 void drawWall(int x, int y, char direction, int color);
 void clearMessage(void);
 void writeMessage(char message_content[]);
+void drawPlayerColor(int color);
 
 #endif
 

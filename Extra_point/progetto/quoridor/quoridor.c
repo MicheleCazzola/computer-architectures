@@ -403,9 +403,21 @@ static void moveWall(int h, int v){
 // Set messaggio vittoria
 void setVictoryMessage(){
 	char pchar = (char)(ms.player + 1 + '0');
-	char messageLoc[MESSAGE_LENGTH] = "Player ";
+	char messageLoc[MESSAGE_LENGTH];
 	
-	strcat(messageLoc, (const char *) &pchar);
+	if(gm.numBoards == 1){
+		strcpy(messageLoc, "Player ");
+		strcat(messageLoc, (const char *) &pchar);
+	}
+	else{
+		if(gm.boardPlayer == ms.player){
+			strcpy(messageLoc, "You");
+		}
+		else{
+			strcpy(messageLoc, "Opponent");
+		}
+	}
+	
 	strcat(messageLoc, " won! INT0 to restart");
 	strcpy(message, messageLoc);
 }
@@ -445,6 +457,11 @@ static void initInterface(){
 	
 	// Nessun muro
 	clearWalls();
+	
+	// Disegno banda
+	if(gm.numBoards == 2){
+		drawPlayerColor(PLAYER_COLORS[gm.boardPlayer]);
+	}
 }
 
 // Inizializzazione logica di gioco
@@ -557,8 +574,8 @@ void setPlayer(char playerValue){
 	nextPos = ms.currentPos[ms.player];
 	
 	// Cancellazione evidenziazione cella e ridisegno pedina giocatore precedente
-		drawSquareArea(ms.currentPos[getOtherPlayer(ms.player)].x, ms.currentPos[getOtherPlayer(ms.player)].y, BGCOLOR);
-		drawToken(ms.currentPos[getOtherPlayer(ms.player)].x, ms.currentPos[getOtherPlayer(ms.player)].y, PLAYER_COLORS[getOtherPlayer(ms.player)]);
+	drawSquareArea(ms.currentPos[getOtherPlayer(ms.player)].x, ms.currentPos[getOtherPlayer(ms.player)].y, BGCOLOR);
+	drawToken(ms.currentPos[getOtherPlayer(ms.player)].x, ms.currentPos[getOtherPlayer(ms.player)].y, PLAYER_COLORS[getOtherPlayer(ms.player)]);
 	
 	// Giocatore umano
 	if(gm.playersType[ms.player] == HUMAN){
@@ -678,6 +695,11 @@ void move(){
 		// Salvataggio ed invio mossa
 		saveMove(ms.player, PLAYER_MOVE, PLAYER_MOVE, &(ms.currentPos[ms.player]));
 		
+		// Invio mossa
+		if(gm.numBoards == 2){
+			sendMove();
+		}
+		
 		// Vittoria giocatore corrente
 		// Impostazione messaggio vittoria
 		// Inizializzazione gioco
@@ -690,6 +712,17 @@ void move(){
 		else{
 			if(gm.numBoards == 1){
 				setPlayer(getOtherPlayer(ms.player));
+			}
+			else{
+				// Set altro giocatore
+				disable_timer(0);
+				reset_timer(0);
+				clearMessage();
+				drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, BGCOLOR);
+				drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, PLAYER_COLORS[ms.player]);
+				ms.player = getOtherPlayer(ms.player);
+				drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, TOKEN_BGCOLOR);
+				drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, PLAYER_COLORS[ms.player]);
 			}
 		}
 	}
@@ -769,11 +802,28 @@ void confirmWall(){
 		saveMove(ms.player, WALL_PLACEMENT, ms.walls[ms.player].dir[i],
 				&(ms.walls[ms.player].position[i]));
 		
+		// Invio mossa
+		sendMove();
+		
 		// Aggiornamento numero muri disponibili per i giocatori
 		writeWallsStats(getAvailableWalls(PLAYER1), getAvailableWalls(PLAYER2));
 				
-		// Cambio giocatore
-		setPlayer(getOtherPlayer(ms.player));
+		if(gm.numBoards == 1){
+			// Cambio giocatore
+			setPlayer(getOtherPlayer(ms.player));
+		}
+		else{
+			// Set altro giocatore
+			disable_timer(0);
+			reset_timer(0);
+			clearMessage();
+			drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, BGCOLOR);
+			drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, PLAYER_COLORS[ms.player]);
+			ms.player = getOtherPlayer(ms.player);
+			drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, TOKEN_BGCOLOR);
+			drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, PLAYER_COLORS[ms.player]);
+		}
+		
 	}
 	// Se muro non valido, messaggio di errore e si riabilita il timer
 	else{
@@ -844,10 +894,10 @@ void sendMove(){
 	
 	CAN_TxMsg.id = 1;
 	CAN_TxMsg.len = 4;
-	// data[0] contiene X
-	for(i = 0; i < CAN_TxMsg.len; i++){
-		CAN_TxMsg.data[i] = (ms.lastMove & (0xFF << (i << 3))) >> (i >> 3);
-	}
+	CAN_TxMsg.data[0] = (ms.lastMove & 0xFF);	// X
+	CAN_TxMsg.data[1] = (ms.lastMove >> 8) & 0xFF;	// Y
+	CAN_TxMsg.data[2] = (ms.lastMove >> 16) & 0xFF;	// wall
+	CAN_TxMsg.data[3] = (ms.lastMove >> 24) & 0xFF;	// player
 	
 	CAN_TxMsg.format = STANDARD_FORMAT;
 	CAN_TxMsg.type = DATA_FRAME;
@@ -899,7 +949,7 @@ void confirmChoice(){
 		else{	// if gm.numBoards == 2
 			
 			// Noto solo il tipo del proprio giocatore
-			gm.playersType[0] = provChoice;
+			gm.playersType[gm.boardPlayer] = provChoice;
 			
 			// Invio messaggio di ready (si suppone che entrambi scelgano two boards)
 			CAN_TxMsg.id = 1;

@@ -5,7 +5,9 @@
 #include "../graphics/interface.h"
 
 extern MatchType ms;
+extern ModeType gm;
 extern Coordinates nextPos;
+extern const int PLAYER_COLORS[2];
 
 // Timer 0: scatta una volta al secondo, per modificare il tempo rimanente
 // Dopo 20 s, effettua il cambio di giocatore
@@ -28,6 +30,9 @@ void TIMER0_IRQHandler (void) {
 		// Salvataggio mossa (out of time move)
 		saveMove(ms.player, PLAYER_MOVE, OUT_OF_TIME_MOVE, &nextPos);
 		
+		// Invio mossa
+		sendMove();
+		
 		// Modalità movimento pedina
 		if(ms.pendingWall == 0){
 			
@@ -45,11 +50,27 @@ void TIMER0_IRQHandler (void) {
 			drawWall(p.x, p.y, ms.walls[ms.player].dir[ms.walls[ms.player].used], BGCOLOR);
 		}
 		
-		// Cambio giocatore
-		setPlayer(getOtherPlayer(ms.player));
+		if(gm.numBoards == 1){
+			// Cambio giocatore
+			setPlayer(getOtherPlayer(ms.player));
+			
+			// Riabilitazione KEY1
+			enable_button(KEY1_PIN, EINT1_IRQn);
+		}
+		else{
+			// Set nuovo giocatore e pulizia scacchiera
+			writeTimeRemaining(ms.timeRemaining, BGCOLOR);
+			disable_timer(0);
+			reset_timer(0);
+			clearMessage();
+			drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, BGCOLOR);
+			drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, PLAYER_COLORS[ms.player]);
+			ms.player = getOtherPlayer(ms.player);
+			drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, TOKEN_BGCOLOR);
+			drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, PLAYER_COLORS[ms.player]);
+		}
 		
-		// Riabilitazione KEY1
-		enable_button(KEY1_PIN, EINT1_IRQn);
+		
 	}
 	
   LPC_TIM0->IR = 1;			/* clear interrupt flag */

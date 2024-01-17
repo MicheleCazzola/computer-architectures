@@ -216,3 +216,12 @@ void writeMessage(char message_content[]){
 		GUI_Text(0, YPOS_MESSAGE, (unsigned char *) message, MESSAGE_COLOR, BGCOLOR);
 	}
 }
+
+// Disegno riga per multiplayer
+void drawPlayerColor(int color){
+	int i;
+	
+	for(i = 0; i < NUM_PLAYER_LINES; i++){
+		LCD_DrawLine(MARGIN_WIDTH, YPOS_PLAYER_COLOR + i, MAX_X - MARGIN_WIDTH, YPOS_PLAYER_COLOR + i, color);
+	}
+}

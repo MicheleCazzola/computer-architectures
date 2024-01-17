@@ -19,6 +19,7 @@
 #include "../quoridor/quoridor.h"
 #include "../graphics/interface.h"
 #include "../timer/timer.h"
+#include "../button/button.h"
 
 extern ModeType gm;
 extern MatchType ms;
@@ -62,16 +63,36 @@ void CAN_IRQHandler (void)  {
 		}
 		// Ricezione mossa avversario -> Salva e gioca
 		else{
+			
+			// Riabilitazione KEY1
+			enable_button(KEY1_PIN, EINT1_IRQn);
+			
+			// Alla prima mossa ricevuta, PLAYER2 va in PLAYING
+			if(ms.mode == READY){
+				setMode(PLAYING);
+			}
+			
 			// Aggiornamento stato gioco
-			moveType = (CAN_RxMsg.data[2] & (0xF << 20)) >> 20;
-			wallDir = (CAN_RxMsg.data[2] & (0xF << 16)) >> 16;
+			moveType = (CAN_RxMsg.data[2] >> 4) & 0xF;
+			wallDir = CAN_RxMsg.data[2] & 0xF;
 			y = (int)CAN_RxMsg.data[1];
 			x = (int)CAN_RxMsg.data[0];
 			
 			updateOpponentData(CAN_RxMsg.data[3], moveType, wallDir, y, x);
 			
-			// Set nuovo giocatore
-			setPlayer(gm.boardPlayer);
+			// Aggiornamento statistiche ad ogni ricezione mossa
+			writeWallsStats(getAvailableWalls(PLAYER1), getAvailableWalls(PLAYER2));
+			
+			// Check vittoria
+			if(victory(ms.currentPos[getOtherPlayer(gm.boardPlayer)], getOtherPlayer(gm.boardPlayer))){
+				setVictoryMessage();
+				initGame();
+			}
+			else{
+				// Set nuovo giocatore
+				setPlayer(gm.boardPlayer);
+			}
+			
 		}
 		
   }

@@ -14,3 +14,4 @@
 .\irq_can.o: CAN\../quoridor/../coordinates/coordinates.h
 .\irq_can.o: CAN\../graphics/interface.h
 .\irq_can.o: CAN\../timer/timer.h
+.\irq_can.o: CAN\../button/button.h
