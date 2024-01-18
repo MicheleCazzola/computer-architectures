@@ -92,8 +92,6 @@ void CAN_IRQHandler (void)  {
 				// Set nuovo giocatore
 				setPlayer(gm.boardPlayer);
 			}
-			
 		}
-		
   }
 }

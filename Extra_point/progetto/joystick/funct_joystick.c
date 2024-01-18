@@ -188,8 +188,8 @@ void joystick_controller_move() {
 			}
 		}
 		
-		// Se la partita non è terminata, si riabilita KEY1
-		if(ms.mode == PLAYING){
+		// Se la partita non è terminata e si gioca in single-player 
+		if(ms.mode == PLAYING && (gm.numBoards == 1 || !sel)){
 			enable_button(KEY1_PIN, EINT1_IRQn);
 		}
 	}

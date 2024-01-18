@@ -49,18 +49,6 @@ void INT0_function(void){
 	CAN_TxMsg.type = DATA_FRAME;
 	
 	CAN_wrMsg(1, &CAN_TxMsg);
-		
-	/*
-	SEZIONE ESEGUITA DOPO LA CONFERMA COL JOYSTICK
-	// Cambio modalità a gioco
-	setMode(PLAYING);
-	
-	// Inizia il giocatore 1
-	setPlayer(PLAYER1);
-	
-	// Abilitazione KEY1: modalità mossa
-	enable_button(KEY1_PIN, EINT1_IRQn);
-	*/
 }
 
 // Funzionalità di KEY1

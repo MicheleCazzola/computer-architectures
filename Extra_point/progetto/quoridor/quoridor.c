@@ -695,10 +695,11 @@ void move(){
 		// Salvataggio ed invio mossa
 		saveMove(ms.player, PLAYER_MOVE, PLAYER_MOVE, &(ms.currentPos[ms.player]));
 		
-		// Invio mossa
+		// Invio mossa anche in caso di vittoria
 		if(gm.numBoards == 2){
 			sendMove();
 		}
+		
 		
 		// Vittoria giocatore corrente
 		// Impostazione messaggio vittoria
@@ -723,6 +724,7 @@ void move(){
 				ms.player = getOtherPlayer(ms.player);
 				drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, TOKEN_BGCOLOR);
 				drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, PLAYER_COLORS[ms.player]);
+				//writeTimeRemaining(ms.timeRemaining, BGCOLOR); DA INSERIRE
 			}
 		}
 	}
@@ -802,9 +804,6 @@ void confirmWall(){
 		saveMove(ms.player, WALL_PLACEMENT, ms.walls[ms.player].dir[i],
 				&(ms.walls[ms.player].position[i]));
 		
-		// Invio mossa
-		sendMove();
-		
 		// Aggiornamento numero muri disponibili per i giocatori
 		writeWallsStats(getAvailableWalls(PLAYER1), getAvailableWalls(PLAYER2));
 				
@@ -813,6 +812,9 @@ void confirmWall(){
 			setPlayer(getOtherPlayer(ms.player));
 		}
 		else{
+			// Invio mossa
+			sendMove();
+			
 			// Set altro giocatore
 			disable_timer(0);
 			reset_timer(0);
@@ -822,6 +824,7 @@ void confirmWall(){
 			ms.player = getOtherPlayer(ms.player);
 			drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, TOKEN_BGCOLOR);
 			drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, PLAYER_COLORS[ms.player]);
+			//writeTimeRemaining(ms.timeRemaining, BGCOLOR);
 		}
 		
 	}
@@ -922,7 +925,10 @@ void confirmChoice(){
 	if(gm.numBoards == 0){
 		
 		// Termine handshake iniziale
-		gm.handshake = HANDSHAKE_DONE;
+		if(gm.handshake == HANDSHAKE_ON || HANDSHAKE_OFF){
+			gm.handshake = HANDSHAKE_DONE;
+		}
+		
 		
 		// Selezione numero boards
 		gm.numBoards = provChoice + 1;

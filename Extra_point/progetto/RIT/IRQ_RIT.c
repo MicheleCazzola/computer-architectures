@@ -151,9 +151,9 @@ void RIT_IRQHandler (void)
 		
 		// Polling joystick, solo se né KEY1 né KEY2 sono premuti
 		// e se INT0 è disabilitato, ovvero si è entrati in
-		// modalità gioco
+		// modalità gioco ed è il proprio turno
 		else {
-			if(disabled_button(INT0_PIN)){
+			if(disabled_button(INT0_PIN) && (gm.boardPlayer == ms.player || gm.numBoards == 1)){
 				joystick_controller_move();
 			}
 		}

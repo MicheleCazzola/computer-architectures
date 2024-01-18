@@ -31,7 +31,9 @@ void TIMER0_IRQHandler (void) {
 		saveMove(ms.player, PLAYER_MOVE, OUT_OF_TIME_MOVE, &nextPos);
 		
 		// Invio mossa
-		sendMove();
+		if(gm.numBoards == 2){
+			sendMove();
+		}
 		
 		// Modalità movimento pedina
 		if(ms.pendingWall == 0){

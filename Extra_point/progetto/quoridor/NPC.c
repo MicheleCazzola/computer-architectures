@@ -91,6 +91,7 @@ static int measureDistance(Coordinates startPlayerPos, char player, int *dist){
 			// Set adiacenza corrente
 			adjElem = changeCoord(currElem, POSSIBLE_MOVES[i].x, POSSIBLE_MOVES[i].y);
 			
+			// Check validità adiacenza
 			if(validPos(adjElem, currElem)){
 				// Se la cella non è in coda, si inserisce e si aggiorna la distanza
 				if(distance[adjElem.x][adjElem.y] == MAX_DIST){
@@ -287,7 +288,7 @@ void NPC_playTurn(MatchType *status, ModeType *mode, Coordinates *nextPos){
 	status->finishedNPCMove = 1 + victory;
 	
 	// Aggiornamento giocatore, se partita non terminata e doppia scheda
-	if(!victory && gm.numBoards == 2){
+	if(!victory && mode->numBoards == 2){
 		status->player = getOtherPlayer(status->player);
 	}
 }
