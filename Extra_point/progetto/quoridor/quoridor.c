@@ -164,7 +164,7 @@ void selectAdj(Coordinates *pos, char player, Coordinates *selected, char *numSe
 	Coordinates adjPos, finalPos;
 	
 	// Iterazione sulle adiacenze
-	for(i = 0; i < 5; ++i){
+	for(i = 0; i < 4; ++i){
 		adjPos = changeCoord(*pos, moves[i][0], moves[i][1]);
 		
 		// Se la posizione adiacente è valida, si procede
@@ -358,12 +358,12 @@ static int validWallPos(Coordinates centerPos, char dir){
 }
 
 // Inserimento del nuovo muro nel vettore di muri del giocatore corrente
-void setWall(Coordinates centerPos, char direction){
+void setWall(Coordinates centerPos, char direction, char playerId){
 	int i;
 	
-	i = ms.walls[ms.player].used;
-	ms.walls[ms.player].position[i] = centerPos;
-	ms.walls[ms.player].dir[i] = direction;
+	i = ms.walls[playerId].used;
+	ms.walls[playerId].position[i] = centerPos;
+	ms.walls[playerId].dir[i] = direction;
 }
 
 // Disegno di tutti i muri sulla scacchiera:
@@ -397,7 +397,7 @@ static void moveWall(int h, int v){
 	drawWall(pos.x, pos.y, dir, WALL_COLORS[ms.player]);
 	
 	// Aggiunta muro al vettore
-	setWall(pos, dir);
+	setWall(pos, dir, ms.player);
 }
 
 // Set messaggio vittoria
@@ -747,7 +747,7 @@ void newWall(Coordinates centerPos, char direction){
 	eraseHighlightedAdj();
 	
 	// Impostazione muro
-	setWall(centerPos, direction);
+	setWall(centerPos, direction, ms.player);
 	
 	// Disegno muro
 	drawWall(centerPos.x, centerPos.y, direction, WALL_COLORS[ms.player]);
@@ -772,7 +772,7 @@ void rotateWall(){
 	// Disegno muro ruotato e sua impostazione
 	nextDir = 1 - currDir;
 	drawWall(pos.x, pos.y, nextDir, WALL_COLORS[ms.player]);
-	setWall(pos, nextDir);
+	setWall(pos, nextDir, ms.player);
 }
 
 // Conferma muro
@@ -981,7 +981,7 @@ void updateOpponentData(unsigned char playerId, unsigned char moveType, unsigned
 		}
 	}
 	else{
-		setWall(newCoord(x, y), wallDir);
+		setWall(newCoord(x, y), wallDir, playerId);
 		ms.walls[playerId].used++;
 		drawWall(x, y, wallDir, WALL_COLORS[playerId]);
 	}

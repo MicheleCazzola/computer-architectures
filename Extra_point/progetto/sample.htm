@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\sample.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\sample.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Jan 17 12:56:17 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu Jan 18 10:58:46 2024
 <BR><P>
 <H3>Maximum Stack Usage =        776 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -553,7 +553,7 @@ Global Symbols
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
 </UL>
 
-<P><STRONG><a name="[2a]"></a>RIT_IRQHandler</STRONG> (Thumb, 380 bytes, Stack size 8 bytes, irq_rit.o(.text))
+<P><STRONG><a name="[2a]"></a>RIT_IRQHandler</STRONG> (Thumb, 378 bytes, Stack size 8 bytes, irq_rit.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 776<LI>Call Chain = RIT_IRQHandler &rArr; joystick_controller_move &rArr; confirmWall &rArr; setPlayer &rArr; NPC_playTurn &rArr; chooseMove &rArr; measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
@@ -899,6 +899,7 @@ Global Symbols
 
 <P><STRONG><a name="[53]"></a>getOtherPlayer</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, quoridor.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chooseMove
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isHighlitedAdj
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
@@ -941,8 +942,8 @@ Global Symbols
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validWallPos
 </UL>
 
-<P><STRONG><a name="[a8]"></a>setWall</STRONG> (Thumb, 82 bytes, Stack size 20 bytes, quoridor.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = setWall
+<P><STRONG><a name="[a8]"></a>setWall</STRONG> (Thumb, 70 bytes, Stack size 28 bytes, quoridor.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = setWall
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chooseMove
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateOpponentData
@@ -1080,7 +1081,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
 </UL>
 
-<P><STRONG><a name="[74]"></a>newWall</STRONG> (Thumb, 62 bytes, Stack size 24 bytes, quoridor.o(.text))
+<P><STRONG><a name="[74]"></a>newWall</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = newWall &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
@@ -1091,7 +1092,7 @@ Global Symbols
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
 </UL>
 
-<P><STRONG><a name="[76]"></a>rotateWall</STRONG> (Thumb, 166 bytes, Stack size 32 bytes, quoridor.o(.text))
+<P><STRONG><a name="[76]"></a>rotateWall</STRONG> (Thumb, 170 bytes, Stack size 32 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = rotateWall &rArr; redrawWalls &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
@@ -1102,7 +1103,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY2_function
 </UL>
 
-<P><STRONG><a name="[80]"></a>confirmWall</STRONG> (Thumb, 492 bytes, Stack size 16 bytes, quoridor.o(.text))
+<P><STRONG><a name="[80]"></a>confirmWall</STRONG> (Thumb, 490 bytes, Stack size 16 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 704<LI>Call Chain = confirmWall &rArr; setPlayer &rArr; NPC_playTurn &rArr; chooseMove &rArr; measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAvailableWalls
@@ -1167,7 +1168,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_chooseMode
 </UL>
 
-<P><STRONG><a name="[b2]"></a>updateOpponentData</STRONG> (Thumb, 186 bytes, Stack size 32 bytes, quoridor.o(.text))
+<P><STRONG><a name="[b2]"></a>updateOpponentData</STRONG> (Thumb, 188 bytes, Stack size 32 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = updateOpponentData &rArr; drawToken &rArr; drawTokenBorder &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newCoord
@@ -1200,13 +1201,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
 </UL>
 
-<P><STRONG><a name="[b0]"></a>NPC_playTurn</STRONG> (Thumb, 78 bytes, Stack size 48 bytes, npc.o(.text))
+<P><STRONG><a name="[b0]"></a>NPC_playTurn</STRONG> (Thumb, 100 bytes, Stack size 48 bytes, npc.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 664<LI>Call Chain = NPC_playTurn &rArr; chooseMove &rArr; measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWallNPC
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveNPC
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chooseMove
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newWall
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getOtherPlayer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 </UL>
@@ -1646,7 +1648,7 @@ Local Symbols
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 </UL>
 
-<P><STRONG><a name="[a7]"></a>moveWall</STRONG> (Thumb, 202 bytes, Stack size 40 bytes, quoridor.o(.text))
+<P><STRONG><a name="[a7]"></a>moveWall</STRONG> (Thumb, 204 bytes, Stack size 40 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = moveWall &rArr; redrawWalls &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
@@ -1725,7 +1727,7 @@ Local Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chooseMove
 </UL>
 
-<P><STRONG><a name="[b5]"></a>chooseMove</STRONG> (Thumb, 394 bytes, Stack size 168 bytes, npc.o(.text))
+<P><STRONG><a name="[b5]"></a>chooseMove</STRONG> (Thumb, 396 bytes, Stack size 168 bytes, npc.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 616<LI>Call Chain = chooseMove &rArr; measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evaluateMove

@@ -32,6 +32,9 @@ const Coordinates POSSIBLE_MOVES[8] = {
 // Colore dei giocatori
 extern const int PLAYER_COLORS[2];
 
+// Modalità gioco
+extern ModeType gm;
+
 // Misura distanza tra posizione del giocatore e destinazione
 // Non considera presenza giocatore avversario (versione successiva dovrebbe farlo)
 // Parametri:
@@ -183,7 +186,7 @@ static int chooseMove(MatchType *ms, Coordinates *nextPosM, Coordinates *nextPos
 					wallPos = newCoord(i, j);
 					
 					// MURO VERTICALE: inserimento
-					setWall(wallPos, dir);
+					setWall(wallPos, dir, ms->player);
 					
 					// Check muro valido (non sovrapposizione con altri)
 					if(checkNotOverlapping(wallPos, dir)){
@@ -254,7 +257,7 @@ void confirmWallNPC(MatchType *ms){
 }
 
 
-// VERSIONE 1: solo mosse, no muri
+// Gioco NPC
 void NPC_playTurn(MatchType *status, ModeType *mode, Coordinates *nextPos){
 	
 	char choiceResult, nextPosDir, victory;
@@ -277,6 +280,14 @@ void NPC_playTurn(MatchType *status, ModeType *mode, Coordinates *nextPos){
 		confirmWallNPC(status);
 	}
 	
+	// Clear pending wall
+	status->pendingWall = 0;
+	
 	// Aggiornamento stato mossa
 	status->finishedNPCMove = 1 + victory;
+	
+	// Aggiornamento giocatore, se partita non terminata e doppia scheda
+	if(!victory && gm.numBoards == 2){
+		status->player = getOtherPlayer(status->player);
+	}
 }

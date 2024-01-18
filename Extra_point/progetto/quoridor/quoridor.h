@@ -79,7 +79,7 @@ void setNextPos(int h, int v);
 void move(void);
 int getAvailableWalls(char player);
 int checkNotOverlapping(Coordinates centerPos, char dir);
-void setWall(Coordinates centerPos, char direction);
+void setWall(Coordinates centerPos, char direction, char playerId);
 void newWall(Coordinates centerPos, char direction);
 void rotateWall(void);
 void confirmWall(void);

@@ -50,6 +50,7 @@ void RIT_IRQHandler (void)
 		// Partita non terminata, cambio giocatore
 		if(ms.finishedNPCMove == 1){
 			
+			ms.finishedNPCMove = 0;
 			// In single-board, gioca l'avversario
 			if(gm.numBoards == 1){
 				setPlayer(getOtherPlayer(ms.player));
@@ -58,7 +59,6 @@ void RIT_IRQHandler (void)
 			else{
 				sendMove();
 			}
-			ms.finishedNPCMove = 0;
 		}
 		// Partita terminata, reset
 		else{
