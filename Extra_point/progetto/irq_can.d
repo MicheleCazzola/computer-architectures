@@ -8,7 +8,6 @@
 .\irq_can.o: C:\Users\HP\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h
 .\irq_can.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h
 .\irq_can.o: CAN\CAN.h
-.\irq_can.o: CAN\../TouchPanel/TouchPanel.h
 .\irq_can.o: CAN\../GLCD/GLCD.h
 .\irq_can.o: CAN\../quoridor/quoridor.h
 .\irq_can.o: CAN\../quoridor/../coordinates/coordinates.h

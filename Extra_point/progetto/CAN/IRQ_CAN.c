@@ -50,7 +50,9 @@ void CAN_IRQHandler (void)  {
     LPC_CAN1->CMR = (1 << 2);                    		
 		
 		// Ricezione messaggio di handshake
-		if(CAN_RxMsg.data[0] == 0xFF){
+		if(CAN_RxMsg.data[0] == HANDSHAKE_PREFIX){
+			
+			// Assegnazione valore di handshake a quello comunicato
 			gm.handshake = CAN_RxMsg.data[1];
 			
 			// Stop timer se handshake iniziale effettuato
@@ -83,15 +85,18 @@ void CAN_IRQHandler (void)  {
 			// Aggiornamento statistiche ad ogni ricezione mossa
 			writeWallsStats(getAvailableWalls(PLAYER1), getAvailableWalls(PLAYER2));
 			
-			// Check vittoria
+			// Check vittoria avversario
 			if(victory(ms.currentPos[getOtherPlayer(gm.boardPlayer)], getOtherPlayer(gm.boardPlayer))){
+				
+				// Reset scacchiera e gioco
 				setVictoryMessage();
 				initGame();
 			}
 			else{
-				// Set nuovo giocatore
+				// Inizio turno giocatore della scheda
 				setPlayer(gm.boardPlayer);
 			}
 		}
   }
 }
+

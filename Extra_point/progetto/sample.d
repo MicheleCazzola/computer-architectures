@@ -16,4 +16,3 @@
 .\sample.o: button/button.h
 .\sample.o: joystick/joystick.h
 .\sample.o: CAN/CAN.h
-.\sample.o: CAN/../TouchPanel/TouchPanel.h

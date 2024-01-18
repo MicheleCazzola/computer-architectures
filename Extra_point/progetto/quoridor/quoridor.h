@@ -65,32 +65,32 @@ typedef struct {
 } MatchType;
 
 // quoridor.c
+int victory(Coordinates pos, char player);
+int getAvailableWalls(char player);
+int checkNotOverlapping(Coordinates centerPos, char dir);
+int validPos(Coordinates destPos, Coordinates currentPos);
+void selectAdj(Coordinates *pos, char player, Coordinates *selected, char *numSelected);
+void setVictoryMessage(void);
+void setWall(Coordinates centerPos, char direction, char playerId);
 void initGame(void);
 void setMode(char modeValue);
 void setPlayer(char playerValue);
-int victory(Coordinates pos, char player);
 int getOtherPlayer(char player);
-int validPos(Coordinates destPos, Coordinates currentPos);
-void selectAdj(Coordinates *pos, char player, Coordinates *selected, char *numSelected);
-int isHighlitedAdj(Coordinates *pos, Coordinates *finalPos, int h, int v);
 void highliteAdj(Coordinates pos);
 void eraseHighlightedAdj(void);
 void setNextPos(int h, int v);
 void move(void);
-int getAvailableWalls(char player);
-int checkNotOverlapping(Coordinates centerPos, char dir);
-void setWall(Coordinates centerPos, char direction, char playerId);
 void newWall(Coordinates centerPos, char direction);
 void rotateWall(void);
 void confirmWall(void);
 void undoWall(void);
 void setNextWall(int h, int v);
-void sendMove(void);
 void saveMove(int playerId, int moveType, int wallOrientation, Coordinates *destPos);
-void setVictoryMessage(void);
+void sendMove(void);
 void setNextChoice(int step);
 void confirmChoice(void);
 void updateOpponentData(unsigned char playerId, unsigned char moveType, unsigned char wallDir, int y, int x);
+void setOpponentTurn(void);
 
 // NPC.c
 void NPC_playTurn(MatchType *status, ModeType *mode, Coordinates *nextPos);

@@ -44,9 +44,32 @@ void RIT_IRQHandler (void)
 		joystick_controller_chooseMode();
 	}
 	
-	// Polling mossa NPC completata
+	// Polling mossa NPC completata: serve a finalizzare la mossa del NPC,
+	// inviandola all'avversario (double-board) o settando il turno del
+	// giocatore avversario (umano, single-board)
 	if(ms.finishedNPCMove > 0){
 		
+		// In multi-board, si invia la mossa
+		if(gm.numBoards == 2){
+			sendMove();
+		}
+		else{
+			
+			// Single-board, partita in corso
+			if(ms.finishedNPCMove == 1){
+				ms.finishedNPCMove = 0;
+				setPlayer(getOtherPlayer(ms.player));
+			}
+			
+			// Single-board, partita terminata
+			else{
+				setVictoryMessage();
+				initGame();
+			}
+		}
+	}
+		
+		/*
 		// Partita non terminata, cambio giocatore
 		if(ms.finishedNPCMove == 1){
 			
@@ -72,6 +95,7 @@ void RIT_IRQHandler (void)
 			initGame();
 		}
 	}
+	*/
 	
 	// Polling invio mossa
 	// Solo in multi-board, con ultima mossa valida e confermata
@@ -84,10 +108,20 @@ void RIT_IRQHandler (void)
 	}
 	*/
 	
-	// Polling inizio partita
-	if(gm.numBoards == 2 && gm.boardPlayer == PLAYER1 && gm.handshake == HANDSHAKE_READY && ms.mode == READY){
+	// Polling inizio partita:
+	// - double board
+	// - giocatore 1
+	// - pronto a giocare
+	// - avversario pronto a giocare
+	if(gm.numBoards == 2 && gm.boardPlayer == PLAYER1 && ms.mode == READY && gm.handshake == HANDSHAKE_READY){
+		
+		// Modalità gioco
 		setMode(PLAYING);
+		
+		// Inizia a giocare
 		setPlayer(PLAYER1);
+		
+		// Riabilitazione KEY1
 		enable_button(KEY1_PIN, EINT1_IRQn);
 	}
 	
@@ -150,8 +184,10 @@ void RIT_IRQHandler (void)
 		}
 		
 		// Polling joystick, solo se né KEY1 né KEY2 sono premuti
-		// e se INT0 è disabilitato, ovvero si è entrati in
-		// modalità gioco ed è il proprio turno
+		// e se:
+		// - INT0 è disabilitato, ovvero si è entrati in modalità gioco
+		// - in double board, è il proprio turno
+		// - in single board, sempre
 		else {
 			if(disabled_button(INT0_PIN) && (gm.boardPlayer == ms.player || gm.numBoards == 1)){
 				joystick_controller_move();

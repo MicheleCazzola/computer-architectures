@@ -25,29 +25,39 @@ extern CAN_msg CAN_TxMsg;
 // al primo passaggio nel RIT handler
 void INT0_function(void){
 	
+	unsigned char dataVett[2] = {HANDSHAKE_PREFIX, 0};
+	
 	// Entra in modalità scelta
 	setMode(CHOOSING);
 	
 	// Disegna menu iniziale
 	drawMenu(MENU1_Q1, MENU1_Q2, MENU1_OPT1, MENU1_OPT2);
 	
+	// Scheda del primo giocatore
 	if(gm.handshake == HANDSHAKE_OFF){
+		
+		// Giocatore 1
 		gm.boardPlayer = PLAYER1;
-		gm.handshake = HANDSHAKE_ON;
+		
+		// Handshake iniziato
+		gm.handshake = dataVett[1] = HANDSHAKE_ON;
+		
+		// Avvio timer per esistenza avversario
 		enable_timer(1);
 	}
+	// Scheda del secondo giocatore
 	else if(gm.handshake == HANDSHAKE_ON){
-		gm.boardPlayer = PLAYER2;
-		gm.handshake = HANDSHAKE_DONE;
+		
+		// Giocatore 2
+		gm.boardPlayer =  PLAYER2;
+		
+		// Handshake iniziale completato:
+		// le schede conoscono a vicenda la loro esistenza
+		gm.handshake = dataVett[1] = HANDSHAKE_DONE;
 	}
-	
-	CAN_TxMsg.id = 1;
-	CAN_TxMsg.len = 2;
-	CAN_TxMsg.data[0] = 0xFF;
-	CAN_TxMsg.data[1] = gm.handshake;
-	CAN_TxMsg.format = STANDARD_FORMAT;
-	CAN_TxMsg.type = DATA_FRAME;
-	
+
+	// Scrittura messaggio di handshake su CAN
+	CAN_buildMsg(1, dataVett, 2, STANDARD_FORMAT, DATA_FRAME);	
 	CAN_wrMsg(1, &CAN_TxMsg);
 }
 

@@ -293,21 +293,31 @@ void CAN_wrFilter (uint32_t ctrl, uint32_t id, uint8_t format)  {
 }
 
 /*----------------------------------------------------------------------------
-  initialize CAN interface
+	initialize CAN interface: only CAN 1
  *----------------------------------------------------------------------------*/
 void CAN_Init (void) {
 
   CAN_setup (1);                                  /* setup CAN Controller #1 */
-  CAN_setup (2);                                  /* setup CAN Controller #2 */
 	
-  CAN_wrFilter (1, 1, STANDARD_FORMAT);          /* Enable reception on CAN 1 of messages from CAN 2 - TBV */
-	CAN_wrFilter (2, 2, STANDARD_FORMAT); 				 /* Enable reception on CAN 2 of messages from CAN 1 - TBV */
+  CAN_wrFilter (1, 1, STANDARD_FORMAT);          /* Enable reception on CAN 1 of messages with id 1 */
 	
   CAN_start (1);                                  /* start CAN Controller #1 */
-  CAN_start (2);                                  /* start CAN Controller #2 */
 
   CAN_waitReady (1);                              /* wait til tx mbx is empty */
-  CAN_waitReady (2);                              /* wait til tx mbx is empty */
 }
 
-
+// Impacchettamento messaggio, noti i dati
+void CAN_buildMsg(unsigned int id, unsigned char data[], unsigned char len, unsigned char format, unsigned char type){
+	
+	int i;
+	
+	CAN_TxMsg.id = id;
+	CAN_TxMsg.len = len;
+	
+	for(i = 0; i < len; i++){
+		CAN_TxMsg.data[i] = data[i];
+	}
+	
+	CAN_TxMsg.format = format;
+	CAN_TxMsg.type = type;
+}

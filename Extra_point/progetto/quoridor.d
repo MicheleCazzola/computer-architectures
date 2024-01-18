@@ -16,4 +16,3 @@
 .\quoridor.o: quoridor\../graphics/interface.h
 .\quoridor.o: quoridor\../graphics/../GLCD/GLCD.h
 .\quoridor.o: quoridor\../CAN/CAN.h
-.\quoridor.o: quoridor\../CAN/../TouchPanel/TouchPanel.h

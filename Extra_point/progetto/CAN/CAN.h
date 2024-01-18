@@ -16,13 +16,16 @@
 #ifndef _CAN_H_
 #define _CAN_H_
 
-#include "../TouchPanel/TouchPanel.h"
+#include <stdint.h>
 
 #define STANDARD_FORMAT  0
 #define EXTENDED_FORMAT  1
 
 #define DATA_FRAME       0
 #define REMOTE_FRAME     1
+
+#define HANDSHAKE_PREFIX 0xFF
+
 extern uint32_t result;
 extern uint8_t icr;
 
@@ -42,6 +45,7 @@ void CAN_wrMsg         (uint32_t ctrl, CAN_msg *msg);
 void CAN_rdMsg         (uint32_t ctrl, CAN_msg *msg);
 void CAN_wrFilter      (uint32_t ctrl, uint32_t id, uint8_t filter_type);
 void CAN_Init 				 (void);
+void CAN_buildMsg			 (unsigned int id, unsigned char data[], unsigned char len, unsigned char format, unsigned char type);
 
 extern CAN_msg       CAN_TxMsg;      /* CAN messge for sending */
 extern CAN_msg       CAN_RxMsg;      /* CAN message for receiving */                                

@@ -60,18 +60,10 @@ void TIMER0_IRQHandler (void) {
 			enable_button(KEY1_PIN, EINT1_IRQn);
 		}
 		else{
+			
 			// Set nuovo giocatore e pulizia scacchiera
-			writeTimeRemaining(ms.timeRemaining, BGCOLOR);
-			disable_timer(0);
-			reset_timer(0);
-			clearMessage();
-			drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, BGCOLOR);
-			drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, PLAYER_COLORS[ms.player]);
-			ms.player = getOtherPlayer(ms.player);
-			drawSquareArea(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, TOKEN_BGCOLOR);
-			drawToken(ms.currentPos[ms.player].x, ms.currentPos[ms.player].y, PLAYER_COLORS[ms.player]);
+			setOpponentTurn();
 		}
-		
 		
 	}
 	
