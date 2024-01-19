@@ -110,7 +110,7 @@ static int measureDistance(Coordinates startPlayerPos, char player, int *dist){
 static int evaluateMove(int moveDiffVal, int wallDiffVal, int distCurrent){
 	
 	// Una mossa alla vittoria -> Muovi
-	if(distCurrent == 1){
+	if(distCurrent == 0){
 		return MOVE_TOKEN;
 	}
 	

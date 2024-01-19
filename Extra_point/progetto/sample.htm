@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\sample.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\sample.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Fri Jan 19 00:09:26 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Fri Jan 19 17:14:41 2024
 <BR><P>
 <H3>Maximum Stack Usage =        768 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -549,7 +549,7 @@ Global Symbols
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
 </UL>
 
-<P><STRONG><a name="[2a]"></a>RIT_IRQHandler</STRONG> (Thumb, 386 bytes, Stack size 8 bytes, irq_rit.o(.text))
+<P><STRONG><a name="[2a]"></a>RIT_IRQHandler</STRONG> (Thumb, 398 bytes, Stack size 8 bytes, irq_rit.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 768<LI>Call Chain = RIT_IRQHandler &rArr; joystick_controller_move &rArr; confirmWall &rArr; setPlayer &rArr; NPC_playTurn &rArr; chooseMove &rArr; measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
@@ -1742,7 +1742,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chooseMove
 </UL>
 
-<P><STRONG><a name="[b8]"></a>evaluateMove</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, npc.o(.text))
+<P><STRONG><a name="[b8]"></a>evaluateMove</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, npc.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chooseMove
 </UL>
 

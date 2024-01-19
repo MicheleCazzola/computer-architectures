@@ -47,29 +47,7 @@ void RIT_IRQHandler (void)
 	// Polling mossa NPC completata: serve a finalizzare la mossa del NPC,
 	// inviandola all'avversario (double-board) o settando il turno del
 	// giocatore avversario (umano, single-board)
-	if(ms.finishedNPCMove > 0){
-		
-		// In multi-board, si invia la mossa
-		if(gm.numBoards == 2){
-			sendMove();
-		}
-		else{
-			
-			// Single-board, partita in corso
-			if(ms.finishedNPCMove == 1){
-				ms.finishedNPCMove = 0;
-				setPlayer(getOtherPlayer(ms.player));
-			}
-			
-			// Single-board, partita terminata
-			else{
-				setVictoryMessage();
-				initGame();
-			}
-		}
-	}
-		
-		/*
+	if(ms.finishedNPCMove > 0){	
 		// Partita non terminata, cambio giocatore
 		if(ms.finishedNPCMove == 1){
 			
@@ -95,7 +73,6 @@ void RIT_IRQHandler (void)
 			initGame();
 		}
 	}
-	*/
 	
 	// Polling invio mossa
 	// Solo in multi-board, con ultima mossa valida e confermata
