@@ -306,7 +306,7 @@ void CAN_Init (void) {
   CAN_waitReady (1);                              /* wait til tx mbx is empty */
 }
 
-// Impacchettamento messaggio, noti i dati
+// Creazione messaggio, noti i dati
 void CAN_buildMsg(unsigned int id, unsigned char data[], unsigned char len, unsigned char format, unsigned char type){
 	
 	int i;

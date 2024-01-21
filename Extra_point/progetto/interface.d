@@ -1,5 +1,4 @@
 .\interface.o: graphics\interface.c
-.\interface.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\stdlib.h
 .\interface.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\string.h
 .\interface.o: graphics\interface.h
 .\interface.o: graphics\../GLCD/GLCD.h

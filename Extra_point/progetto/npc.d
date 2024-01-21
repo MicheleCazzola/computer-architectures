@@ -1,7 +1,6 @@
 .\npc.o: quoridor\NPC.c
 .\npc.o: quoridor\quoridor.h
 .\npc.o: quoridor\../coordinates/coordinates.h
-.\npc.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\stdlib.h
 .\npc.o: quoridor\../graphics/interface.h
 .\npc.o: quoridor\../graphics/../GLCD/GLCD.h
 .\npc.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\LPC17xx.h

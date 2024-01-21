@@ -1,4 +1,3 @@
-#include <string.h>
 #include "timer.h"
 #include "../button/button.h"
 #include "../quoridor/quoridor.h"
@@ -7,12 +6,11 @@
 extern MatchType ms;
 extern ModeType gm;
 extern Coordinates nextPos;
-extern const int PLAYER_COLORS[2];
 
 // Timer 0: scatta una volta al secondo, per modificare il tempo rimanente
 // Dopo 20 s, effettua il cambio di giocatore
 // Priorità 0:
-// -	pari a RIT:
+// -	pari a RIT
 // -	superiore ai pulsanti
 void TIMER0_IRQHandler (void) {
 	
@@ -52,6 +50,7 @@ void TIMER0_IRQHandler (void) {
 			drawWall(p.x, p.y, ms.walls[ms.player].dir[ms.walls[ms.player].used], BGCOLOR);
 		}
 		
+		// Single-board
 		if(gm.numBoards == 1){
 			// Cambio giocatore
 			setPlayer(getOtherPlayer(ms.player));
@@ -59,6 +58,7 @@ void TIMER0_IRQHandler (void) {
 			// Riabilitazione KEY1
 			enable_button(KEY1_PIN, EINT1_IRQn);
 		}
+		// Double-board
 		else{
 			
 			// Set nuovo giocatore e pulizia scacchiera
@@ -71,9 +71,17 @@ void TIMER0_IRQHandler (void) {
   return;
 }
 
+// Timer per fase 1 handshake
+// Priorità 0:
+// -	pari a RIT
+// -	superiore ai pulsanti
 void TIMER1_IRQHandler (void) {
+	
+	// Timeout: solo una scheda presente, si disabilita e resetta il timer
+	// STILE MESSAGGIO DA MODIFICARE
 	writeMessage("Single board only");
 	disable_timer(1);
+	reset_timer(1);
 	
 	LPC_TIM1->IR = 1;			/* clear interrupt flag */
 }

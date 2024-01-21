@@ -15,7 +15,6 @@
 
 #include <lpc17xx.h>                  /* LPC17xx definitions */
 #include "CAN.h"                      /* LPC17xx CAN adaption layer */
-#include "../GLCD/GLCD.h"
 #include "../quoridor/quoridor.h"
 #include "../graphics/interface.h"
 #include "../timer/timer.h"
@@ -24,7 +23,6 @@
 extern ModeType gm;
 extern MatchType ms;
 extern uint8_t icr ; 										//icr and result must be global in order to work with both real and simulated landtiger.
-extern uint32_t result;
 extern CAN_msg       CAN_TxMsg;    /* CAN message for sending */
 extern CAN_msg       CAN_RxMsg;    /* CAN message for receiving */                                
 
@@ -60,7 +58,7 @@ void CAN_IRQHandler (void)  {
 				disable_timer(1);
 			}
 			
-			// TEST
+			// MESSAGGIO DA MODIFICARE
 			writeMessage("Message arrived");
 		}
 		// Ricezione mossa avversario -> Salva e gioca

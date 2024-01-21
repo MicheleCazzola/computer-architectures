@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\sample.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\sample.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Fri Jan 19 17:14:41 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sun Jan 21 16:54:00 2024
 <BR><P>
 <H3>Maximum Stack Usage =        768 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -393,26 +393,27 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[6f]"></a>enable_timer</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, lib_timer.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT0_function
+<P><STRONG><a name="[70]"></a>enable_timer</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, lib_timer.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT0_function
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 </UL>
 
 <P><STRONG><a name="[58]"></a>disable_timer</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, lib_timer.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_chooseMode
+<BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_chooseMode
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setOpponentTurn
 <LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER1_IRQHandler
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_IRQHandler
 </UL>
 
-<P><STRONG><a name="[b2]"></a>reset_timer</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, lib_timer.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
+<P><STRONG><a name="[59]"></a>reset_timer</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, lib_timer.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setOpponentTurn
+<LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER1_IRQHandler
 </UL>
 
 <P><STRONG><a name="[44]"></a>init_timer</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, lib_timer.o(.text))
@@ -428,11 +429,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
+<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
 </UL>
 
-<P><STRONG><a name="[9c]"></a>__aeabi_llsl</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llshl.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
+<P><STRONG><a name="[9d]"></a>__aeabi_llsl</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llshl.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
 </UL>
 
 <P><STRONG><a name="[ee]"></a>_ll_shift_l</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, llshl.o(.text), UNUSED)
@@ -469,10 +470,11 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
 </UL>
-<P><STRONG><a name="[f]"></a>TIMER1_IRQHandler</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, irq_timer.o(.text))
+<P><STRONG><a name="[f]"></a>TIMER1_IRQHandler</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, irq_timer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = TIMER1_IRQHandler &rArr; writeMessage &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
+<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_timer
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disable_timer
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
@@ -480,71 +482,71 @@ Global Symbols
 <P><STRONG><a name="[42]"></a>LCD_Initialization</STRONG> (Thumb, 12014 bytes, Stack size 24 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = LCD_Initialization
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
-<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Configuration
+<BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Configuration
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[5d]"></a>LCD_Clear</STRONG> (Thumb, 1520 bytes, Stack size 24 bytes, glcd.o(.text))
+<P><STRONG><a name="[5e]"></a>LCD_Clear</STRONG> (Thumb, 1520 bytes, Stack size 24 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = LCD_Clear &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
+<BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
-<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawMenu
-</UL>
-
-<P><STRONG><a name="[5e]"></a>LCD_GetPoint</STRONG> (Thumb, 994 bytes, Stack size 40 bytes, glcd.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_BGR2RGB
-<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
+<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
+<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawMenu
 </UL>
 
-<P><STRONG><a name="[60]"></a>LCD_SetPoint</STRONG> (Thumb, 206 bytes, Stack size 24 bytes, glcd.o(.text))
+<P><STRONG><a name="[5f]"></a>LCD_GetPoint</STRONG> (Thumb, 994 bytes, Stack size 40 bytes, glcd.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_BGR2RGB
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
+</UL>
+
+<P><STRONG><a name="[61]"></a>LCD_SetPoint</STRONG> (Thumb, 206 bytes, Stack size 24 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
+<BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
-<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
+<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
 </UL>
 
-<P><STRONG><a name="[61]"></a>LCD_DrawLine</STRONG> (Thumb, 250 bytes, Stack size 40 bytes, glcd.o(.text))
+<P><STRONG><a name="[62]"></a>LCD_DrawLine</STRONG> (Thumb, 250 bytes, Stack size 40 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
+<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawPlayerColor
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawTokenBorder
-<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChessPlatform
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOptionBorder
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawPlayerColor
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawTokenBorder
+<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChessPlatform
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOptionBorder
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawWall
 </UL>
 
-<P><STRONG><a name="[62]"></a>PutChar</STRONG> (Thumb, 100 bytes, Stack size 56 bytes, glcd.o(.text))
+<P><STRONG><a name="[63]"></a>PutChar</STRONG> (Thumb, 100 bytes, Stack size 56 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
+<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetASCIICode
 </UL>
-<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
 </UL>
 
-<P><STRONG><a name="[63]"></a>GUI_Text</STRONG> (Thumb, 80 bytes, Stack size 32 bytes, glcd.o(.text))
+<P><STRONG><a name="[64]"></a>GUI_Text</STRONG> (Thumb, 80 bytes, Stack size 32 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
+<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
 </UL>
-<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOption
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawText
-<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOption
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawText
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeTimeRemaining
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
 </UL>
@@ -552,16 +554,16 @@ Global Symbols
 <P><STRONG><a name="[2a]"></a>RIT_IRQHandler</STRONG> (Thumb, 398 bytes, Stack size 8 bytes, irq_rit.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 768<LI>Call Chain = RIT_IRQHandler &rArr; joystick_controller_move &rArr; confirmWall &rArr; setPlayer &rArr; NPC_playTurn &rArr; chooseMove &rArr; measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setMode
-<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_RIT
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_chooseMode
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disabled_button
-<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disable_RIT
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY2_function
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT0_function
+<BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setMode
+<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_RIT
+<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_chooseMode
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disabled_button
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disable_RIT
+<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY2_function
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT0_function
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 <LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendMove
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getOtherPlayer
@@ -576,11 +578,11 @@ Global Symbols
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[64]"></a>disable_RIT</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, lib_rit.o(.text))
+<P><STRONG><a name="[65]"></a>disable_RIT</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, lib_rit.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 </UL>
 
-<P><STRONG><a name="[65]"></a>reset_RIT</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, lib_rit.o(.text))
+<P><STRONG><a name="[66]"></a>reset_RIT</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, lib_rit.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 </UL>
 
@@ -588,24 +590,24 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[69]"></a>INT0_function</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, irq_button.o(.text))
+<P><STRONG><a name="[6a]"></a>INT0_function</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, irq_button.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = INT0_function &rArr; drawMenu &rArr; drawOption &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawMenu
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_wrMsg
-<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_buildMsg
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setMode
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_timer
+<BR>[Calls]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawMenu
+<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_wrMsg
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_buildMsg
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setMode
+<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_timer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 </UL>
 
-<P><STRONG><a name="[6a]"></a>KEY1_function</STRONG> (Thumb, 82 bytes, Stack size 8 bytes, irq_button.o(.text))
+<P><STRONG><a name="[6b]"></a>KEY1_function</STRONG> (Thumb, 82 bytes, Stack size 8 bytes, irq_button.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = KEY1_function &rArr; undoWall &rArr; highliteAdj &rArr; selectAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;undoWall
-<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newWall
-<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
+<BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;undoWall
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newWall
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_button
 <LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disable_button
@@ -613,10 +615,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 </UL>
 
-<P><STRONG><a name="[6b]"></a>KEY2_function</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, irq_button.o(.text))
+<P><STRONG><a name="[6c]"></a>KEY2_function</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, irq_button.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = KEY2_function &rArr; rotateWall &rArr; redrawWalls &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateWall
+<BR>[Calls]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateWall
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_button
 <LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disable_button
 </UL>
@@ -647,8 +649,8 @@ Global Symbols
 <P><STRONG><a name="[47]"></a>BUTTON_init</STRONG> (Thumb, 124 bytes, Stack size 8 bytes, lib_button.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = BUTTON_init &rArr; __NVIC_SetPriority
 </UL>
-<BR>[Calls]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_SetPriority
-<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
+<BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_SetPriority
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -656,13 +658,13 @@ Global Symbols
 <P><STRONG><a name="[55]"></a>enable_button</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, lib_button.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = enable_button
 </UL>
-<BR>[Calls]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
+<BR>[Calls]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initControls
-<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY2_function
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
+<BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initControls
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
+<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
+<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY2_function
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
 <LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_IRQHandler
@@ -671,43 +673,43 @@ Global Symbols
 <P><STRONG><a name="[4e]"></a>disable_button</STRONG> (Thumb, 54 bytes, Stack size 12 bytes, lib_button.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = disable_button
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initControls
+<BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initControls
 <LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT2_IRQHandler
 <LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT1_IRQHandler
 <LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT0_IRQHandler
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY2_function
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
+<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
+<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY2_function
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[6c]"></a>disabled_button</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, lib_button.o(.text))
+<P><STRONG><a name="[6d]"></a>disabled_button</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, lib_button.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 </UL>
 
-<P><STRONG><a name="[66]"></a>joystick_controller_chooseMode</STRONG> (Thumb, 134 bytes, Stack size 24 bytes, funct_joystick.o(.text))
+<P><STRONG><a name="[67]"></a>joystick_controller_chooseMode</STRONG> (Thumb, 134 bytes, Stack size 24 bytes, funct_joystick.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 728<LI>Call Chain = joystick_controller_chooseMode &rArr; confirmChoice &rArr; setPlayer &rArr; NPC_playTurn &rArr; chooseMove &rArr; measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextChoice
-<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;countPressed
+<BR>[Calls]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextChoice
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
+<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;countPressed
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disable_timer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 </UL>
 
-<P><STRONG><a name="[6d]"></a>joystick_controller_move</STRONG> (Thumb, 278 bytes, Stack size 64 bytes, funct_joystick.o(.text))
+<P><STRONG><a name="[6e]"></a>joystick_controller_move</STRONG> (Thumb, 278 bytes, Stack size 64 bytes, funct_joystick.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 760<LI>Call Chain = joystick_controller_move &rArr; confirmWall &rArr; setPlayer &rArr; NPC_playTurn &rArr; chooseMove &rArr; measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextWall
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;countPressed
+<BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextWall
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
+<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;countPressed
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_button
 <LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disable_button
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 </UL>
@@ -716,96 +718,96 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[83]"></a>drawOptionBorder</STRONG> (Thumb, 92 bytes, Stack size 32 bytes, interface.o(.text))
+<P><STRONG><a name="[84]"></a>drawOptionBorder</STRONG> (Thumb, 92 bytes, Stack size 32 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = drawOptionBorder &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
+<BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
 </UL>
-<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteChoice
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOption
+<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteChoice
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOption
 </UL>
 
-<P><STRONG><a name="[6e]"></a>drawMenu</STRONG> (Thumb, 72 bytes, Stack size 24 bytes, interface.o(.text))
+<P><STRONG><a name="[6f]"></a>drawMenu</STRONG> (Thumb, 72 bytes, Stack size 24 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = drawMenu &rArr; drawOption &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOption
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawText
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
+<BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOption
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawText
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT0_function
+<BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT0_function
 </UL>
 
-<P><STRONG><a name="[85]"></a>highliteChoice</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, interface.o(.text))
+<P><STRONG><a name="[86]"></a>highliteChoice</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = highliteChoice &rArr; drawOptionBorder &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOptionBorder
+<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOptionBorder
 </UL>
-<BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextChoice
+<BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextChoice
 </UL>
 
-<P><STRONG><a name="[86]"></a>drawChessPlatform</STRONG> (Thumb, 264 bytes, Stack size 24 bytes, interface.o(.text))
+<P><STRONG><a name="[87]"></a>drawChessPlatform</STRONG> (Thumb, 264 bytes, Stack size 24 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = drawChessPlatform &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
+<BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
 </UL>
-<BR>[Called By]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
+<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
 </UL>
 
-<P><STRONG><a name="[87]"></a>drawTokenBorder</STRONG> (Thumb, 116 bytes, Stack size 40 bytes, interface.o(.text))
+<P><STRONG><a name="[88]"></a>drawTokenBorder</STRONG> (Thumb, 116 bytes, Stack size 40 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = drawTokenBorder &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
+<BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
 </UL>
-<BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
+<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
 </UL>
 
-<P><STRONG><a name="[88]"></a>drawToken</STRONG> (Thumb, 92 bytes, Stack size 32 bytes, interface.o(.text))
+<P><STRONG><a name="[89]"></a>drawToken</STRONG> (Thumb, 92 bytes, Stack size 32 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = drawToken &rArr; drawTokenBorder &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawTokenBorder
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
+<BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawTokenBorder
+<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveNPC
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateOpponentData
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayers
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayers
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setOpponentTurn
 </UL>
 
-<P><STRONG><a name="[89]"></a>writeWallsStats</STRONG> (Thumb, 112 bytes, Stack size 24 bytes, interface.o(.text))
+<P><STRONG><a name="[8a]"></a>writeWallsStats</STRONG> (Thumb, 112 bytes, Stack size 24 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = writeWallsStats &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWallNPC
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayers
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayers
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_IRQHandler
 </UL>
 
 <P><STRONG><a name="[4d]"></a>writeTimeRemaining</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = writeTimeRemaining &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
+<BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
 </UL>
 <BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setOpponentTurn
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[8b]"></a>drawSquareArea</STRONG> (Thumb, 80 bytes, Stack size 40 bytes, interface.o(.text))
+<P><STRONG><a name="[8c]"></a>drawSquareArea</STRONG> (Thumb, 80 bytes, Stack size 40 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = drawSquareArea &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
+<BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveNPC
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateOpponentData
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteAdj
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteAdj
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setOpponentTurn
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eraseHighlightedAdj
@@ -814,27 +816,27 @@ Global Symbols
 <P><STRONG><a name="[52]"></a>drawWall</STRONG> (Thumb, 168 bytes, Stack size 64 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
+<BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateOpponentData
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveWall
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;redrawWalls
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;undoWall
-<LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateWall
-<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newWall
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveWall
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;redrawWalls
+<LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;undoWall
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateWall
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newWall
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[72]"></a>clearMessage</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, interface.o(.text))
+<P><STRONG><a name="[73]"></a>clearMessage</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = clearMessage &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextWall
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
-<LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateWall
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
+<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextWall
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateWall
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setOpponentTurn
 </UL>
@@ -842,46 +844,46 @@ Global Symbols
 <P><STRONG><a name="[57]"></a>writeMessage</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = writeMessage &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayersData
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextWall
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayersData
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextWall
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
 <LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER1_IRQHandler
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_IRQHandler
 </UL>
 
-<P><STRONG><a name="[8d]"></a>drawPlayerColor</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, interface.o(.text))
+<P><STRONG><a name="[8e]"></a>drawPlayerColor</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = drawPlayerColor &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
+<BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
 </UL>
-<BR>[Called By]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
+<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
 </UL>
 
-<P><STRONG><a name="[95]"></a>validPos</STRONG> (Thumb, 34 bytes, Stack size 32 bytes, quoridor.o(.text))
+<P><STRONG><a name="[96]"></a>validPos</STRONG> (Thumb, 34 bytes, Stack size 32 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;noWallBetween
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;posInPlatform
+<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;noWallBetween
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;posInPlatform
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;measureDistance
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jumpOverOpponent
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jumpOverOpponent
 </UL>
 
 <P><STRONG><a name="[53]"></a>getOtherPlayer</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, quoridor.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chooseMove
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isHighlitedAdj
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isHighlitedAdj
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
 <LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setOpponentTurn
@@ -889,69 +891,69 @@ Global Symbols
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_IRQHandler
 </UL>
 
-<P><STRONG><a name="[9e]"></a>victory</STRONG> (Thumb, 22 bytes, Stack size 16 bytes, quoridor.o(.text))
+<P><STRONG><a name="[9f]"></a>victory</STRONG> (Thumb, 22 bytes, Stack size 16 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = victory
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveNPC
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;measureDistance
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_IRQHandler
 </UL>
 
-<P><STRONG><a name="[a3]"></a>checkNotOverlapping</STRONG> (Thumb, 44 bytes, Stack size 32 bytes, quoridor.o(.text))
+<P><STRONG><a name="[a4]"></a>checkNotOverlapping</STRONG> (Thumb, 44 bytes, Stack size 32 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = checkNotOverlapping &rArr; exists_overlapping_wall &rArr; coordDistY &rArr; coordDiffY
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exists_overlapping_wall
+<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exists_overlapping_wall
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chooseMove
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validWallPos
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validWallPos
 </UL>
 
-<P><STRONG><a name="[a8]"></a>setWall</STRONG> (Thumb, 64 bytes, Stack size 28 bytes, quoridor.o(.text))
+<P><STRONG><a name="[a9]"></a>setWall</STRONG> (Thumb, 64 bytes, Stack size 28 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = setWall
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chooseMove
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateOpponentData
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveWall
-<LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateWall
-<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newWall
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveWall
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateWall
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newWall
 </UL>
 
-<P><STRONG><a name="[68]"></a>setMode</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, quoridor.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayersData
-<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT0_function
+<P><STRONG><a name="[69]"></a>setMode</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, quoridor.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayersData
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT0_function
 <LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_IRQHandler
 </UL>
 
 <P><STRONG><a name="[b3]"></a>getAvailableWalls</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, quoridor.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWallNPC
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_IRQHandler
 </UL>
 
-<P><STRONG><a name="[ae]"></a>selectAdj</STRONG> (Thumb, 316 bytes, Stack size 64 bytes, quoridor.o(.text))
+<P><STRONG><a name="[af]"></a>selectAdj</STRONG> (Thumb, 316 bytes, Stack size 64 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = selectAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validPos
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jumpOverOpponent
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
+<BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validPos
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jumpOverOpponent
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getOtherPlayer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chooseMove
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteAdj
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteAdj
 </UL>
 
-<P><STRONG><a name="[67]"></a>setVictoryMessage</STRONG> (Thumb, 144 bytes, Stack size 40 bytes, quoridor.o(.text))
+<P><STRONG><a name="[68]"></a>setVictoryMessage</STRONG> (Thumb, 144 bytes, Stack size 40 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = setVictoryMessage &rArr; strcpy
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
 <LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_IRQHandler
 </UL>
@@ -959,43 +961,43 @@ Global Symbols
 <P><STRONG><a name="[48]"></a>initGame</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = initGame &rArr; initPlayersData &rArr; initPlayers &rArr; writeWallsStats &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initChoiceData
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initControls
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayersData
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
+<BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initChoiceData
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initControls
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayersData
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
 <LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_IRQHandler
 </UL>
 
-<P><STRONG><a name="[b0]"></a>highliteAdj</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, quoridor.o(.text))
+<P><STRONG><a name="[b1]"></a>highliteAdj</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 240<LI>Call Chain = highliteAdj &rArr; selectAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
 </UL>
-<BR>[Called By]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;undoWall
+<BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;undoWall
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 </UL>
 
 <P><STRONG><a name="[54]"></a>setPlayer</STRONG> (Thumb, 270 bytes, Stack size 16 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 680<LI>Call Chain = setPlayer &rArr; NPC_playTurn &rArr; chooseMove &rArr; measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteAdj
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;redrawWalls
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
-<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_timer
+<BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteAdj
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;redrawWalls
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
+<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_timer
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeTimeRemaining
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getOtherPlayer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
-<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
 <LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_IRQHandler
@@ -1004,50 +1006,50 @@ Global Symbols
 <P><STRONG><a name="[51]"></a>eraseHighlightedAdj</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = eraseHighlightedAdj &rArr; drawSquareArea &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
-<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newWall
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newWall
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[7e]"></a>setNextPos</STRONG> (Thumb, 152 bytes, Stack size 48 bytes, quoridor.o(.text))
+<P><STRONG><a name="[7f]"></a>setNextPos</STRONG> (Thumb, 152 bytes, Stack size 48 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = setNextPos &rArr; isHighlitedAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isHighlitedAdj
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawTokenBorder
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
-<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
+<BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isHighlitedAdj
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawTokenBorder
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
 </UL>
 
 <P><STRONG><a name="[56]"></a>setOpponentTurn</STRONG> (Thumb, 176 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = setOpponentTurn &rArr; drawToken &rArr; drawTokenBorder &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
-<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_timer
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeTimeRemaining
+<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_timer
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getOtherPlayer
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disable_timer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
 
 <P><STRONG><a name="[50]"></a>sendMove</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = sendMove &rArr; CAN_buildMsg
 </UL>
-<BR>[Calls]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_wrMsg
-<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_buildMsg
+<BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_wrMsg
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_buildMsg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
 <LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
@@ -1057,125 +1059,125 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWallNPC
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveNPC
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[7d]"></a>move</STRONG> (Thumb, 280 bytes, Stack size 8 bytes, quoridor.o(.text))
+<P><STRONG><a name="[7e]"></a>move</STRONG> (Thumb, 280 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 688<LI>Call Chain = move &rArr; setPlayer &rArr; NPC_playTurn &rArr; chooseMove &rArr; measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;victory
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_timer
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_timer
+<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;victory
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
+<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_timer
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setOpponentTurn
 <LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendMove
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;saveMove
+<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_timer
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getOtherPlayer
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eraseHighlightedAdj
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disable_timer
 <LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initGame
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
 </UL>
 
-<P><STRONG><a name="[73]"></a>newWall</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, quoridor.o(.text))
+<P><STRONG><a name="[74]"></a>newWall</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = newWall &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
+<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eraseHighlightedAdj
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawWall
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
+<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
 </UL>
 
-<P><STRONG><a name="[75]"></a>rotateWall</STRONG> (Thumb, 170 bytes, Stack size 32 bytes, quoridor.o(.text))
+<P><STRONG><a name="[76]"></a>rotateWall</STRONG> (Thumb, 170 bytes, Stack size 32 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = rotateWall &rArr; redrawWalls &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;redrawWalls
-<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
+<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;redrawWalls
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawWall
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY2_function
+<BR>[Called By]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY2_function
 </UL>
 
-<P><STRONG><a name="[7f]"></a>confirmWall</STRONG> (Thumb, 292 bytes, Stack size 16 bytes, quoridor.o(.text))
+<P><STRONG><a name="[80]"></a>confirmWall</STRONG> (Thumb, 292 bytes, Stack size 16 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 696<LI>Call Chain = confirmWall &rArr; setPlayer &rArr; NPC_playTurn &rArr; chooseMove &rArr; measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAvailableWalls
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validWallPos
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_timer
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_timer
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validWallPos
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
+<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_timer
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setOpponentTurn
 <LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendMove
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;saveMove
+<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_timer
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getOtherPlayer
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disable_timer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
 </UL>
 
-<P><STRONG><a name="[74]"></a>undoWall</STRONG> (Thumb, 146 bytes, Stack size 16 bytes, quoridor.o(.text))
+<P><STRONG><a name="[75]"></a>undoWall</STRONG> (Thumb, 146 bytes, Stack size 16 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = undoWall &rArr; highliteAdj &rArr; selectAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteAdj
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;redrawWalls
+<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteAdj
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;redrawWalls
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawWall
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
+<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY1_function
 </UL>
 
-<P><STRONG><a name="[80]"></a>setNextWall</STRONG> (Thumb, 110 bytes, Stack size 40 bytes, quoridor.o(.text))
+<P><STRONG><a name="[81]"></a>setNextWall</STRONG> (Thumb, 110 bytes, Stack size 40 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = setNextWall &rArr; moveWall &rArr; redrawWalls &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveWall
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;centerWallInPlatform
-<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
+<BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveWall
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;centerWallInPlatform
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
 </UL>
 
-<P><STRONG><a name="[79]"></a>setNextChoice</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, quoridor.o(.text))
+<P><STRONG><a name="[7a]"></a>setNextChoice</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = setNextChoice &rArr; highliteChoice &rArr; drawOptionBorder &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteChoice
+<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highliteChoice
 </UL>
-<BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_chooseMode
+<BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_chooseMode
 </UL>
 
-<P><STRONG><a name="[7a]"></a>confirmChoice</STRONG> (Thumb, 276 bytes, Stack size 24 bytes, quoridor.o(.text))
+<P><STRONG><a name="[7b]"></a>confirmChoice</STRONG> (Thumb, 276 bytes, Stack size 24 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 704<LI>Call Chain = confirmChoice &rArr; setPlayer &rArr; NPC_playTurn &rArr; chooseMove &rArr; measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayers
-<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawMenu
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_wrMsg
-<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_buildMsg
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setMode
+<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayers
+<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawMenu
+<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_wrMsg
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_buildMsg
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setMode
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_button
 </UL>
-<BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_chooseMode
+<BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_chooseMode
 </UL>
 
 <P><STRONG><a name="[b4]"></a>updateOpponentData</STRONG> (Thumb, 178 bytes, Stack size 32 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = updateOpponentData &rArr; drawToken &rArr; drawTokenBorder &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newCoord
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawWall
 </UL>
 <BR>[Called By]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_IRQHandler
@@ -1184,137 +1186,137 @@ Global Symbols
 <P><STRONG><a name="[b9]"></a>moveNPC</STRONG> (Thumb, 108 bytes, Stack size 16 bytes, npc.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = moveNPC &rArr; drawToken &rArr; drawTokenBorder &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;victory
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
+<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;victory
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawSquareArea
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;saveMove
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
+<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
 </UL>
 
 <P><STRONG><a name="[ba]"></a>confirmWallNPC</STRONG> (Thumb, 158 bytes, Stack size 24 bytes, npc.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = confirmWallNPC &rArr; writeWallsStats &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAvailableWalls
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;saveMove
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
+<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
 </UL>
 
-<P><STRONG><a name="[b1]"></a>NPC_playTurn</STRONG> (Thumb, 104 bytes, Stack size 48 bytes, npc.o(.text))
+<P><STRONG><a name="[b2]"></a>NPC_playTurn</STRONG> (Thumb, 104 bytes, Stack size 48 bytes, npc.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 664<LI>Call Chain = NPC_playTurn &rArr; chooseMove &rArr; measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWallNPC
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveNPC
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chooseMove
-<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newWall
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newWall
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getOtherPlayer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 </UL>
 
-<P><STRONG><a name="[9f]"></a>isEmpty</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, queue.o(.text))
+<P><STRONG><a name="[a0]"></a>isEmpty</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, queue.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;measureDistance
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
 </UL>
 
-<P><STRONG><a name="[9a]"></a>initQueue</STRONG> (Thumb, 52 bytes, Stack size 24 bytes, queue.o(.text))
+<P><STRONG><a name="[9b]"></a>initQueue</STRONG> (Thumb, 52 bytes, Stack size 24 bytes, queue.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = initQueue &rArr; newCoord
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newCoord
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;measureDistance
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
 </UL>
 
-<P><STRONG><a name="[9b]"></a>enqueue</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, queue.o(.text))
+<P><STRONG><a name="[9c]"></a>enqueue</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, queue.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = enqueue
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;measureDistance
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
 </UL>
 
-<P><STRONG><a name="[9d]"></a>dequeue</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, queue.o(.text))
+<P><STRONG><a name="[9e]"></a>dequeue</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, queue.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = dequeue
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;measureDistance
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
 </UL>
 
 <P><STRONG><a name="[b5]"></a>newCoord</STRONG> (Thumb, 16 bytes, Stack size 16 bytes, coordinates.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = newCoord
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chooseMove
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initQueue
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initQueue
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateOpponentData
 </UL>
 
-<P><STRONG><a name="[90]"></a>changeCoord</STRONG> (Thumb, 30 bytes, Stack size 32 bytes, coordinates.o(.text))
+<P><STRONG><a name="[91]"></a>changeCoord</STRONG> (Thumb, 30 bytes, Stack size 32 bytes, coordinates.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = changeCoord
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;measureDistance
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveWall
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jumpOverOpponent
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wallBetweenCells
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextWall
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveWall
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jumpOverOpponent
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wallBetweenCells
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextWall
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
 </UL>
 
-<P><STRONG><a name="[8f]"></a>equalCoordX</STRONG> (Thumb, 20 bytes, Stack size 20 bytes, coordinates.o(.text))
+<P><STRONG><a name="[90]"></a>equalCoordX</STRONG> (Thumb, 20 bytes, Stack size 20 bytes, coordinates.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = equalCoordX
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exists_overlapping_wall
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wallBetweenCells
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exists_overlapping_wall
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wallBetweenCells
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
 </UL>
 
-<P><STRONG><a name="[92]"></a>equalCoordY</STRONG> (Thumb, 20 bytes, Stack size 20 bytes, coordinates.o(.text))
+<P><STRONG><a name="[93]"></a>equalCoordY</STRONG> (Thumb, 20 bytes, Stack size 20 bytes, coordinates.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = equalCoordY
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exists_overlapping_wall
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wallBetweenCells
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exists_overlapping_wall
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wallBetweenCells
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
 </UL>
 
-<P><STRONG><a name="[7c]"></a>equalCoord</STRONG> (Thumb, 32 bytes, Stack size 20 bytes, coordinates.o(.text))
+<P><STRONG><a name="[7d]"></a>equalCoord</STRONG> (Thumb, 32 bytes, Stack size 20 bytes, coordinates.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = equalCoord &rArr; equalCoordY
 </UL>
-<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoordY
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoordX
+<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoordY
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoordX
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exists_overlapping_wall
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isHighlitedAdj
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
+<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exists_overlapping_wall
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isHighlitedAdj
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
+<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
 </UL>
 
-<P><STRONG><a name="[93]"></a>coordCmpX</STRONG> (Thumb, 12 bytes, Stack size 20 bytes, coordinates.o(.text))
+<P><STRONG><a name="[94]"></a>coordCmpX</STRONG> (Thumb, 12 bytes, Stack size 20 bytes, coordinates.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = coordCmpX
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wallBetweenCells
+<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wallBetweenCells
 </UL>
 
-<P><STRONG><a name="[91]"></a>coordCmpY</STRONG> (Thumb, 12 bytes, Stack size 20 bytes, coordinates.o(.text))
+<P><STRONG><a name="[92]"></a>coordCmpY</STRONG> (Thumb, 12 bytes, Stack size 20 bytes, coordinates.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = coordCmpY
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wallBetweenCells
+<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wallBetweenCells
 </UL>
 
 <P><STRONG><a name="[bc]"></a>coordDiffX</STRONG> (Thumb, 12 bytes, Stack size 20 bytes, coordinates.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = coordDiffX
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDistX
+<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDistX
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDiff
 </UL>
 
 <P><STRONG><a name="[bd]"></a>coordDiffY</STRONG> (Thumb, 12 bytes, Stack size 20 bytes, coordinates.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = coordDiffY
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDistY
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDistY
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDiff
 </UL>
 
@@ -1323,22 +1325,22 @@ Global Symbols
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDiffX
 </UL>
 
-<P><STRONG><a name="[a1]"></a>coordDistX</STRONG> (Thumb, 20 bytes, Stack size 24 bytes, coordinates.o(.text))
+<P><STRONG><a name="[a2]"></a>coordDistX</STRONG> (Thumb, 20 bytes, Stack size 24 bytes, coordinates.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = coordDistX &rArr; coordDiffX
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDiffX
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;abs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exists_overlapping_wall
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exists_overlapping_wall
 </UL>
 
-<P><STRONG><a name="[a2]"></a>coordDistY</STRONG> (Thumb, 20 bytes, Stack size 24 bytes, coordinates.o(.text))
+<P><STRONG><a name="[a3]"></a>coordDistY</STRONG> (Thumb, 20 bytes, Stack size 24 bytes, coordinates.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = coordDistY &rArr; coordDiffY
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDiffY
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;abs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exists_overlapping_wall
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exists_overlapping_wall
 </UL>
 
 <P><STRONG><a name="[26]"></a>CAN_IRQHandler</STRONG> (Thumb, 228 bytes, Stack size 32 bytes, irq_can.o(.text))
@@ -1346,10 +1348,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateOpponentData
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAvailableWalls
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;victory
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setMode
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;victory
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setMode
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getOtherPlayer
@@ -1377,11 +1379,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
 </UL>
 
-<P><STRONG><a name="[71]"></a>CAN_wrMsg</STRONG> (Thumb, 84 bytes, Stack size 12 bytes, lib_can.o(.text))
+<P><STRONG><a name="[72]"></a>CAN_wrMsg</STRONG> (Thumb, 84 bytes, Stack size 12 bytes, lib_can.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = CAN_wrMsg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT0_function
+<BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT0_function
 <LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendMove
 </UL>
 
@@ -1408,33 +1410,33 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[70]"></a>CAN_buildMsg</STRONG> (Thumb, 38 bytes, Stack size 20 bytes, lib_can.o(.text))
+<P><STRONG><a name="[71]"></a>CAN_buildMsg</STRONG> (Thumb, 38 bytes, Stack size 20 bytes, lib_can.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = CAN_buildMsg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT0_function
+<BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT0_function
 <LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendMove
 </UL>
 
-<P><STRONG><a name="[8c]"></a>strcpy</STRONG> (Thumb, 72 bytes, Stack size 12 bytes, strcpy.o(.text))
+<P><STRONG><a name="[8d]"></a>strcpy</STRONG> (Thumb, 72 bytes, Stack size 12 bytes, strcpy.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = strcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
+<BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
 </UL>
 
-<P><STRONG><a name="[82]"></a>strlen</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, strlen.o(.text))
+<P><STRONG><a name="[83]"></a>strlen</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, strlen.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayersData
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOption
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawText
-<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayersData
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOption
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawText
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearMessage
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
 </UL>
 
-<P><STRONG><a name="[8a]"></a>strcat</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, strcat.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
+<P><STRONG><a name="[8b]"></a>strcat</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, strcat.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVictoryMessage
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeTimeRemaining
 </UL>
 
@@ -1443,15 +1445,15 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c6]"></a>__rt_memcpy</STRONG> (Thumb, 138 bytes, Stack size 0 bytes, rt_memcpy_v6.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+<BR><BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 
 <P><STRONG><a name="[f5]"></a>_memcpy_lastbytes</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_v6.o(.text), UNUSED)
 
-<P><STRONG><a name="[7b]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text))
+<P><STRONG><a name="[7c]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_memcpy4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_memcpy
 </UL>
 
@@ -1499,223 +1501,223 @@ Local Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_timer
 </UL>
 
-<P><STRONG><a name="[5b]"></a>LCD_Configuration</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, glcd.o(.text))
+<P><STRONG><a name="[5c]"></a>LCD_Configuration</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, glcd.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Initialization
 </UL>
 
-<P><STRONG><a name="[5a]"></a>wait_delay</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, glcd.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GetPoint
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
-<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
+<P><STRONG><a name="[5b]"></a>wait_delay</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, glcd.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
+<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GetPoint
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
 <LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Initialization
 </UL>
 
-<P><STRONG><a name="[59]"></a>LCD_SetCursor</STRONG> (Thumb, 1356 bytes, Stack size 24 bytes, glcd.o(.text))
+<P><STRONG><a name="[5a]"></a>LCD_SetCursor</STRONG> (Thumb, 1356 bytes, Stack size 24 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
+<BR>[Calls]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GetPoint
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
+<BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
+<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GetPoint
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
 </UL>
 
-<P><STRONG><a name="[5c]"></a>delay_ms</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, glcd.o(.text))
+<P><STRONG><a name="[5d]"></a>delay_ms</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, glcd.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Initialization
 </UL>
 
-<P><STRONG><a name="[5f]"></a>LCD_BGR2RGB</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, glcd.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GetPoint
+<P><STRONG><a name="[60]"></a>LCD_BGR2RGB</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, glcd.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GetPoint
 </UL>
 
-<P><STRONG><a name="[76]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, lib_button.o(.text))
+<P><STRONG><a name="[77]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, lib_button.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_button
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUTTON_init
 </UL>
 
-<P><STRONG><a name="[77]"></a>__NVIC_SetPriority</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, lib_button.o(.text))
+<P><STRONG><a name="[78]"></a>__NVIC_SetPriority</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, lib_button.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __NVIC_SetPriority
 </UL>
 <BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUTTON_init
 </UL>
 
-<P><STRONG><a name="[78]"></a>countPressed</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, funct_joystick.o(.text))
+<P><STRONG><a name="[79]"></a>countPressed</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, funct_joystick.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = countPressed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_chooseMode
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_move
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;joystick_controller_chooseMode
 </UL>
 
-<P><STRONG><a name="[81]"></a>drawText</STRONG> (Thumb, 44 bytes, Stack size 24 bytes, interface.o(.text))
+<P><STRONG><a name="[82]"></a>drawText</STRONG> (Thumb, 44 bytes, Stack size 24 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = drawText &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawMenu
+<BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawMenu
 </UL>
 
-<P><STRONG><a name="[84]"></a>drawOption</STRONG> (Thumb, 72 bytes, Stack size 40 bytes, interface.o(.text))
+<P><STRONG><a name="[85]"></a>drawOption</STRONG> (Thumb, 72 bytes, Stack size 40 bytes, interface.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = drawOption &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOptionBorder
-<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawOptionBorder
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawMenu
+<BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawMenu
 </UL>
 
-<P><STRONG><a name="[96]"></a>posInPlatform</STRONG> (Thumb, 34 bytes, Stack size 12 bytes, quoridor.o(.text))
+<P><STRONG><a name="[97]"></a>posInPlatform</STRONG> (Thumb, 34 bytes, Stack size 12 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = posInPlatform
 </UL>
-<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validPos
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validPos
 </UL>
 
-<P><STRONG><a name="[a5]"></a>centerWallInPlatform</STRONG> (Thumb, 34 bytes, Stack size 12 bytes, quoridor.o(.text))
+<P><STRONG><a name="[a6]"></a>centerWallInPlatform</STRONG> (Thumb, 34 bytes, Stack size 12 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = centerWallInPlatform
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validWallPos
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextWall
+<BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validWallPos
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextWall
 </UL>
 
-<P><STRONG><a name="[8e]"></a>wallBetweenCells</STRONG> (Thumb, 402 bytes, Stack size 32 bytes, quoridor.o(.text))
+<P><STRONG><a name="[8f]"></a>wallBetweenCells</STRONG> (Thumb, 402 bytes, Stack size 32 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoordY
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoordX
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordCmpY
-<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordCmpX
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
+<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoordY
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoordX
+<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordCmpY
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordCmpX
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
 </UL>
-<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;noWallBetween
+<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;noWallBetween
 </UL>
 
-<P><STRONG><a name="[94]"></a>noWallBetween</STRONG> (Thumb, 126 bytes, Stack size 32 bytes, quoridor.o(.text))
+<P><STRONG><a name="[95]"></a>noWallBetween</STRONG> (Thumb, 126 bytes, Stack size 32 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wallBetweenCells
+<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wallBetweenCells
 </UL>
-<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validPos
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validPos
 </UL>
 
-<P><STRONG><a name="[97]"></a>jumpOverOpponent</STRONG> (Thumb, 46 bytes, Stack size 32 bytes, quoridor.o(.text))
+<P><STRONG><a name="[98]"></a>jumpOverOpponent</STRONG> (Thumb, 46 bytes, Stack size 32 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validPos
+<BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validPos
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isHighlitedAdj
+<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isHighlitedAdj
 </UL>
 
-<P><STRONG><a name="[98]"></a>isHighlitedAdj</STRONG> (Thumb, 144 bytes, Stack size 40 bytes, quoridor.o(.text))
+<P><STRONG><a name="[99]"></a>isHighlitedAdj</STRONG> (Thumb, 144 bytes, Stack size 40 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = isHighlitedAdj &rArr; jumpOverOpponent &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jumpOverOpponent
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
+<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jumpOverOpponent
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getOtherPlayer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
+<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextPos
 </UL>
 
-<P><STRONG><a name="[99]"></a>checkReachability</STRONG> (Thumb, 256 bytes, Stack size 272 bytes, quoridor.o(.text))
+<P><STRONG><a name="[9a]"></a>checkReachability</STRONG> (Thumb, 256 bytes, Stack size 272 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 400<LI>Call Chain = checkReachability &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isEmpty
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initQueue
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enqueue
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dequeue
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;victory
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validPos
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsl
+<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isEmpty
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initQueue
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enqueue
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dequeue
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;victory
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validPos
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsl
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validWallPos
+<BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validWallPos
 </UL>
 
-<P><STRONG><a name="[a0]"></a>exists_overlapping_wall</STRONG> (Thumb, 276 bytes, Stack size 40 bytes, quoridor.o(.text))
+<P><STRONG><a name="[a1]"></a>exists_overlapping_wall</STRONG> (Thumb, 276 bytes, Stack size 40 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = exists_overlapping_wall &rArr; coordDistY &rArr; coordDiffY
 </UL>
-<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoordY
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoordX
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDistY
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDistX
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
+<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoordY
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoordX
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDistY
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDistX
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;equalCoord
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkNotOverlapping
+<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkNotOverlapping
 </UL>
 
-<P><STRONG><a name="[a4]"></a>validWallPos</STRONG> (Thumb, 74 bytes, Stack size 40 bytes, quoridor.o(.text))
+<P><STRONG><a name="[a5]"></a>validWallPos</STRONG> (Thumb, 74 bytes, Stack size 40 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 440<LI>Call Chain = validWallPos &rArr; checkReachability &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkNotOverlapping
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;centerWallInPlatform
+<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkNotOverlapping
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkReachability
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;centerWallInPlatform
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
+<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmWall
 </UL>
 
-<P><STRONG><a name="[a6]"></a>redrawWalls</STRONG> (Thumb, 112 bytes, Stack size 24 bytes, quoridor.o(.text))
+<P><STRONG><a name="[a7]"></a>redrawWalls</STRONG> (Thumb, 112 bytes, Stack size 24 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = redrawWalls &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawWall
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveWall
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;undoWall
-<LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateWall
+<BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveWall
+<LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;undoWall
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateWall
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPlayer
 </UL>
 
-<P><STRONG><a name="[a7]"></a>moveWall</STRONG> (Thumb, 192 bytes, Stack size 40 bytes, quoridor.o(.text))
+<P><STRONG><a name="[a8]"></a>moveWall</STRONG> (Thumb, 192 bytes, Stack size 40 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = moveWall &rArr; redrawWalls &rArr; drawWall &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;redrawWalls
+<BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;redrawWalls
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawWall
 </UL>
-<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextWall
+<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setNextWall
 </UL>
 
-<P><STRONG><a name="[a9]"></a>initPlayers</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, quoridor.o(.text))
+<P><STRONG><a name="[aa]"></a>initPlayers</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = initPlayers &rArr; writeWallsStats &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
+<BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWallsStats
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawToken
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayersData
-<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
-</UL>
-
-<P><STRONG><a name="[ab]"></a>clearWalls</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, quoridor.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayersData
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
 </UL>
 
-<P><STRONG><a name="[aa]"></a>initInterface</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, quoridor.o(.text))
+<P><STRONG><a name="[ac]"></a>clearWalls</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, quoridor.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initInterface
+</UL>
+
+<P><STRONG><a name="[ab]"></a>initInterface</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = initInterface &rArr; drawChessPlatform &rArr; LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearWalls
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawPlayerColor
-<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChessPlatform
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearWalls
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawPlayerColor
+<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChessPlatform
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
+<BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirmChoice
 <LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initGame
 </UL>
 
-<P><STRONG><a name="[ac]"></a>initPlayersData</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, quoridor.o(.text))
+<P><STRONG><a name="[ad]"></a>initPlayersData</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = initPlayersData &rArr; initPlayers &rArr; writeWallsStats &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayers
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setMode
+<BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initPlayers
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setMode
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeMessage
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initGame
 </UL>
 
-<P><STRONG><a name="[ad]"></a>initControls</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, quoridor.o(.text))
+<P><STRONG><a name="[ae]"></a>initControls</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, quoridor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = initControls &rArr; enable_button
 </UL>
 <BR>[Calls]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_button
@@ -1724,20 +1726,20 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initGame
 </UL>
 
-<P><STRONG><a name="[af]"></a>initChoiceData</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, quoridor.o(.text))
+<P><STRONG><a name="[b0]"></a>initChoiceData</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, quoridor.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initGame
 </UL>
 
 <P><STRONG><a name="[b6]"></a>measureDistance</STRONG> (Thumb, 258 bytes, Stack size 320 bytes, npc.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 448<LI>Call Chain = measureDistance &rArr; validPos &rArr; noWallBetween &rArr; wallBetweenCells &rArr; changeCoord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isEmpty
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initQueue
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enqueue
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dequeue
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;victory
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validPos
+<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isEmpty
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initQueue
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enqueue
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dequeue
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;changeCoord
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;victory
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validPos
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chooseMove
 </UL>
@@ -1752,17 +1754,17 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evaluateMove
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;measureDistance
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;newCoord
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkNotOverlapping
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectAdj
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setWall
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkNotOverlapping
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getOtherPlayer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
+<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NPC_playTurn
 </UL>
 
 <P><STRONG><a name="[be]"></a>abs</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, coordinates.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDistY
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDistX
+<BR><BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDistY
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;coordDistX
 </UL>
 
 <P><STRONG><a name="[c1]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, lib_can.o(.text))

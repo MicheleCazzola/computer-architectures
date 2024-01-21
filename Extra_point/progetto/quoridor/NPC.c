@@ -1,32 +1,15 @@
 #include "quoridor.h"
-#include "stdlib.h"
 #include "../graphics/interface.h"
 #include "../queue/queue.h"
-
-#define DOWN 0
-#define LEFT_DOWN 1
-#define LEFT 2
-#define LEFT_UP 3
-#define UP 4
-#define RIGHT_UP 5
-#define RIGHT 6
-#define RIGHT_DOWN 7
-
-#define MOVE_TOKEN 0
-#define PLACE_WALL 1
 
 #define MAX_DIST (NUM_SQUARES * NUM_SQUARES)
 
 // Possibili mosse
-const Coordinates POSSIBLE_MOVES[8] = {
+const Coordinates POSSIBLE_MOVES[4] = {
 	{0, 1},								// DOWN
-	{-1, 1},							// LEFT-DOWN
 	{-1, 0},							// LEFT
-	{-1, -1},							// LEFT-UP
 	{0, -1},							// UP
-	{1, -1},							// RIGHT-UP
 	{1, 0},								// RIGHT
-	{1, 1}								// RIGHT-DOWN
 };
 
 // Colore dei giocatori
@@ -38,12 +21,12 @@ extern ModeType gm;
 // Misura distanza tra posizione del giocatore e destinazione
 // Non considera presenza giocatore avversario (versione successiva dovrebbe farlo)
 // Parametri:
-// -	ms: stato del gioco
+// -	pos: posizione del giocatore da elaborare
 // -	player: giocatore di riferimento
 // Risultato:
 // -	primario: 1 se arriva a destinazione, 0 altrimenti
 // -	secondario: distanza dalla destinazione più vicina
-static int measureDistance(Coordinates startPlayerPos, char player, int *dist){
+static int measureDistance(Coordinates pos, char player, int *dist){
 	int i, j;
 	
 	// Coda FIFO implementata con buffer circolare
@@ -66,7 +49,7 @@ static int measureDistance(Coordinates startPlayerPos, char player, int *dist){
 	// Inizializzazione coda FIFO e
 	// inserimento posizione corrente del giocatore
 	initQueue(queue);
-	currElem = startPlayerPos;
+	currElem = pos;
 	enqueue(queue, currElem);
 	
 	// Impostazione distanza sorgente
@@ -86,13 +69,14 @@ static int measureDistance(Coordinates startPlayerPos, char player, int *dist){
 		// Check raggiungibilità destinazione, senza considerare
 		// la posizione corrente dell'avversario
 		// Iterazione sulle celle adiacenti
-		for(i = 0; i < 8; i += 2){
+		for(i = 0; i < 4; i++){
 			
 			// Set adiacenza corrente
 			adjElem = changeCoord(currElem, POSSIBLE_MOVES[i].x, POSSIBLE_MOVES[i].y);
 			
 			// Check validità adiacenza
 			if(validPos(adjElem, currElem)){
+				
 				// Se la cella non è in coda, si inserisce e si aggiorna la distanza
 				if(distance[adjElem.x][adjElem.y] == MAX_DIST){
 					enqueue(queue, adjElem);
@@ -109,9 +93,9 @@ static int measureDistance(Coordinates startPlayerPos, char player, int *dist){
 // Parametri: differenza per mossa e muro
 static int evaluateMove(int moveDiffVal, int wallDiffVal, int distCurrent){
 	
-	// Una mossa alla vittoria -> Muovi
+	// Vittoria in una mossa -> Movimento della pedina
 	if(distCurrent == 0){
-		return MOVE_TOKEN;
+		return PLAYER_MOVE;
 	}
 	
 	return (moveDiffVal <= wallDiffVal);
@@ -250,8 +234,7 @@ void confirmWallNPC(MatchType *ms){
 	ms->walls[ms->player].used++;
 		
 	// Salvataggio mossa
-	saveMove(ms->player, WALL_PLACEMENT, ms->walls[ms->player].dir[i],
-			&(ms->walls[ms->player].position[i]));
+	saveMove(ms->player, WALL_PLACEMENT, ms->walls[ms->player].dir[i], &(ms->walls[ms->player].position[i]));
 	
 	// Aggiornamento numero muri disponibili per i giocatori
 	writeWallsStats(getAvailableWalls(PLAYER1), getAvailableWalls(PLAYER2));
@@ -271,7 +254,7 @@ void NPC_playTurn(MatchType *status, ModeType *mode, Coordinates *nextPos){
 	choiceResult = chooseMove(status, &nextPosMove, &nextPosWall, &nextPosDir);
 	
 	// Mossa pedina
-	if(choiceResult == MOVE_TOKEN){
+	if(choiceResult == PLAYER_MOVE){
 		*nextPos = nextPosMove;
 		victory = moveNPC(status, nextPos);
 	}

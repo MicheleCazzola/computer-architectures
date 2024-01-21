@@ -21,6 +21,7 @@ int down_int0 = 0;
 int down_key1 = 0;
 int down_key2 = 0;
 
+// Variabili globali esportate
 extern MatchType ms;
 extern ModeType gm;
 
@@ -48,6 +49,7 @@ void RIT_IRQHandler (void)
 	// inviandola all'avversario (double-board) o settando il turno del
 	// giocatore avversario (umano, single-board)
 	if(ms.finishedNPCMove > 0){	
+		
 		// Partita non terminata, cambio giocatore
 		if(ms.finishedNPCMove == 1){
 			
@@ -69,21 +71,11 @@ void RIT_IRQHandler (void)
 				sendMove();
 			}
 			
+			// Reset partita
 			setVictoryMessage();
 			initGame();
 		}
 	}
-	
-	// Polling invio mossa
-	// Solo in multi-board, con ultima mossa valida e confermata
-	/*
-	if(gm.numBoards == 2 && ms.validMove && ms.lastMove != 0xFFFFFFFF){
-		sendMove();
-		
-		// Set mossa a valore default
-		ms.lastMove = 0xFFFFFFFF;
-	}
-	*/
 	
 	// Polling inizio partita:
 	// - double board

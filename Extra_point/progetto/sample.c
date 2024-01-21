@@ -18,7 +18,9 @@ extern uint8_t ScaleFlag; // <- ScaleFlag needs to visible in order for the emul
 int main(void)
 {
 	// Inizializzazione sistema
-  SystemInit();  												
+  SystemInit();  	
+
+	// Inizializzazione schermo
 	LCD_Initialization();
 	
 	// Inizializzazione CAN bus

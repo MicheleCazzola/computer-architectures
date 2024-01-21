@@ -1,5 +1,4 @@
 .\irq_timer.o: timer\IRQ_timer.c
-.\irq_timer.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\string.h
 .\irq_timer.o: timer\timer.h
 .\irq_timer.o: timer\../button/button.h
 .\irq_timer.o: C:\Users\HP\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h
