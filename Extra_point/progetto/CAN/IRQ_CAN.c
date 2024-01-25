@@ -57,9 +57,6 @@ void CAN_IRQHandler (void)  {
 			if(gm.handshake == HANDSHAKE_DONE){
 				disable_timer(1);
 			}
-			
-			// MESSAGGIO DA MODIFICARE
-			writeMessage("Message arrived");
 		}
 		// Ricezione mossa avversario -> Salva e gioca
 		else{

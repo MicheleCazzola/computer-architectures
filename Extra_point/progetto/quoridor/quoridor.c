@@ -368,7 +368,7 @@ static void initPlayersData(){
 	
 	// Mantenimento scritta vincitore, se presente
 	if(strlen(message) > 0){
-		writeMessage(message);
+		writeMessage(message, XPOS_MESSAGE, YPOS_MESSAGE, MESSAGE_COLOR, BGCOLOR);
 	}
 }
 
@@ -675,7 +675,7 @@ void setNextPos(int h, int v){
 		
 		// Caso negativo: posizione invariata e stampa messaggio errore
 		nextPos = ms.currentPos[ms.player];
-		writeMessage("Move not valid");
+		writeMessage("Move not valid", XPOS_MESSAGE, YPOS_MESSAGE, MESSAGE_COLOR, BGCOLOR);
 	}
 }
 
@@ -828,7 +828,7 @@ void confirmWall(){
 	}
 	// Se muro non valido, messaggio di errore e si riabilita il timer
 	else{
-		writeMessage("Position not valid");
+		writeMessage("Position not valid", XPOS_MESSAGE, YPOS_MESSAGE, MESSAGE_COLOR, BGCOLOR);
 		enable_timer(0);
 	}
 }
@@ -871,7 +871,7 @@ void setNextWall(int h, int v){
 		moveWall(h, v);
 	}
 	else{
-		writeMessage("Position not valid");
+		writeMessage("Position not valid", XPOS_MESSAGE, YPOS_MESSAGE, MESSAGE_COLOR, BGCOLOR);
 	}
 }
 

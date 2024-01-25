@@ -12,10 +12,12 @@
 #define SELECTED_BOARD_COLOR Green
 #define XPOS_START_OPTION 60
 #define XPOS_END_OPTION 180
+#define XPOS_OPPONENT_MESSAGE 52
 #define YPOS_Q1 60
 #define YPOS_Q2 80
 #define YPOS_OPT1 130
 #define YPOS_OPT2 200
+#define YPOS_OPPONENT_MESSAGE 270
 #define MENU1_Q1 "Select the"
 #define MENU1_Q2 "GAME MODE"
 #define MENU1_OPT1 "Single Board"
@@ -90,7 +92,7 @@ void writeTimeRemaining(int time, int color);
 void drawSquareArea(int x, int y, int color);
 void drawWall(int x, int y, char direction, int color);
 void clearMessage(void);
-void writeMessage(char message_content[]);
+void writeMessage(char message_content[], int startX, int startY, int color, int bgColor);
 void drawPlayerColor(int color);
 
 #endif

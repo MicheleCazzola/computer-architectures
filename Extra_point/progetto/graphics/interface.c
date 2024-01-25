@@ -202,17 +202,17 @@ void clearMessage(){
 
 // Scrittura messaggio: si suppone che sia stampabile su una riga sola,
 // ovvero che abbia al massimo 30 caratteri (terminatore escluso)
-void writeMessage(char message_content[]){
+void writeMessage(char message_content[], int startX, int startY, int color, int bgColor){
 	strcpy(message, message_content);
 	
 	// Se il messaggio ha meno di 30 caratteri ->
 	// Si stampa il messaggio con lo stesso margine sinistro degli oggetti
 	if(strlen(message) < MAX_X / 8){
-		GUI_Text(XPOS_MESSAGE, YPOS_MESSAGE, (unsigned char *) message, MESSAGE_COLOR, BGCOLOR);
+		GUI_Text(startX, startY, (unsigned char *) message, color, bgColor);
 	} 
 	// Altrimenti -> Si stampa senza margine sinistro
 	else{
-		GUI_Text(0, YPOS_MESSAGE, (unsigned char *) message, MESSAGE_COLOR, BGCOLOR);
+		GUI_Text(0, startY, (unsigned char *) message, color, bgColor);
 	}
 }
 

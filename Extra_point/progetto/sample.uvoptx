@@ -135,7 +135,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGTARM</Key>
-          <Name>(1010=1151,308,1536,864,1)(1007=18,285,195,550,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(350=387,513,626,757,0)(250=-1,-1,-1,-1,0)(270=26,134,218,265,0)(313=0,120,864,645,0)(291=25,571,328,746,0)(302=0,217,262,666,0)(110=1030,412,1366,730,0)(113=-1,-1,-1,-1,0)(320=1122,69,1353,387,0)(210=-1,-1,-1,-1,0)(330=985,237,1366,864,1)(332=-1,-1,-1,-1,0)(333=-1,-1,-1,-1,0)(334=595,311,1193,495,0)(335=-1,-1,-1,-1,0)(336=-1,-1,-1,-1,0)(345=-1,-1,-1,-1,0)(346=-1,-1,-1,-1,0)(381=-1,-1,-1,-1,0)(382=-1,-1,-1,-1,0)(383=-1,-1,-1,-1,0)(384=-1,-1,-1,-1,0)(197=1097,204,1536,864,0)(198=-1,-1,-1,-1,0)(191=830,362,1536,850,1)(192=816,3,1522,491,0)(180=-1,-1,-1,-1,0)(261=-1,-1,-1,-1,0)(262=-1,-1,-1,-1,0)(231=-1,-1,-1,-1,0)(232=-1,-1,-1,-1,0)(233=-1,-1,-1,-1,0)(121=991,448,1517,936,1)(122=210,251,736,739,0)(123=-1,-1,-1,-1,0)(124=-1,-1,-1,-1,0)(170=62,115,315,391,0)(142=-1,-1,-1,-1,0)(150=-1,-1,-1,-1,0)(400=-1,-1,-1,-1,0)(370=-1,-1,-1,-1,0)(160=-1,-1,-1,-1,0)(280=803,161,1245,665,0)(240=121,525,488,673,0)</Name>
+          <Name>(1010=1151,308,1536,864,1)(1007=18,285,195,550,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(350=387,513,626,757,0)(250=-1,-1,-1,-1,0)(270=26,134,218,265,0)(313=0,120,864,645,0)(291=25,571,328,746,0)(302=0,217,262,666,0)(110=1030,412,1366,730,0)(113=-1,-1,-1,-1,0)(320=1122,69,1353,387,0)(210=-1,-1,-1,-1,0)(330=1108,375,1489,1002,1)(332=-1,-1,-1,-1,0)(333=-1,-1,-1,-1,0)(334=595,311,1193,495,0)(335=-1,-1,-1,-1,0)(336=-1,-1,-1,-1,0)(345=-1,-1,-1,-1,0)(346=-1,-1,-1,-1,0)(381=-1,-1,-1,-1,0)(382=-1,-1,-1,-1,0)(383=-1,-1,-1,-1,0)(384=-1,-1,-1,-1,0)(197=1097,204,1536,864,0)(198=-1,-1,-1,-1,0)(191=997,505,1703,993,1)(192=816,3,1522,491,0)(180=-1,-1,-1,-1,0)(261=-1,-1,-1,-1,0)(262=-1,-1,-1,-1,0)(231=-1,-1,-1,-1,0)(232=-1,-1,-1,-1,0)(233=-1,-1,-1,-1,0)(121=1101,480,1627,968,1)(122=210,251,736,739,0)(123=-1,-1,-1,-1,0)(124=-1,-1,-1,-1,0)(170=62,115,315,391,0)(142=-1,-1,-1,-1,0)(150=-1,-1,-1,-1,0)(400=-1,-1,-1,-1,0)(370=-1,-1,-1,-1,0)(160=-1,-1,-1,-1,0)(280=803,161,1245,665,0)(240=121,525,488,673,0)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -148,7 +148,56 @@
           <Name>(105=-1,-1,-1,-1,0)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>1026</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>24900</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\quoridor\quoridor.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\sample\quoridor/quoridor.c\1026</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>1036</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>24928</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\quoridor\quoridor.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\sample\quoridor/quoridor.c\1036</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>1040</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>24994</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\quoridor\quoridor.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\sample\quoridor/quoridor.c\1040</Expression>
+        </Bp>
+      </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>

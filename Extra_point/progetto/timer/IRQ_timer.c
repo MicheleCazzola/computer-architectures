@@ -78,8 +78,7 @@ void TIMER0_IRQHandler (void) {
 void TIMER1_IRQHandler (void) {
 	
 	// Timeout: solo una scheda presente, si disabilita e resetta il timer
-	// STILE MESSAGGIO DA MODIFICARE
-	writeMessage("Single board only");
+	writeMessage("Single board only", XPOS_OPPONENT_MESSAGE, YPOS_OPPONENT_MESSAGE, TEXTCOLOR_MENU, BGCOLOR_MENU);
 	disable_timer(1);
 	reset_timer(1);
 	

@@ -82,7 +82,7 @@ void KEY1_function(void){
 		}
 		// Altrimenti -> Messaggio di errore
 		else{
-			writeMessage("No walls available, move token");
+			writeMessage("No walls available, move token", XPOS_MESSAGE, YPOS_MESSAGE, MESSAGE_COLOR, BGCOLOR);
 		}
 	}
 	// Altrimenti -> 
